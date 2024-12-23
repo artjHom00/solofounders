@@ -1,6 +1,6 @@
 <template>
   <main>
-    <div class="article-content container max-w-screen-sm mx-auto mt-16">
+    <div class="article-content container max-w-screen-sm mx-auto mt-8">
       <div>< Go Back</div>
       <ContentDoc />
 

@@ -11,10 +11,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        dark: '#212121'
+        dark: '#212121',
+        light: '#f2f2f2'
       }
     },
   },
+  darkMode: 'class',
   plugins: [],
 }
 

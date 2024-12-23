@@ -1,6 +1,6 @@
 
 /* Headings */
-.article-content h1, h2, h3, h4, h5, h6 {
+.article-content h1, .article-content h2, .article-content h3, .article-content h4, .article-content h5, .article-content h6 {
     font-weight: bold;
     margin: 1.5em 0 0.5em;
     line-height: 1.3;

@@ -10,7 +10,7 @@ export default defineNuxtConfig({
     families: {
       Raleway: '100..900'
     }
-  }]],
+  }], 'nuxt-time'],
 
   routeRules: {
     '/': { prerender: true }
@@ -22,6 +22,12 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+
+  colorMode: {
+    classSuffix: '',
+    preference: 'light',
+    fallback: 'light'
+},
 
   compatibilityDate: '2024-12-22'
 })
