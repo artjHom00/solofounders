@@ -7,8 +7,8 @@ import ColorSwitch from '../components/ColorSwitch.vue';
     <header class="">
       <div class="container container-sm mx-auto gap-10 justify-between items-center flex py-9">
         <div class="flex font-semibold text-sm gap-10 items-center">
-          <img :src="$colorMode.value === 'dark' ? '/logo-dark.svg' : '/logo.svg'" alt="logo" class="w-12" />
-          <a href="#" class="hover:underline">stories</a>
+          <NuxtLink to="/"><img :src="$colorMode.value === 'dark' ? '/logo-dark.svg' : '/logo.svg'" alt="logo" class="w-12" /></NuxtLink>
+          <NuxtLink to="/" class="hover:underline">stories</NuxtLink>
           <a href="#" class="hover:underline">about us</a>
         </div>
         <div class="flex gap-8 items-center">
@@ -16,7 +16,7 @@ import ColorSwitch from '../components/ColorSwitch.vue';
           <i class="fa-brands fa-twitter"></i>
           <ColorSwitch />
           <button>
-            <div class=" border px-6 py-1 text-center font-bold tracking-tight text-sm cursor-pointer">submit yours</div>
+            <div class="border px-6 py-1 text-center font-bold tracking-tight text-sm cursor-pointer">submit yours</div>
           </button>
         </div>
       </div>
@@ -24,7 +24,7 @@ import ColorSwitch from '../components/ColorSwitch.vue';
     <slot />
     <footer class="mt-16">
       <div class="container text-center mx-auto">
-        <img class="mx-auto w-12" :src="$colorMode.value === 'dark' ? '/logo-text-dark.svg' : '/logo-text.svg'"
+        <img class="mx-auto w-10" :src="$colorMode.value === 'dark' ? '/logo-text-dark.svg' : '/logo-text.svg'"
           alt="text-logo">
         <p class="mt-4">est. 2024</p>
         <div class="flex justify-center items-center gap-4 mt-4">

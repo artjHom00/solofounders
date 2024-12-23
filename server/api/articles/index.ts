@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
         }
 
         const article: IArticle = {
-            url: '/example-url',
+            url: '/articles/test',
             name: 'Example Article',
             author: 'exampleAuthor',
             date: 'Sun, 22 Dec 2024 20:40:00 GMT',

@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
 
         const articles: IBaseArticle[] = [
             {
-                url: '/tech-trends-2024',
+                url: '/articles/test',
                 name: 'Top Tech Trends of 2024',
                 author: 'techGuru',
                 date: 'Sun, 22 Dec 2024 20:40:00 GMT',
