@@ -1,5 +1,5 @@
 <template>
-  <div class="flex gap-4 justify-center">
+  <div class="flex gap-4">
     <div>< prev</div>
     <div>1/10</div>
     <div>more ></div>

@@ -2,9 +2,10 @@ import { integer, pgTable, serial, text, timestamp, varchar } from "drizzle-orm/
 
 export const users = pgTable('users', {
   id: integer('id').primaryKey(),
-  name: text('name').notNull(),
   email: text('email').notNull().unique(),
-  password: text('password').notNull(),
-  avatar: text('avatar').notNull(),
+  handle: text('name').notNull(),
+  twitterId: text('twitter_id').notNull().unique(),
+  twitterSecret: text('password').notNull(),
+  avatar: text('avatar'),
   createdAt: timestamp('created_at').notNull(),
 })

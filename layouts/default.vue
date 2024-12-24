@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import ColorSwitch from '../components/ColorSwitch.vue';
+
 </script>
 
 <template>
@@ -7,7 +8,7 @@ import ColorSwitch from '../components/ColorSwitch.vue';
     <header class="">
       <div class="container container-sm mx-auto gap-10 justify-between items-center flex py-9">
         <div class="flex font-semibold text-sm gap-10 items-center">
-          <NuxtLink to="/"><img :src="$colorMode.value === 'dark' ? '/logo-dark.svg' : '/logo.svg'" alt="logo" class="w-12" /></NuxtLink>
+          <NuxtLink to="/"><img class="w-12" v-if="$colorMode.unknown !== true" :src="$colorMode.value === 'dark' ? '/logo-dark.svg' : '/logo.svg'" alt="logo" /></NuxtLink>
           <NuxtLink to="/" class="hover:underline">stories</NuxtLink>
           <!-- <NuxtLink to="/" class="hover:underline">leaderboard</NuxtLink> -->
           <a href="#" class="hover:underline">about us</a>
@@ -30,7 +31,7 @@ import ColorSwitch from '../components/ColorSwitch.vue';
     </div>
     <footer class="mt-16">
       <div class="container text-center mx-auto">
-        <img class="mx-auto w-10" :src="$colorMode.value === 'dark' ? '/logo-text-dark.svg' : '/logo-text.svg'"
+        <img class="mx-auto w-10 mix-blend-difference" src="/logo-text-dark.svg"
           alt="text-logo">
         <p class="mt-4">est. 2024</p>
         <div class="flex justify-center items-center gap-4 mt-4">
