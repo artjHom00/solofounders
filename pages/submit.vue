@@ -2,8 +2,6 @@
 import { Editor, EditorContent } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import { ClientOnly } from '#components'
-import GlobalDragHandle from 'tiptap-extension-global-drag-handle';
-import AutoJoiner from 'tiptap-extension-auto-joiner';
 
 const content = "👋 welcome to solofounders editor; <br/> we're waiting for your story!" 
 
@@ -13,7 +11,7 @@ onMounted(() => {
     editor.value = new Editor({
         content: content,
         autofocus: true,
-        extensions: [StarterKit, GlobalDragHandle, AutoJoiner],
+        extensions: [StarterKit],
     })
 })
 
