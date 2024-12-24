@@ -1,8 +1,8 @@
 <template>
   <main>
     <div class="article-content container max-w-screen-sm mx-auto mt-8 dark:text-light">
-      <div>< Go Back</div>
-      <ContentDoc />
+      <NuxtLink to="/" class="text-dark dark:text-light">< Go Home</NuxtLink>
+      <ContentDoc class="mt-8" />
 
       <div>
         ----

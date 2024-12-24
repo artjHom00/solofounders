@@ -1,13 +1,8 @@
 import { IArticle } from "~/types/article/IArticle"
-import { tables, useDrizzle } from "../../utils/drizzle"
 
 // here put the logic to check whether the account is created already or not
 export default defineEventHandler(async (event) => {
     try {
-        if (event.req.method !== 'GET') {
-            return setResponseStatus(event, 404, 'Not Found')
-        }
-
         const article: IArticle = {
             url: '/articles/test',
             name: 'Example Article',

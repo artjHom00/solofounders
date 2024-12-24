@@ -1,11 +1,13 @@
 <script lang="ts" setup>
-import type { articleTabComponentProps } from './props.js'
+import type { IBaseArticle } from '../types/article/IBaseArticle';
 
 const MS_IN_DAY = 24 * 60 * 60 * 1000
+type props = IBaseArticle
 
-const props = defineProps<articleTabComponentProps>()
 
-const delta = Date.now() - new Date(props.date).getTime()
+const definedProps = defineProps<props>()
+
+const delta = Date.now() - new Date(definedProps.date).getTime()
 </script>
 
 <template>

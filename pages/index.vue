@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import Pagination from '~/components/Pagination.vue'
-import ArticleTab from '~/components/ArticleTab/index.vue'
-import type { IBaseArticle } from '../types/article/IBaseArticle';
+import ArticleTab from '~/components/ArticleTab.vue'
 
 const { data: articles } = useFetch('/api/articles/latest');
 

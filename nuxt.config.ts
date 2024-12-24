@@ -10,7 +10,7 @@ export default defineNuxtConfig({
     families: {
       Raleway: '100..900'
     }
-  }], 'nuxt-time'],
+  }], 'nuxt-time', 'nuxt-auth-utils'],
 
   routeRules: {
     '/': { prerender: true }

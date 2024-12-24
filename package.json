@@ -16,6 +16,7 @@
     "@tiptap/vue-3": "^2.10.4",
     "drizzle-orm": "^0.38.2",
     "nuxt": "^3.14.1592",
+    "nuxt-auth-utils": "^0.5.7",
     "nuxt-time": "^1.0.3",
     "pg": "^8.13.1",
     "tiptap-extension-auto-joiner": "^0.1.3",

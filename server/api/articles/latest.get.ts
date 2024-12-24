@@ -3,10 +3,6 @@ import { IBaseArticle } from "~/types/article/IBaseArticle";
 // here put the logic to check whether the account is created already or not
 export default defineEventHandler(async (event) => {
     try {
-        if (event.req.method !== 'GET') {
-            return setResponseStatus(event, 404, 'Not Found')
-        }
-
         const articles: IBaseArticle[] = [
             {
                 url: '/articles/test',
