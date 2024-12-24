@@ -1,4 +1,5 @@
 import { IArticle } from "~/types/article/IArticle"
+import { tables, useDrizzle } from "../../utils/drizzle"
 
 // here put the logic to check whether the account is created already or not
 export default defineEventHandler(async (event) => {
@@ -19,8 +20,9 @@ export default defineEventHandler(async (event) => {
             `
         }
 
-        return article;
+        return article
     } catch (e: any) {
+        console.log("🚀 ~ defineEventHandler ~ e:", e)
         return setResponseStatus(event, 500, e.message || 'Internal Server Error')
     }
 })

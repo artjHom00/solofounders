@@ -9,6 +9,7 @@ import ColorSwitch from '../components/ColorSwitch.vue';
         <div class="flex font-semibold text-sm gap-10 items-center">
           <NuxtLink to="/"><img :src="$colorMode.value === 'dark' ? '/logo-dark.svg' : '/logo.svg'" alt="logo" class="w-12" /></NuxtLink>
           <NuxtLink to="/" class="hover:underline">stories</NuxtLink>
+          <!-- <NuxtLink to="/" class="hover:underline">leaderboard</NuxtLink> -->
           <a href="#" class="hover:underline">about us</a>
         </div>
         <div class="flex gap-8 items-center">
@@ -18,10 +19,15 @@ import ColorSwitch from '../components/ColorSwitch.vue';
           <button>
             <div class="border px-6 py-1 text-center font-bold tracking-tight text-sm cursor-pointer">submit yours</div>
           </button>
+          <button>
+            <div class="border px-6 py-1 text-center font-bold tracking-tight text-sm cursor-pointer">auth via twitter</div>
+          </button>
         </div>
       </div>
     </header>
-    <slot />
+    <div>
+      <slot />
+    </div>
     <footer class="mt-16">
       <div class="container text-center mx-auto">
         <img class="mx-auto w-10" :src="$colorMode.value === 'dark' ? '/logo-text-dark.svg' : '/logo-text.svg'"
