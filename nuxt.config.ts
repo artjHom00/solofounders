@@ -8,7 +8,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['@nuxt/content', '@nuxtjs/color-mode', ['@nuxtjs/google-fonts', {
     families: {
-      Raleway: '100..900'
+      Inter: '100..900'
     }
   }], 'nuxt-time', 'nuxt-auth-utils'],
 
