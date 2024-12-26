@@ -1,3 +1,4 @@
-import { users } from "./tables/users";
+import { users, usersRelations } from "./tables/users";
+import { articles, articlesRelations } from "./tables/articles";
 
-export { users }
+export { users, usersRelations, articles, articlesRelations }

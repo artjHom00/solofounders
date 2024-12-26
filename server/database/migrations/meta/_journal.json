@@ -8,6 +8,13 @@
       "when": 1735061934987,
       "tag": "0000_clever_ultimates",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1735234834251,
+      "tag": "0001_brief_centennial",
+      "breakpoints": true
     }
   ]
 }

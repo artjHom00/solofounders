@@ -10,7 +10,7 @@ defineProps<props>()
 <template>
     <header class="">
         <div class="container container-sm mx-auto gap-10 justify-between items-center flex py-9">
-            <div class="flex font-semibold text-sm gap-10 items-center">
+            <div class="flex font-medium text-sm gap-10 items-center">
                 <NuxtLink to="/"><img class="w-12" v-if="$colorMode.unknown !== true"
                         :src="$colorMode.value === 'dark' ? '/logo-dark.svg' : '/logo.svg'" alt="logo" /></NuxtLink>
                 <NuxtLink to="/" class="hover:underline">stories</NuxtLink>
@@ -19,7 +19,7 @@ defineProps<props>()
             </div>
             <div class="flex gap-8 items-center">
                 <i class="fa-brands fa-instagram"></i>
-                <i class="fa-brands fa-twitter"></i>
+                <i class="fa-brands fa-x-twitter"></i>
                 <ColorSwitch />
 
                 <AuthState>

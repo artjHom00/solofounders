@@ -1,18 +1,22 @@
 <script lang="ts" setup>
 type props = {
-    variant?: 'primary' | 'secondary',
+    variant?: 'primary' | 'secondary' | 'outline',
 } & ({ onClick?: () => any } | { to?: string, target?: '_blank' })
 const definedProps = withDefaults(defineProps<props>(), {
     variant: 'primary',
-    to: '#',
 });
 
-const baseClasses = 'px-6 py-1 border';
+const baseClasses = 'px-6 py-2 border rounded';
 
 const variantClasses = computed(() => {
-    return definedProps.variant === 'primary'
-        ? 'bg-dark text-light dark:bg-light dark:text-dark'
-        : 'bg-light text-dark dark:bg-dark dark:text-light';
+    switch(definedProps.variant) {
+        case 'primary':
+            return 'bg-dark text-light dark:bg-light dark:text-dark'
+        case 'secondary':
+            return 'bg-light text-dark dark:bg-dark dark:text-light';
+        case 'outline':
+            return 'text-dark dark:text-light';
+    }
 });
 </script>
 

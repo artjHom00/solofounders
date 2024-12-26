@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   app: {
     head: {
-      script: [{ src: "https://kit.fontawesome.com/7db26f83a2.js", crossorigin: "anonymous"}]
+      script: [{ src: "https://kit.fontawesome.com/7db26f83a2.js", crossorigin: "anonymous" }]
     }
   },
   devtools: { enabled: true },
@@ -10,7 +10,7 @@ export default defineNuxtConfig({
     families: {
       Inter: '100..900'
     }
-  }], 'nuxt-time', 'nuxt-auth-utils'],
+  }], 'nuxt-time', 'nuxt-auth-utils', '@nuxt-alt/markdown-it'],
 
   routeRules: {
     '/': { prerender: true }
@@ -27,7 +27,10 @@ export default defineNuxtConfig({
     classSuffix: '',
     preference: 'system',
     fallback: 'light'
-},
+  },
+  markdownit: {
+    runtime: true // Support `$md()`
+  },
 
   compatibilityDate: '2024-12-22'
 })

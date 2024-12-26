@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+  import Button from '~/components/ui/Button.vue'
   const colorMode = useColorMode()
   const handleThemeSwitch = () => {
     if(colorMode.preference === 'light') {
@@ -12,7 +13,7 @@
 </script>
 <template>
   <div>
-    <div class=" border px-6 py-1 text-center font-bold tracking-tight text-sm cursor-pointer" @click="handleThemeSwitch">{{ $colorMode.value }}</div>
+    <Button variant="outline" @click="handleThemeSwitch">{{ $colorMode.value }}</Button>
   </div>
 </template>
 

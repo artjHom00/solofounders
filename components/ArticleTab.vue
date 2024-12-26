@@ -7,19 +7,25 @@ type props = IBaseArticle
 
 const definedProps = defineProps<props>()
 
-const delta = Date.now() - new Date(definedProps.date).getTime()
+const delta = Date.now() - new Date(definedProps.createdAt).getTime()
 </script>
 
 <template>
-    <NuxtLink :to="url" class="flex items-center gap-4 hover:underline">
+    <NuxtLink :to="`/articles/${slug}`" class="flex items-center gap-4 hover:underline">
+        <!-- <div>
+            <i class="fa-solid fa-caret-up text-green-500"></i>
+        </div> -->
         <div>
-            <p class="font-bold text-2xl w-12 overflow-hidden">{{ points }}</p>
+            <i class="fa-solid fa-caret-down text-red-500"></i>
+        </div>
+        <div>
+            <p class="font-bold text-3xl w-16 overflow-hidden">{{ points }}</p>
         </div>
         <div>
             <h3 class="tracking-tight font-semibold text-lg leading-none">{{ name }}</h3>
-            <span class="text-sm opacity-50">by <a href="#">{{ author }}</a> |
+            <span class="text-sm opacity-50">by <a href="#">@{{ author?.handle }}</a> |
                 <span>
-                    <NuxtTime :datetime="date" :relative="delta < MS_IN_DAY && delta > 0" />
+                    <NuxtTime :datetime="createdAt" :relative="delta < MS_IN_DAY && delta > 0" />
                 </span> | 
                 <span>{{ views }} views</span>
             </span>

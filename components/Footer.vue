@@ -10,7 +10,7 @@
                 <p class="mt-4">est. 2024</p>
                 <div class="flex justify-center items-center gap-4 mt-4">
                     <i class="fa-brands fa-instagram"></i>
-                    <i class="fa-brands fa-twitter"></i>
+                    <i class="fa-brands fa-x-twitter"></i>
                 </div>
             </div>
         </footer>
