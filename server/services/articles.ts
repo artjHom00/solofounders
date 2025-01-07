@@ -1,4 +1,5 @@
-import { NewArticle } from "../database/tables/articles"
+import { count } from "drizzle-orm"
+import { NewArticle, articles } from "../database/tables/articles"
 import { NewUser, users } from "../database/tables/users"
 import { XAuthUser } from "../types/XAuthEvent"
 import { tables, useDrizzle } from "../utils/drizzle"
@@ -116,7 +117,12 @@ class ArticleService {
             offset: skip
         })
 
-        return articles
+        const response = {
+            data: articles,
+            hasNextPage: await this.hasNextPage(take, skip)
+        }
+
+        return response
     }
 
     async getArticleById(id: number) {
@@ -147,6 +153,18 @@ class ArticleService {
         }
         
         return article
+    }
+
+    private async hasNextPage(take: number, skip: number) {
+        const total = skip + take
+
+        const [{ count: articlesCount }] = await useDrizzle().select({ count: count() }).from(articles)
+
+        if(articlesCount <= total) {
+            return false
+        }
+
+        return true
     }
 }
 

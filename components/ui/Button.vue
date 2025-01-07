@@ -1,12 +1,13 @@
 <script lang="ts" setup>
 type props = {
     variant?: 'primary' | 'secondary' | 'outline',
+    disabled?: boolean,
 } & ({ onClick?: () => any } | { to?: string, target?: '_blank' })
 const definedProps = withDefaults(defineProps<props>(), {
     variant: 'primary',
 });
 
-const baseClasses = 'px-6 py-2 border rounded';
+const baseClasses = 'block px-6 py-2 border rounded disabled:opacity-50';
 
 const variantClasses = computed(() => {
     switch(definedProps.variant) {
@@ -21,13 +22,13 @@ const variantClasses = computed(() => {
 </script>
 
 <template>
-    <NuxtLink :class="[baseClasses, variantClasses]" :target="target" :to="to" v-if="to">
-        <div class="text-center font-bold tracking-tight text-sm cursor-pointer">
+    <NuxtLink :disabled="disabled" :class="[baseClasses, variantClasses]" :target="target" :to="to" v-if="to">
+        <div class="text-center font-bold tracking-tight text-sm">
             <slot />
         </div>
     </NuxtLink>
-    <button :class="[baseClasses, variantClasses]" @click="onClick" v-if="onClick">
-        <div class="text-center font-bold tracking-tight text-sm cursor-pointer">
+    <button :disabled="disabled" :class="[baseClasses, variantClasses]" @click="onClick" v-if="onClick">
+        <div class="text-center font-bold tracking-tight text-sm">
             <slot />
         </div>
     </button>
