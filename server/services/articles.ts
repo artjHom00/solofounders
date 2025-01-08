@@ -133,10 +133,10 @@ class ArticleService {
             where: eq(tables.articles.id, id)
         })
 
-        if(article == null) {
+        if (article == null) {
             throw new Error('ARTICLE_NOT_FOUND')
         }
-        
+
         return article
     }
 
@@ -148,11 +148,44 @@ class ArticleService {
             where: eq(tables.articles.slug, slug)
         })
 
-        if(article == null) {
+        if (article == null) {
             throw new Error('ARTICLE_NOT_FOUND')
         }
-        
+
         return article
+    }
+
+    async upvoteArticle(userXId: string, articleId: number) {
+        await useDrizzle().transaction(async (tx) => {
+            try {
+                const user = await tx.query.users.findFirst({ where: eq(tables.users.twitterId, userXId) })
+                if (user == null) throw new Error('USER_NOT_FOUND')
+
+                const [article] = await tx.select().from(tables.articles).where(eq(tables.articles.id, articleId)).for('update')
+                if (article == null) throw new Error('ARTICLE_NOT_FOUND')
+
+                const userUpvote = await tx.select().from(tables.upvotes).where(
+                    and(
+                        eq(tables.upvotes.userId, user.id),
+                        eq(tables.upvotes.articleId, articleId)
+                    )
+                )
+
+                if (userUpvote.length > 0) throw new Error('ALREADY_UPVOTED')
+
+                await tx.insert(tables.upvotes).values({
+                    userId: user.id,
+                    articleId: articleId
+                })
+
+                await tx.update(tables.articles).set({ points: article.points + 1 }).where(eq(tables.articles.id, articleId))
+
+                return
+            } catch (e) {
+                throw e
+            }
+
+        })
     }
 
     private async hasNextPage(take: number, skip: number) {
@@ -160,7 +193,7 @@ class ArticleService {
 
         const [{ count: articlesCount }] = await useDrizzle().select({ count: count() }).from(articles)
 
-        if(articlesCount <= total) {
+        if (articlesCount <= total) {
             return false
         }
 

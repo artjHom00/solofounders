@@ -9,6 +9,16 @@ const slug = route.params.slug;
 
 const { data: article } = useFetch<IArticle>('/api/articles?slug=' + slug);
 
+const handleUpvote = async () => {
+  const upvoteResponse = await $fetch(`/api/articles/upvote`, {
+    method: 'POST',
+    body: {
+      article: article.value?.id
+    }
+  });
+  console.log("🚀 ~ handleUpvote ~ upvoteResponse:", upvoteResponse)
+}
+
 </script>
 
 <template>
@@ -23,9 +33,22 @@ const { data: article } = useFetch<IArticle>('/api/articles?slug=' + slug);
       <div>
         <hr class="!mb-5" width="60" />
         <div class="mb-5 flex gap-4">
-          <Button :onClick="() => null" variant="secondary"><i class="fa-regular fa-thumbs-up"></i></Button>
-          <Button :onClick="() => null" variant="secondary"><i class="fa-regular fa-comment"></i></Button>
-          <Button :onClick="() => null" variant="secondary"><i class="fa-solid fa-retweet"></i></Button>
+          <AuthState>
+            <template #default="{ loggedIn, clear }">
+              <Button :onClick="handleUpvote" variant="secondary" :disabled="loggedIn === false">
+                <i class="fa-regular fa-thumbs-up"></i>
+                </Button>
+              <Button :onClick="() => null" variant="secondary" :disabled="loggedIn === false">
+                <i class="fa-regular fa-comment"></i>
+              </Button>
+              <Button :onClick="() => null" variant="secondary" :disabled="loggedIn === false">
+                <i class="fa-solid fa-retweet"></i>
+              </Button>
+            </template>
+            <template #placeholder>
+              <button disabled>Loading...</button>
+            </template>
+          </AuthState>
         </div>
         <span class="text-sm tracking-tighter">Liked the story? <br />
           <a href="https://x.com/solofounders_" target="_blank" class="!underline" style="color: initial">Follow us on

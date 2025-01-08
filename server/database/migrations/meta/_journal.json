@@ -15,6 +15,13 @@
       "when": 1735234834251,
       "tag": "0001_brief_centennial",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1736352749906,
+      "tag": "0002_tiresome_yellowjacket",
+      "breakpoints": true
     }
   ]
 }
