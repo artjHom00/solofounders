@@ -16,7 +16,6 @@ const handleUpvote = async () => {
       article: article.value?.id
     }
   });
-  console.log("🚀 ~ handleUpvote ~ upvoteResponse:", upvoteResponse)
 }
 
 </script>
