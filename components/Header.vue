@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import Button from './ui/Button.vue'
 type props = {
     user: object | null
 }
@@ -32,12 +31,12 @@ defineProps<props>()
 
         <AuthState>
           <template #default="{ loggedIn }">
-            <Button v-if="loggedIn === true" to="/submit">
+            <button class="btn btn-primary" v-if="loggedIn === true" to="/submit">
               submit yours
-            </Button>
-            <Button v-else to="/api/auth/x" target="_blank">
+            </button>
+            <button v-else to="/api/auth/x" target="_blank">
               auth via X
-            </Button>
+            </button>
           </template>
           <template #placeholder>
             <button disabled>

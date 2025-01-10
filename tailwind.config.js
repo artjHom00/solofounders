@@ -11,11 +11,26 @@ export default {
   theme: {
     extend: {
       colors: {
+        primary: '#52CA72',
         dark: '#212121',
         light: '#f2f2f2'
       }
     }
   },
   darkMode: 'class',
-  plugins: []
+  plugins: [
+    require('daisyui'),
+  ],
+  daisyui: {
+    themes: [
+      {
+        light: {
+          primary: "#52CA72", // Set your custom primary color here (e.g., a shade of blue)
+          secondary: "#252525",
+          neutral: "#F6F6F6",
+          "base-100": "#FFFFFF",
+        },
+      },
+    ],
+  },
 }

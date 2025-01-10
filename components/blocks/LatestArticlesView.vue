@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { LatestArticlesResponse } from '../../types/responses/ILatestArticlesResponse'
+import type { ILatestArticlesResponse } from '../../types/responses/ILatestArticlesResponse'
 import ArticleTab from '~/components/ArticleTab.vue'
 import Pagination from '~/components/Pagination.vue'
 
@@ -16,10 +16,10 @@ if (!isNaN(Number(route.query.page))) {
   currentPage.value = Number(route.query.page)
 }
 
-const { data: latestArticles } = useFetch<LatestArticlesResponse>(`/api/articles/latest?take=${defaultTake}&skip=${currentPage.value * defaultTake}`)
+const { data: latestArticles } = useFetch<ILatestArticlesResponse>(`/api/articles/latest?take=${defaultTake}&skip=${currentPage.value * defaultTake}`)
 
 const handlePageChange = async (page: number) => {
-  const newArticlesResponse: LatestArticlesResponse = await $fetch(`/api/articles/latest?take=${defaultTake}&skip=${page * defaultTake}`)
+  const newArticlesResponse: ILatestArticlesResponse = await $fetch(`/api/articles/latest?take=${defaultTake}&skip=${page * defaultTake}`)
 
   latestArticles.value = newArticlesResponse
   currentPage.value = page
