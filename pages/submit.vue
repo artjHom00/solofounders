@@ -1,25 +1,18 @@
-<script setup>
-import { Editor, EditorContent } from '@tiptap/vue-3'
-import StarterKit from '@tiptap/starter-kit'
+<script setup lang="ts">
 import { ClientOnly } from '#components'
 
-const content = "👋 welcome to solofounders editor; <br/> we're waiting for your story!"
+import { MdEditor, config } from 'md-editor-v3';
 
-const editor = ref(null)
+import 'md-editor-v3/lib/style.css';
 
-onMounted(() => {
-  editor.value = new Editor({
-    content,
-    autofocus: true,
-    extensions: [StarterKit]
-  })
-})
 
-onBeforeUnmount(() => {
-  if (editor.value) {
-    editor.value.destroy()
-  }
-})
+const initialContent = `### 👋 welcome to solofounders editor; 
+we're waiting for your story!`
+
+const text = ref(initialContent);
+const editorId = 'editor'
+
+const colorMode = useColorMode()
 </script>
 
 <template>
@@ -29,19 +22,23 @@ onBeforeUnmount(() => {
   <p class="text-center ">
     before submission, make sure to read <a class="hover:underline" href="#">our rules of writing</a>;
   </p>
-  <div class="article-content container mx-auto max-w-screen-md mt-8">
+  <div class="article-content mx-auto container max-w-screen-lg mt-8">
     <ClientOnly>
-      <EditorContent class="p-3 border" :editor="editor" />
-      <button class="mt-4 block mx-auto border px-6 py-1 text-center font-bold tracking-tight text-sm cursor-pointer">
-        Submit
-      </button>
+      <MdEditor class="rounded-lg" :id="editorId" v-model="text" language="en_US" :theme="colorMode.value === 'dark' ? 'dark' : 'light'" :tab-width="1000" />
+      <button class="mt-4 block mx-auto btn dark:btn-secondary">Submit the story!</button>
     </ClientOnly>
   </div>
 </template>
 
 <style>
-@import '/assets/css/article.css';
-.tiptap {
-    outline: none;
+svg.md-editor-icon {
+  width: 24px;
+  height: 24px;
+}
+.md-editor { 
+  --md-bk-color: #FCFCFC;
+}
+.md-editor-dark, .md-editor-modal-container[data-theme='dark'] {
+  --md-bk-color: #141414
 }
 </style>

@@ -13,5 +13,5 @@ export interface IBaseArticle {
         handle: string;
         twitterId: string;
         avatar: string | null;
-    } | null;
+    };
 }

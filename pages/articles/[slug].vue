@@ -2,6 +2,8 @@
 
 import ArticleView from '../../components/blocks/ArticleView.vue'
 import type { IArticleBySlugResponse } from '../../types/responses/IArticleBySlugResponse'
+import Avatar from "vue-boring-avatars";
+
 
 const route = useRoute()
 
@@ -15,7 +17,7 @@ const handleUpvote = async () => {
     return;
   }
 
-  const upvoteResponse = await $fetch('/api/articles/upvote', {
+  await $fetch('/api/articles/upvote', {
     method: 'POST',
     body: {
       article: articleBySlugResponse.value?.data.id
@@ -31,12 +33,27 @@ const handleUpvote = async () => {
 <template>
   <main>
     <div class="container max-w-screen-sm mx-auto mt-8 dark:text-light">
-      <button class="btn dark:btn-secondary" @click="navigateTo('/')">
-        <i class="fa-solid fa-chevron-left text-xs w-3 h-3" />
-      </button>
-
-      <ArticleView v-if="articleBySlugResponse != null" :article="articleBySlugResponse.data" />
-
+      
+      <div v-if="articleBySlugResponse != null">
+        <div class="flex gap-4 mt-8 items-center">
+          <button class="btn dark:btn-secondary" @click="navigateTo('/')">
+            <i class="fa-solid fa-chevron-left text-xs w-3 h-3" />
+          </button>
+          <div>
+            <img class="rounded-lg" :src="articleBySlugResponse.data.author.avatar" v-if="articleBySlugResponse.data.author.avatar" alt="">
+            <Avatar class="rounded-lg" :size="48" :square="true" variant="bauhaus" :name="articleBySlugResponse.data.author.handle" :colors="['#FFFFFF', '#212121', '#52CA72']" v-else/>
+          </div>
+          <div>
+            <div class="">By @{{ articleBySlugResponse.data.author.handle }}</div>
+            <div class="text-xs opacity-75">
+              On <NuxtTime :datetime="articleBySlugResponse.data.createdAt" />
+            </div>
+          </div>
+        </div>
+        
+        <ArticleView  :article="articleBySlugResponse.data" />
+      </div>
+        
       <div>
         <hr class="!mb-5" width="60">
         <div class="mb-5 flex gap-4">
