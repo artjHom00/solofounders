@@ -6,7 +6,7 @@ const { loggedIn, user, session, fetch, clear } = useUserSession()
 <template>
   <div class="pb-8">
     <Header :user="user" />
-    <div>
+    <div class="min-h-screen">
       <slot />
     </div>
     <Footer />

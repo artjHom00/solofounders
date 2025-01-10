@@ -26,7 +26,7 @@ export default {
       {
         light: {
           primary: "#52CA72", // Set your custom primary color here (e.g., a shade of blue)
-          secondary: "#252525",
+          secondary: "#2F2F2F",
           neutral: "#F6F6F6",
           "base-100": "#FFFFFF",
         },

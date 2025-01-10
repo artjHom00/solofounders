@@ -30,7 +30,7 @@ const handleUpvote = async () => {
 
 <template>
   <main>
-    <div class="article-content container max-w-screen-sm mx-auto mt-8 dark:text-light">
+    <div class="container max-w-screen-sm mx-auto mt-8 dark:text-light">
       <button class="btn dark:btn-secondary" @click="navigateTo('/')">
         <i class="fa-solid fa-chevron-left text-xs w-3 h-3" />
       </button>

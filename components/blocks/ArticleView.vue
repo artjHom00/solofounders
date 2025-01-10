@@ -8,7 +8,7 @@ type props = {
 defineProps<props>()
 </script>
 <template>
-  <div class="mt-8" v-html="$md.render(article.content)" />
+  <div class="article-content mt-8" v-html="$md.render(article.content)" />
 </template>
 
 <style>
