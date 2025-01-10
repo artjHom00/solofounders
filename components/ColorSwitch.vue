@@ -1,22 +1,22 @@
 <script lang="ts" setup>
-  import Button from '~/components/ui/Button.vue'
-  const colorMode = useColorMode()
-  const handleThemeSwitch = () => {
-    if(colorMode.preference === 'light') {
-      colorMode.preference = 'dark'
-      return
-    }
-
-    colorMode.preference = 'light'
+import Button from '~/components/ui/Button.vue'
+const colorMode = useColorMode()
+const handleThemeSwitch = () => {
+  if (colorMode.preference === 'light') {
+    colorMode.preference = 'dark'
     return
   }
+
+  colorMode.preference = 'light'
+}
 </script>
 <template>
   <div>
-    <Button variant="outline" @click="handleThemeSwitch">{{ $colorMode.value }}</Button>
+    <Button variant="outline" @click="handleThemeSwitch">
+      {{ $colorMode.value }}
+    </Button>
   </div>
 </template>
-
 
 <style>
 

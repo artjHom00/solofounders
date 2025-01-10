@@ -1,12 +1,11 @@
-import { IBaseArticle } from "~/types/article/IBaseArticle";
-import { NewArticle } from "../../database/tables/articles";
-import articleService from "../../services/articles";
+import { NewArticle } from '../../database/tables/articles'
+import articleService from '../../services/articles'
+import { IBaseArticle } from '~/types/article/IBaseArticle'
 
 export default defineEventHandler(async (event) => {
-    try {
-        await articleService.seedArticlesIfNotExist()
-        return
-    } catch(e) {
-        return e
-    }
+  try {
+    await articleService.seedArticlesIfNotExist()
+  } catch (e) {
+    return e
+  }
 })

@@ -1,6 +1,6 @@
-import type { IBaseArticle } from "../article/IBaseArticle";
+import type { IBaseArticle } from '../article/IBaseArticle'
 
-export interface LatestArticlesResponse {
+export interface ILatestArticlesResponse {
     data: IBaseArticle[],
     hasNextPage: boolean
 }

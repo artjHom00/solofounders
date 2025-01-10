@@ -1,13 +1,17 @@
 <script lang="ts" setup>
-import LatestArticlesView from '../components/blocks/LatestArticlesView.vue';
+import LatestArticlesView from '../components/blocks/LatestArticlesView.vue'
 </script>
 
 <template>
   <div class="container mx-auto">
     <div class="mt-8">
-      <h1 class="mt-8 text-3xl font-black">Featured Stories</h1>
-      <h2 class="mt-2 opacity-75">Latest stories from indie founders</h2>
-      <LatestArticlesView/>
+      <h1 class="mt-8 text-3xl font-black">
+        Featured Stories
+      </h1>
+      <h2 class="mt-2 opacity-75">
+        Latest stories from indie founders
+      </h2>
+      <LatestArticlesView />
     </div>
   </div>
 </template>

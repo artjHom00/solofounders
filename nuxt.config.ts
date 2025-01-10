@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   app: {
     head: {
-      script: [{ src: "https://kit.fontawesome.com/7db26f83a2.js", crossorigin: "anonymous" }]
+      script: [{ src: 'https://kit.fontawesome.com/7db26f83a2.js', crossorigin: 'anonymous' }]
     }
   },
   devtools: { enabled: true },
@@ -19,8 +19,8 @@ export default defineNuxtConfig({
   postcss: {
     plugins: {
       tailwindcss: {},
-      autoprefixer: {},
-    },
+      autoprefixer: {}
+    }
   },
 
   colorMode: {

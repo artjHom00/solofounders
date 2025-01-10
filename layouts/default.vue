@@ -5,11 +5,11 @@ const { loggedIn, user, session, fetch, clear } = useUserSession()
 
 <template>
   <div class="pb-8">
-    <Header :user="user"/>
+    <Header :user="user" />
     <div>
       <slot />
     </div>
-    <Footer/>
+    <Footer />
   </div>
 </template>
 

@@ -1,4 +1,4 @@
-import type { IBaseArticle } from "./IBaseArticle";
+import type { IBaseArticle } from './IBaseArticle'
 
 export interface IArticle extends IBaseArticle {
     content: string;
