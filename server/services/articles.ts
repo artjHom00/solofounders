@@ -1,4 +1,4 @@
-import { count } from 'drizzle-orm'
+import { count, desc } from 'drizzle-orm'
 import { NewArticle, articles } from '../database/tables/articles'
 import { tables, useDrizzle } from '../utils/drizzle'
 import userService from './users'
@@ -20,7 +20,7 @@ class ArticleService {
       },
       limit: take,
       offset: skip,
-      orderBy: tables.articles.createdAt
+      orderBy: [desc(tables.articles.createdAt)]
     })
 
     const response = {
