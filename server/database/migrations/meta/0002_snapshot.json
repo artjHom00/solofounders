@@ -14,8 +14,8 @@
           "primaryKey": true,
           "notNull": true
         },
-        "email": {
-          "name": "email",
+        "name": {
+          "name": "name",
           "type": "text",
           "primaryKey": false,
           "notNull": false

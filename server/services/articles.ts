@@ -109,6 +109,20 @@ class ArticleService {
     })
   }
 
+  async createArticle(userXId: string, name: string, content: string) {
+    const user = await userService.getOrThrowUserByXId(userXId)
+
+    const slug = this.generateSlug(name)
+    await useDrizzle().insert(tables.articles).values({
+      name: name,
+      content: content,
+      authorId: user.id,
+      slug: slug
+    }).execute()
+
+    return slug
+  }
+
   private async hasNextPage (take: number, skip: number) {
     const total = skip + take
 
@@ -120,6 +134,17 @@ class ArticleService {
 
     return true
   }
+
+  private generateSlug(text: string): string {
+    return text
+      .toLowerCase() // Convert to lowercase
+      .trim() // Remove leading and trailing whitespace
+      .replace(/[^a-z0-9\s-]/g, '') // Remove non-alphanumeric characters except spaces and hyphens
+      .replace(/\s+/g, '-') // Replace spaces with hyphens
+      .replace(/-+/g, '-') // Replace multiple hyphens with a single hyphen
+      .replace(/^-+|-+$/g, ''); // Remove leading or trailing hyphens
+  }
+
 }
 
 const articleService = new ArticleService()

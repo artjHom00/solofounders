@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 
-import ArticleView from '../../components/Article/ArticleView.vue'
+import ArticleMarkdownRenderer from '../../components/Article/ArticleMarkdownRenderer.vue'
 import type { IArticleBySlugResponse } from '../../types/responses/IArticleBySlugResponse'
 import Avatar from "vue-boring-avatars";
 
@@ -50,8 +50,8 @@ const handleUpvote = async () => {
             </div>
           </div>
         </div>
-        
-        <ArticleView :article="articleBySlugResponse.data" />
+        <h1 class="text-3xl mt-8 font-bold">{{ articleBySlugResponse.data.name }}</h1>
+        <ArticleMarkdownRenderer :article="articleBySlugResponse.data" />
       </div>
         
       <div class="mt-8">

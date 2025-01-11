@@ -5,7 +5,7 @@ import { upvotes } from './upvotes'
 
 export const articles = pgTable('articles', {
   id: serial('id').primaryKey(),
-  name: text('email'),
+  name: text('name'),
   authorId: integer('author_id'),
   views: integer('views').notNull().default(0),
   content: text('content').notNull(),

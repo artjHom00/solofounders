@@ -1,6 +1,6 @@
 CREATE TABLE "articles" (
 	"id" serial PRIMARY KEY NOT NULL,
-	"email" text,
+	"name" text,
 	"author_id" integer,
 	"views" integer DEFAULT 0 NOT NULL,
 	"content" text NOT NULL,
