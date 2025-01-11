@@ -57,7 +57,7 @@ const submitHandle = async () => {
             <input type="text" v-model="heading" :placeholder="initialHeadingPlaceholder"
                 class="input input-bordered bg-[#f2f2f2] dark:placeholder:text-[#999] font-bold dark:bg-[#262626] dark:focus:bg-[#262626] w-full" />
             <MdEditor class="article-content rounded-lg min-h-screen mt-5" :id="editorId" :footers="footers"
-                :show-toolbar-name="true" v-model="content" language="en_US" :toolbars-exclude="toolbarExclude"
+                 v-model="content" language="en_US" :toolbars-exclude="toolbarExclude"
                 :theme="colorMode.value === 'dark' ? 'dark' : 'light'" noImgZoomIn />
             <button class="mt-4 block mx-auto btn dark:btn-secondary" @click="submitHandle">Submit the story!</button>
         </ClientOnly>
