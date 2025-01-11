@@ -13,7 +13,7 @@ export default defineNuxtConfig({
   }], 'nuxt-time', 'nuxt-auth-utils', '@nuxt-alt/markdown-it'],
 
   routeRules: {
-    '/': { prerender: true }
+    '/': { isr: 60 }
   },
   css: ['~/assets/css/main.css'],
   postcss: {
