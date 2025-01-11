@@ -11,7 +11,7 @@ const handleThemeSwitch = () => {
 </script>
 <template>
   <div>
-    <button class="btn btn-ghost min-h-9 h-9" @click="handleThemeSwitch">
+    <button class="btn btn-ghost" @click="handleThemeSwitch">
       {{ $colorMode.value }}
     </button>
   </div>

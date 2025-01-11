@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { IArticle } from '../../types/article/IArticle'
 
+import 'md-editor-v3/lib/style.css';
+
 type props = {
     article: IArticle
 }
@@ -8,9 +10,5 @@ type props = {
 defineProps<props>()
 </script>
 <template>
-  <div class="article-content mt-8" v-html="$md.render(article.content)" />
+  <div class="md-editor-preview" v-html="$md.render(article.content)" />
 </template>
-
-<style>
-@import '/assets/css/article.css';
-</style>

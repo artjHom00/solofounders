@@ -1,21 +1,79 @@
 <script setup lang="ts">
 import { ClientOnly } from '#components'
+import SubmissionEditor from '../components/SubmissionEditor.vue';
 
-import { MdEditor, config, type Footers, type ToolbarNames } from 'md-editor-v3';
+const initialEditorContent = `## 👋 Welcome to Solofounders Editor
 
-import 'md-editor-v3/lib/style.css';
+We're excited to hear your indie hacking journey!
+Share your story and inspire others in the community.
 
+Here's a simple guide to help you structure your post:
 
-const initialContent = `### 👋 welcome to solofounders editor; 
-we're waiting for your story!`
+#### 🖊️ Title of Your Story
 
-const text = ref(initialContent);
-const editorId = 'editor'
+Start with a captivating title that summarizes your journey or achievement in a sentence.
+
+#### ✍️ About You
+
+Introduce yourself briefly:
+
+- Who are you? (Name, background, interests)
+- What do you work on?
+
+#### 🚀 The Idea
+
+Share the inspiration behind your project:
+
+- How did you come up with the idea?
+- What problem were you trying to solve?
+
+#### 🛠️ Building the Project
+
+Describe the development process:
+
+- What tools or tech stack did you use?
+- How long did it take to build?
+- Share any challenges and how you overcame them.
+
+#### 📈 Launch and Growth
+
+Talk about bringing your project to life:
+
+- How did you launch it?
+- How did you market it or get users/customers?
+- What’s your growth strategy?
+
+#### 🎉 Big Wins and Lessons Learned
+
+Reflect on your journey:
+
+- What are your major achievements so far?
+- What lessons did you learn?
+- What would you do differently next time?
+
+#### 📅 What’s Next?
+
+Share your plans for the future:
+
+- What are your next steps for the project?
+- Are you looking for feedback, collaborators, or anything specific?
+
+#### 🌟 Final Thoughts
+
+Wrap it up with an inspirational message or advice for other indie hackers.
+
+💡 Tips for Writing:
+
+- Be authentic and honest. Share the highs _and_ the lows.
+- Include visuals like screenshots, charts, or code snippets if possible.
+- Keep it concise, but detailed enough to engage readers.
+
+---
+
+When you're ready, hit "Publish" and share your story with the SoloFounders community. 🎉
+`
 
 const colorMode = useColorMode()
-const toolbarExclude: ToolbarNames[] = ['unorderedList', 'table', 'catalog', 'fullscreen', 'htmlPreview', 'github', 'katex', 'previewOnly', 'pageFullscreen', 'save', 'mermaid', 'task', 'orderedList', 'sub', 'sup', ]
-const footers: Footers[] = ['markdownTotal'];
-
 </script>
 
 <template>
@@ -25,33 +83,11 @@ const footers: Footers[] = ['markdownTotal'];
   <p class="text-center ">
     before submission, make sure to read <a class="hover:underline" href="#">our rules of writing</a>;
   </p>
-  <div class="article-content mx-auto container max-w-screen-lg mt-8">
-    <ClientOnly>
-      <MdEditor class="article-content rounded-lg min-h-screen" :id="editorId" :footers="footers" :show-toolbar-name="true" v-model="text" language="en_US" :toolbars-exclude="toolbarExclude" :theme="colorMode.value === 'dark' ? 'dark' : 'light'"  noImgZoomIn />
+  <div class="article-content mx-auto container max-w-screen-xl mt-8">
+    <ClientOnly >
+      <input type="text" placeholder="Heading, e.g. 🚀 How we've scaled our AI SaaS from $0 to $50k MRR in 4 months!" class="input input-bordered bg-[#f2f2f2] dark:bg-[#262626] dark:focus:bg-[#262626] dark:focus:text-white w-full" />
+      <SubmissionEditor class="mt-5" :initial-content="initialEditorContent" :theme="colorMode.value === 'dark' ? 'dark' : 'light'"/>
       <button class="mt-4 block mx-auto btn dark:btn-secondary">Submit the story!</button>
     </ClientOnly>
   </div>
 </template>
-
-<style>
-@import '/assets/css/article.css';
-
-svg.md-editor-icon {
-  width: 27px;
-  height: 27px;
-}
-.md-editor { 
-  --md-bk-color: #f2f2f2;
-  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-}
-.md-editor-dark, .md-editor-modal-container[data-theme='dark'] {
-  --md-bk-color: #262626;
-}
-.md-editor-toolbar-wrapper {
-  padding: 12px 16px;
-}
-.md-editor-footer {
-  padding: 12px 16px;
-  height: initial;
-}
-</style>

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { ILatestArticlesResponse } from '../../types/responses/ILatestArticlesResponse'
-import ArticleTab from '~/components/ArticleTab.vue'
+import ArticleTab from '~/components/Article/ArticleTab.vue'
 import Pagination from '~/components/Pagination.vue'
 
 const props = defineProps<{

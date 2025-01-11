@@ -11,8 +11,11 @@
           est. 2024
         </p>
         <div class="flex justify-center items-center gap-4 mt-4">
-          <i class="fa-brands fa-instagram" />
-          <i class="fa-brands fa-x-twitter" />
+          <NuxtLink to="https://x.com/solofounders_" target="_blank">
+            <button class="btn btn-ghost">
+              <i class="fa-brands fa-x-twitter" />
+            </button>
+          </NuxtLink>
         </div>
       </div>
     </footer>

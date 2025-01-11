@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { IBaseArticle } from '../types/article/IBaseArticle'
+import type { IBaseArticle } from '../../types/article/IBaseArticle'
 
 const MS_IN_DAY = 24 * 60 * 60 * 1000
 type props = IBaseArticle

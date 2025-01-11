@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import LatestArticlesView from '../components/blocks/LatestArticlesView.vue'
+import LatestArticlesView from '../components/Article/LatestArticlesView.vue'
 </script>
 
 <template>

@@ -25,9 +25,14 @@ defineProps<props>()
         <a href="#" class="hover:underline">about us</a>
       </div>
       <div class="flex gap-8 items-center">
-        <i class="fa-brands fa-instagram" />
-        <i class="fa-brands fa-x-twitter" />
-        <ColorSwitch />
+        <div class="flex gap-2">
+          <NuxtLink to="https://x.com/solofounders_" target="_blank">
+            <button class="btn btn-ghost">
+              <i class="fa-brands fa-x-twitter text-lg" />
+            </button>
+          </NuxtLink>
+          <ColorSwitch />
+        </div>
 
         <AuthState>
           <template #default="{ loggedIn }">

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 
-import ArticleView from '../../components/blocks/ArticleView.vue'
+import ArticleView from '../../components/Article/ArticleView.vue'
 import type { IArticleBySlugResponse } from '../../types/responses/IArticleBySlugResponse'
 import Avatar from "vue-boring-avatars";
 
@@ -51,11 +51,11 @@ const handleUpvote = async () => {
           </div>
         </div>
         
-        <ArticleView  :article="articleBySlugResponse.data" />
+        <ArticleView :article="articleBySlugResponse.data" />
       </div>
         
-      <div>
-        <hr class="!mb-5" width="60">
+      <div class="mt-8">
+        <div class="divider dark:divider-secondary"></div>
         <div class="mb-5 flex gap-4">
           <AuthState>
             <template #default="{ loggedIn, clear }">
