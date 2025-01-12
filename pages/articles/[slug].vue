@@ -40,18 +40,20 @@ const handleUpvote = async () => {
             <button class="btn dark:btn-secondary" @click="navigateTo('/')">
               <i class="fa-solid fa-chevron-left text-xs w-3 h-3" />
             </button>
-            <div>
-              <img class="rounded-lg" :src="articleBySlugResponse.data.author.avatar" v-if="articleBySlugResponse.data.author.avatar" alt="">
-              <Avatar class="rounded-lg" :size="48" :square="true" variant="bauhaus" :name="articleBySlugResponse.data.author.handle" :colors="['#FFFFFF', '#212121', '#52CA72']" v-else/>
-            </div>
-            <div>
-              <div class="">By @{{ articleBySlugResponse.data.author.handle }}</div>
-              <div class="text-xs opacity-75">
-                On <NuxtTime :datetime="articleBySlugResponse.data.createdAt" />
+            <NuxtLink class="tooltip flex gap-4 text-left items-center dark:tooltip-secondary tooltip-bottom" data-tip="Go to X account" target="_blank" :to="`https://x.com/${articleBySlugResponse.data.author.handle}`">
+              <div>
+                <img class="rounded-lg" :src="articleBySlugResponse.data.author.avatar" v-if="articleBySlugResponse.data.author.avatar" alt="">
+                <Avatar class="rounded-lg" :size="48" :square="true" variant="bauhaus" :name="articleBySlugResponse.data.author.handle" :colors="['#FFFFFF', '#212121', '#52CA72']" v-else/>
               </div>
-            </div>
+              <div>
+                <div class="font-semibold">By @{{ articleBySlugResponse.data.author.handle }}</div>
+                <div class="text-xs opacity-75">
+                  On <NuxtTime :datetime="articleBySlugResponse.data.createdAt" />
+                </div>
+              </div>
+            </NuxtLink>
           </div>
-          <div class="dropdown dropdown-end">
+          <div class="dropdown dropdown-end" v-if="articleBySlugResponse.isAuthor === true">
             <button class="btn dark:btn-secondary"><i class="fas fa-ellipsis-v w-3 h-3"></i></button>
             <ul tabindex="0" class="dropdown-content menu rounded-box z-[1] mt-2 w-52 p-2 shadow">
               <li><a><i class="fa-solid fa-pen-to-square"></i> Edit</a></li>
@@ -68,11 +70,13 @@ const handleUpvote = async () => {
         <div class="mb-5 flex gap-4">
           <AuthState>
             <template #default="{ loggedIn, clear }">
-              <button class="btn dark:btn-secondary" @click="handleUpvote"
-                :variant="(articleBySlugResponse?.hasUpvoted === true) ? 'primary' : 'secondary'"
-                :disabled="loggedIn === false || (articleBySlugResponse?.hasUpvoted === true)">
-                <i class="fa-regular fa-thumbs-up" />
-              </button>
+              <div>
+                <button class="btn dark:btn-secondary" @click="handleUpvote"
+                  :variant="(articleBySlugResponse?.hasUpvoted === true) ? 'primary' : 'secondary'"
+                  :disabled="loggedIn === false || (articleBySlugResponse?.hasUpvoted === true)">
+                  <i class="fa-regular fa-thumbs-up" />
+                </button>
+              </div>
               <button class="btn dark:btn-secondary" @click="null" variant="secondary" :disabled="loggedIn === false">
                 <i class="fa-regular fa-comment" />
               </button>
