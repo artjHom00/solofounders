@@ -55,7 +55,7 @@ const submitHandle = async () => {
     <div>
         <ClientOnly>
             <input type="text" v-model="heading" :placeholder="initialHeadingPlaceholder"
-                class="input input-bordered bg-[#f2f2f2] dark:placeholder:text-[#999] font-bold dark:bg-[#262626] dark:focus:bg-[#262626] w-full" />
+                class="input font-semibold border-[#dddddd] dark:input-bordered bg-[#f2f2f2] placeholder:text-[#3f4a54a2] dark:placeholder:text-[#999] dark:bg-[#262626] dark:focus:bg-[#262626] w-full" />
             <MdEditor class="article-content rounded-lg min-h-screen mt-5" :id="editorId" :footers="footers"
                  v-model="content" language="en_US" :toolbars-exclude="toolbarExclude"
                 :theme="colorMode.value === 'dark' ? 'dark' : 'light'" noImgZoomIn />

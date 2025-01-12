@@ -12,3 +12,9 @@ defineProps<props>()
 <template>
   <div class="md-editor-preview" v-html="$md.render(article.content)" />
 </template>
+
+<style>
+.md-editor-preview {
+  word-break: initial !important;
+}
+</style>

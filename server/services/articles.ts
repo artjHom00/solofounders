@@ -59,6 +59,7 @@ class ArticleService {
     }
 
     let hasUpvoted = false
+    let isAuthor = false
     if (userXId != null) {
       const user = await userService.getOrThrowUserByXId(userXId)
 
@@ -70,10 +71,12 @@ class ArticleService {
       })
 
       hasUpvoted = (usersUpvote != null)
+      isAuthor = article.authorId === user.id
     }
 
     const response = {
       data: article,
+      isAuthor,
       hasUpvoted
     }
 

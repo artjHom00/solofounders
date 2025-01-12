@@ -35,19 +35,28 @@ const handleUpvote = async () => {
     <div class="container max-w-screen-sm mx-auto mt-8 dark:text-light">
       
       <div v-if="articleBySlugResponse != null">
-        <div class="flex gap-4 mt-8 items-center">
-          <button class="btn dark:btn-secondary" @click="navigateTo('/')">
-            <i class="fa-solid fa-chevron-left text-xs w-3 h-3" />
-          </button>
-          <div>
-            <img class="rounded-lg" :src="articleBySlugResponse.data.author.avatar" v-if="articleBySlugResponse.data.author.avatar" alt="">
-            <Avatar class="rounded-lg" :size="48" :square="true" variant="bauhaus" :name="articleBySlugResponse.data.author.handle" :colors="['#FFFFFF', '#212121', '#52CA72']" v-else/>
-          </div>
-          <div>
-            <div class="">By @{{ articleBySlugResponse.data.author.handle }}</div>
-            <div class="text-xs opacity-75">
-              On <NuxtTime :datetime="articleBySlugResponse.data.createdAt" />
+        <div class="flex justify-between items-center mt-8">
+          <div class="flex gap-4 items-center">
+            <button class="btn dark:btn-secondary" @click="navigateTo('/')">
+              <i class="fa-solid fa-chevron-left text-xs w-3 h-3" />
+            </button>
+            <div>
+              <img class="rounded-lg" :src="articleBySlugResponse.data.author.avatar" v-if="articleBySlugResponse.data.author.avatar" alt="">
+              <Avatar class="rounded-lg" :size="48" :square="true" variant="bauhaus" :name="articleBySlugResponse.data.author.handle" :colors="['#FFFFFF', '#212121', '#52CA72']" v-else/>
             </div>
+            <div>
+              <div class="">By @{{ articleBySlugResponse.data.author.handle }}</div>
+              <div class="text-xs opacity-75">
+                On <NuxtTime :datetime="articleBySlugResponse.data.createdAt" />
+              </div>
+            </div>
+          </div>
+          <div class="dropdown dropdown-end">
+            <button class="btn dark:btn-secondary"><i class="fas fa-ellipsis-v w-3 h-3"></i></button>
+            <ul tabindex="0" class="dropdown-content menu rounded-box z-[1] mt-2 w-52 p-2 shadow">
+              <li><a><i class="fa-solid fa-pen-to-square"></i> Edit</a></li>
+              <li class="text-red-500"><a><i class="fa-regular fa-trash-can"></i> Delete</a></li>
+            </ul>
           </div>
         </div>
         <h1 class="text-3xl mt-8 font-bold">{{ articleBySlugResponse.data.name }}</h1>

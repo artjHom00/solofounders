@@ -23,6 +23,10 @@ const handlePageChange = async (page: number) => {
 
   latestArticles.value = newArticlesResponse
   currentPage.value = page
+
+  scrollTo({
+    top: 0
+  })
 }
 </script>
 
