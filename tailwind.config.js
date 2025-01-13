@@ -13,7 +13,9 @@ export default {
       colors: {
         primary: '#52CA72',
         dark: '#212121',
-        light: '#f2f2f2'
+        light: '#f2f2f2',
+        "light-secondary": '#fafafa',
+        "dark-secondary": '#262626',
       }
     }
   },

@@ -5,15 +5,15 @@ import userService from './users'
 import { mockArticles } from '../static/articles'
 
 class ArticleService {
-  async seedArticlesIfNotExist () {
+  async seedArticlesIfNotExist() {
     const articles = await useDrizzle().select().from(tables.articles)
 
     if (articles.length > 0) { throw new Error('ARTICLES_ALREADY_SEEDED') }
-    
+
     await useDrizzle().insert(tables.articles).values(mockArticles).execute()
   }
 
-  async getLatestArticles (take: number, skip: number) {
+  async getLatestArticles(take: number, skip: number) {
     const articles = await useDrizzle().query.articles.findMany({
       with: {
         author: true
@@ -31,7 +31,7 @@ class ArticleService {
     return response
   }
 
-  async getArticleById (id: number) {
+  async getArticleById(id: number) {
     const article = await useDrizzle().query.articles.findFirst({
       with: {
         author: true
@@ -46,7 +46,7 @@ class ArticleService {
     return article
   }
 
-  async getArticleBySlug (slug: string, userXId?: string) {
+  async getArticleBySlug(slug: string, userXId?: string) {
     const article = await useDrizzle().query.articles.findFirst({
       with: {
         author: true
@@ -83,7 +83,7 @@ class ArticleService {
     return response
   }
 
-  async upvoteArticle (userXId: string, articleId: number) {
+  async upvoteArticle(userXId: string, articleId: number) {
     await useDrizzle().transaction(async (tx) => {
       try {
         const user = await userService.getOrThrowUserByXId(userXId)
@@ -126,7 +126,22 @@ class ArticleService {
     return slug
   }
 
-  private async hasNextPage (take: number, skip: number) {
+  async deleteArticle(userXId: string, articleId: number) {
+    const user = await userService.getOrThrowUserByXId(userXId)
+
+    const [article] = await useDrizzle().select().from(tables.articles).where(eq(tables.articles.id, articleId)).for('update')
+    if (article == null) {
+      throw new Error('ARTICLE_NOT_FOUND')
+    }
+
+    if (article.authorId !== user.id) {
+      throw new Error('NOT_AUTHOR_OF_ARTICLE')
+    }
+
+    await useDrizzle().delete(tables.articles).where(eq(tables.articles.id, articleId)).execute()
+  }
+
+  private async hasNextPage(take: number, skip: number) {
     const total = skip + take
 
     const [{ count: articlesCount }] = await useDrizzle().select({ count: count() }).from(articles)
