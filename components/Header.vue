@@ -37,7 +37,7 @@ defineProps<props>()
         <AuthState>
           <template #default="{ loggedIn }">
             <NuxtLink to="/submit" v-if="loggedIn === true">
-              <button class="btn btn-primary">
+              <button class="btn btn-primary text-light">
                 submit yours
               </button>
             </NuxtLink>

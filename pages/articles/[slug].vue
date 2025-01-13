@@ -1,9 +1,10 @@
 <script lang="ts" setup>
 
-import { useToast } from 'vue-toast-notification';
+import { useToast } from "vue-toastification";
 import ArticleMarkdownRenderer from '../../components/Article/ArticleMarkdownRenderer.vue'
 import type { IArticleBySlugResponse } from '../../types/responses/IArticleBySlugResponse'
 import Avatar from "vue-boring-avatars";
+import DeleteSuccessToast from "../../components/Toasts/DeleteSuccessToast.vue";
 
 
 const route = useRoute()
@@ -34,7 +35,7 @@ const handleDeleting = async () => {
     }
   })
 
-  toast.success('Article successfully deleted!')
+  toast.success(DeleteSuccessToast)
   navigateTo('/')
 
 }
@@ -67,7 +68,7 @@ const handleUpvote = async () => {
           <h3 class="text-lg font-bold">Are you sure?</h3>
           <p class="py-4">Are you sure you want to delete this article? This action cannot be undone. Please confirm to proceed.</p>
           <div class="flex justify-end gap-4">
-            <button class="btn btn-error" @click="handleDeleting">Delete the article</button>
+            <button class="btn btn-error text-white" @click="handleDeleting">Delete the article</button>
           </div>
         </div>
         <form method="dialog" class="modal-backdrop" @click="hideDeleteConfirmationModal">

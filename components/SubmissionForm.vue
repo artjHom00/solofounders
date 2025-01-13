@@ -2,8 +2,9 @@
 import { MdEditor, config, type Footers, type ToolbarNames } from 'md-editor-v3';
 
 import 'md-editor-v3/lib/style.css';
-import ToastPlugin, { useToast } from 'vue-toast-notification';
-
+import { useToast } from "vue-toastification";
+import SubmitSuccessToast from './Toasts/SubmitSuccessToast.vue';
+import SubmitErrorToast from './Toasts/SubmitErrorToast.vue';
 
 const initialHeadingPlaceholder = "Heading, e.g. 🚀 How we've scaled our AI SaaS from $0 to $50k MRR in 4 months!"
 const initialEditorText = `## 👋 Welcome to Solofounders Editor
@@ -43,16 +44,16 @@ const submitHandle = async () => {
             }
         })
         
-        toast.success('Story successfully submitted!')
+        toast.success(SubmitSuccessToast)
         navigateTo('/articles/' + url)
     } catch (e) {
-        toast.error('Error while submitting your story!')
+        toast.error(SubmitErrorToast)
     }
 }
 </script>
 
 <template>
-    <div>
+    <div class="container mx-auto">
         <ClientOnly>
             <input type="text" v-model="heading" :placeholder="initialHeadingPlaceholder"
                 class="input font-semibold border-[#dddddd] dark:input-bordered bg-light placeholder:text-[#3f4a54a2] dark:placeholder:text-[#999] dark:bg-dark-secondary dark:focus:bg-dark-secondary w-full" />

@@ -5,3 +5,11 @@
 * {
     font-family: "Inter", serif;
 }
+
+.Vue-Toastification__toast--success {
+    background: #52CA72 !important;
+}
+
+.Vue-Toastification__toast--error {
+    background: #ca5252 !important;
+}

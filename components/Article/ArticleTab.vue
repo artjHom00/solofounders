@@ -11,14 +11,14 @@ const delta = Date.now() - new Date(definedProps.createdAt).getTime()
 
 <template>
   <NuxtLink :to="`/articles/${slug}`" class="flex items-center gap-4 hover:underline">
-    <!-- <div>
-            <i class="fa-solid fa-caret-up text-green-500"></i>
-        </div> -->
     <div>
-      <i class="fa-solid fa-caret-down text-red-500" />
+      <i class="fa-solid fa-caret-up text-green-500"></i>
     </div>
+    <!-- <div>
+      <i class="fa-solid fa-caret-down text-red-500" />
+    </div> -->
     <div>
-      <p class="font-bold text-3xl w-16 overflow-hidden">
+      <p class="font-bold text-3xl w-16 overflow-hidden text-right">
         {{ points }}
       </p>
     </div>
