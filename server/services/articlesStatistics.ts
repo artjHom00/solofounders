@@ -1,9 +1,12 @@
+import { desc } from 'drizzle-orm'
 import { tables, useDrizzle } from '../utils/drizzle'
 import { randomInt } from 'crypto'
 
 class ArticlesStatisticsService {
-    private _articlesStatisticsToUpdate: Record<number, { views: number, points: number }> = {}
+    // public articlesIdsLeaderboardSnapshot: number[] = []
 
+    private _articlesStatisticsToUpdate: Record<number, { views: number, points: number }> = {}
+    
     async upAllArticles() {
         const articles = await useDrizzle().query.articles.findMany()
 
@@ -35,6 +38,15 @@ class ArticlesStatisticsService {
 
         this.clearArticleStatisticsToUpdateObject()
     }
+
+    // async updateArticlesLeaderboardSnapshot() {
+    //     const articles = await useDrizzle().query.articles.findMany({
+    //         limit: 10,
+    //         orderBy: [desc(tables.articles.points)]
+    //     })
+
+    //     this.articlesIdsLeaderboardSnapshot = articles.map(article => article.id)
+    // }
 
     async addView(articleId: number) {
         await this.addArticleToCacheObjectIfNotExists(articleId)
@@ -68,14 +80,13 @@ class ArticlesStatisticsService {
      * Higher current values result in slightly higher random increments.
      */
     private getWeightedRandom(currentValue: number): number {
-        // Base range is 3-10
         const base = randomInt(1, 100);
 
         // Add an additional increment based on the current value (scaled down to avoid excessive changes)
         const weightedBonus = Math.floor(currentValue * 0.05); // 5% of the current value
 
         // Cap the result to prevent excessively large adjustments
-        return Math.min(base + weightedBonus, 50); // Max of 15
+        return Math.min(base + weightedBonus, 50);
     }
 
 }

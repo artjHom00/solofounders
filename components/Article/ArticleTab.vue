@@ -7,19 +7,26 @@ type props = IBaseArticle
 const definedProps = defineProps<props>()
 
 const delta = Date.now() - new Date(definedProps.createdAt).getTime()
+
+const formattedPoints = computed(() => {
+  const points = definedProps.points
+
+  if(points > 1000) {
+    return (points / 1000).toFixed(0) + 'K+'
+  }
+
+  return points
+})
 </script>
 
 <template>
   <NuxtLink :to="`/articles/${slug}`" class="flex items-center gap-4 hover:underline">
     <div>
-      <i class="fa-solid fa-caret-up text-green-500"></i>
+      <i class="fa-solid fa-circle text-primary animate-pulse" />
     </div>
-    <!-- <div>
-      <i class="fa-solid fa-caret-down text-red-500" />
-    </div> -->
     <div>
-      <p class="font-bold text-3xl w-16 overflow-hidden text-right">
-        {{ points }}
+      <p class="font-bold text-3xl w-16 overflow-hidden text-left">
+        {{ formattedPoints }}
       </p>
     </div>
     <div>

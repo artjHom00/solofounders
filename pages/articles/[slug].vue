@@ -139,7 +139,7 @@ const handleUpvote = async () => {
             </template>
           </AuthState>
         </div>
-        <span class="text-sm tracking-tighter">Liked the story? <br>
+        <span class="text-sm">Liked the story? <br>
           <NuxtLink to="https://x.com/solofounders_" target="_blank" class="!underline">Follow us on X</NuxtLink> for
           more
           content!
