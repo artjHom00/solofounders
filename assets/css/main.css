@@ -7,7 +7,7 @@
 }
 
 .Vue-Toastification__toast--success {
-    background: #52CA72 !important;
+    background: oklch(var(--p)) !important;
 }
 
 .Vue-Toastification__toast--error {

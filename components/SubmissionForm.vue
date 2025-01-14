@@ -30,7 +30,7 @@ const content = ref(initialEditorText)
 
 const editorId = 'editor'
 
-const toolbarExclude: ToolbarNames[] = ['unorderedList', 'table', 'catalog', 'fullscreen', 'htmlPreview', 'github', 'katex', 'previewOnly', 'pageFullscreen', 'save', 'mermaid', 'task', 'orderedList', 'sub', 'sup',]
+const toolbarExclude: ToolbarNames[] = ['underline', 'unorderedList', 'table', 'catalog', 'fullscreen', 'htmlPreview', 'github', 'katex', 'previewOnly', 'pageFullscreen', 'save', 'mermaid', 'task', 'orderedList', 'sub', 'sup',]
 const footers: Footers[] = ['markdownTotal'];
 
 const submitHandle = async () => {
@@ -43,7 +43,7 @@ const submitHandle = async () => {
                 content: content.value,
             }
         })
-        
+
         toast.success(SubmitSuccessToast)
         navigateTo('/articles/' + url)
     } catch (e) {
@@ -58,7 +58,7 @@ const submitHandle = async () => {
             <input type="text" v-model="heading" :placeholder="initialHeadingPlaceholder"
                 class="input font-semibold border-[#dddddd] dark:input-bordered bg-light placeholder:text-[#3f4a54a2] dark:placeholder:text-[#999] dark:bg-dark-secondary dark:focus:bg-dark-secondary w-full" />
             <MdEditor class="article-content rounded-lg min-h-screen mt-5" :id="editorId" :footers="footers"
-                 v-model="content" language="en_US" :toolbars-exclude="toolbarExclude"
+                v-model="content" language="en_US" :toolbars-exclude="toolbarExclude"
                 :theme="colorMode.value === 'dark' ? 'dark' : 'light'" noImgZoomIn />
             <button class="mt-4 block mx-auto btn dark:btn-secondary" @click="submitHandle">Submit the story!</button>
         </ClientOnly>
@@ -71,30 +71,66 @@ const submitHandle = async () => {
 /* @import '/assets/css/article.css'; */
 
 svg.md-editor-icon {
-  width: 27px;
-  height: 27px;
+    width: 27px;
+    height: 27px;
 }
-.md-editor { 
-  --md-bk-color: #f2f2f2;
-  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+
+.md-editor {
+    --md-bk-color: #f2f2f2;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
 }
-.md-editor-dark, .md-editor-modal-container[data-theme='dark'] {
-  --md-bk-color: #262626;
+.md-editor * {
+    color: #262626 !important;
 }
+
+.md-editor-dark,
+.md-editor-modal-container[data-theme='dark'] {
+    --md-bk-color: #262626;
+}
+.md-editor-dark * {
+    color: #f2f2f2 !important;
+}
+
 .md-editor-toolbar-wrapper {
-  padding: 12px 16px;
+    padding: 12px 16px;
 }
+
 .md-editor-footer {
-  padding: 12px 16px;
-  height: initial;
+    padding: 12px 16px;
+    height: initial;
 }
 
 .md-editor-menu {
     border-radius: 8px;
     padding: 4px;
 }
-.md-editor-menu > li {
+
+.md-editor-menu>li {
     border-radius: 4px;
     padding: 8px 24px;
+}
+
+.md-editor-code-head {
+    display: none !important;
+}
+
+.md-editor-code-block {
+    font-family: 'Fira Code', monospace !important;
+    padding: 2px 4px !important;
+    border-radius: 4px !important;
+} 
+.md-editor-code-block * {
+    font-family: 'Fira Code', monospace !important;
+}
+.md-editor-scrn pre code {
+   padding-left: 1em !important;
+   background-color: transparent !important;
+}
+.md-editor-code code > span:last-child {
+    display: none !important;
+}
+div.default-theme .md-editor-code pre code {
+    background-color: oklch(var(--s) / 0.75);
+    box-shadow: none;
 }
 </style>

@@ -17,4 +17,43 @@ defineProps<props>()
 .md-editor-preview {
   word-break: initial !important;
 }
+.md-editor-preview blockquote {
+  border-left: 3px solid oklch(var(--p));
+  position: relative;
+  padding-left: 40px !important;
+  background: initial !important;
+  margin: 20px 0;
+}
+.md-editor-preview blockquote::before {
+  content:'"';
+  position: absolute;
+  left: 10px;
+  font-size: 32px;
+  top: -5px;
+}
+/* General styling for the <pre> tag */
+  .md-editor-preview pre {
+  background-color: oklch(var(--s) / 0.1); /* Soft background color */
+  border-radius: 6px; /* Rounded corners */
+  padding: 16px; /* Inner padding */
+  overflow-x: auto; /* Horizontal scroll for long lines */
+  font-size: 14px; /* Font size */
+  line-height: 1.5; /* Line height for better readability */
+  margin: 20px 0; /* Spacing around */
+}
+
+.md-editor-preview pre code {
+  color: var(--fc);
+  font-family: 'Fira Code', monospace;
+  font-size: inherit;
+  background-color: transparent !important;
+}
+.md-editor-preview code {
+  background-color: oklch(var(--s) / 0.15);
+  color: var(--fc);
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-family: 'Fira Code', monospace;
+  font-size: 90%;
+}
 </style>
