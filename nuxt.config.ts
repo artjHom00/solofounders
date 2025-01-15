@@ -5,6 +5,9 @@ export default defineNuxtConfig({
       script: [{ src: 'https://kit.fontawesome.com/7db26f83a2.js', crossorigin: 'anonymous' }]
     },
   },
+  build: {
+    transpile: ['vue-toastification']
+  },
   devtools: { enabled: true },
   modules: ['@nuxt/content', '@nuxtjs/color-mode', ['@nuxtjs/google-fonts', {
     families: {
