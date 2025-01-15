@@ -25,7 +25,7 @@ const formattedPoints = computed(() => {
       <i class="fa-solid fa-circle text-primary animate-pulse" />
     </div>
     <div>
-      <p class="font-bold text-3xl w-16 overflow-hidden text-left">
+      <p class="font-bold text-3xl w-20 overflow-hidden text-left">
         {{ formattedPoints }}
       </p>
     </div>
