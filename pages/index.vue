@@ -11,7 +11,7 @@ import LatestArticlesView from '../components/Article/LatestArticlesView.vue'
       <h2 class="mt-2 opacity-75">
         Latest stories from indie founders
       </h2>
-      <LatestArticlesView :default-take="10"/>
+      <LatestArticlesView :default-take="10" />
     </div>
   </div>
 </template>

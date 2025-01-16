@@ -1,7 +1,8 @@
 import { relations } from 'drizzle-orm'
 import { integer, pgTable, serial, text, timestamp, varchar } from 'drizzle-orm/pg-core'
 import { users } from './users'
-import { upvotes } from './upvotes'
+import { articleUpvotes } from './articleUpvotes'
+import { threads } from './threads'
 
 export const articles = pgTable('articles', {
   id: serial('id').primaryKey(),
@@ -19,7 +20,8 @@ export const articlesRelations = relations(articles, ({ one, many }) => ({
     fields: [articles.authorId],
     references: [users.id]
   }),
-  upvotes: many(upvotes)
+  upvotes: many(articleUpvotes),
+  threads: many(threads)
 }))
 
 export type NewArticle = typeof articles.$inferInsert;

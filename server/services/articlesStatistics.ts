@@ -1,94 +1,92 @@
+import { randomInt } from 'crypto'
 import { desc } from 'drizzle-orm'
 import { tables, useDrizzle } from '../utils/drizzle'
-import { randomInt } from 'crypto'
 
 class ArticlesStatisticsService {
-    // public articlesIdsLeaderboardSnapshot: number[] = []
+  // public articlesIdsLeaderboardSnapshot: number[] = []
 
-    private _articlesStatisticsToUpdate: Record<number, { views: number, points: number }> = {}
-    
-    async upAllArticles() {
-        const articles = await useDrizzle().query.articles.findMany()
+  private _articlesStatisticsToUpdate: Record<number, { views: number, points: number }> = {}
 
-        for (const article of articles) {
-            await this.addArticleToCacheObjectIfNotExists(article.id)
+  async upAllArticles () {
+    const articles = await useDrizzle().query.articles.findMany()
 
-            
-            const articleStatistics = this._articlesStatisticsToUpdate[article.id]
+    for (const article of articles) {
+      await this.addArticleToCacheObjectIfNotExists(article.id)
 
-            articleStatistics.views += this.getWeightedRandom(articleStatistics.views);
-            articleStatistics.points += Math.max(1, Math.floor(articleStatistics.views / 10));
-        }
+      const articleStatistics = this._articlesStatisticsToUpdate[article.id]
+
+      articleStatistics.views += this.getWeightedRandom(articleStatistics.views)
+      articleStatistics.points += Math.max(1, Math.floor(articleStatistics.views / 10))
+    }
+  }
+
+  async syncWithDb () {
+    for (const articleId of Object.keys(this._articlesStatisticsToUpdate)) {
+      const article = await useDrizzle().query.articles.findFirst({
+        where: eq(tables.articles.id, Number(articleId))
+      })
+
+      if (article == null) {
+        throw new Error('ARTICLE_NOT_FOUND')
+      }
+
+      const { views, points } = this._articlesStatisticsToUpdate[Number(articleId)]
+
+      await useDrizzle().update(tables.articles).set({ views: article.views + views, points: article.points + points }).where(eq(tables.articles.id, Number(articleId)))
     }
 
-    async syncWithDb() {
-        for (const articleId of Object.keys(this._articlesStatisticsToUpdate)) {
-            const article = await useDrizzle().query.articles.findFirst({
-                where: eq(tables.articles.id, Number(articleId))
-            })
+    this.clearArticleStatisticsToUpdateObject()
+  }
 
-            if (article == null) {
-                throw new Error('ARTICLE_NOT_FOUND')
-            }
+  // async updateArticlesLeaderboardSnapshot() {
+  //     const articles = await useDrizzle().query.articles.findMany({
+  //         limit: 10,
+  //         orderBy: [desc(tables.articles.points)]
+  //     })
 
-            const { views, points } = this._articlesStatisticsToUpdate[Number(articleId)]
+  //     this.articlesIdsLeaderboardSnapshot = articles.map(article => article.id)
+  // }
 
-            await useDrizzle().update(tables.articles).set({ views: article.views + views, points: article.points + points }).where(eq(tables.articles.id, Number(articleId)))
-        }
+  async addView (articleId: number) {
+    await this.addArticleToCacheObjectIfNotExists(articleId)
 
-        this.clearArticleStatisticsToUpdateObject()
+    this._articlesStatisticsToUpdate[articleId].views += 1
+  }
+
+  private async addArticleToCacheObjectIfNotExists (articleId: number) {
+    if (this._articlesStatisticsToUpdate[articleId] == null) {
+      const article = await useDrizzle().query.articles.findFirst({
+        where: eq(tables.articles.id, articleId)
+      })
+
+      if (article == null) {
+        throw new Error('ARTICLE_NOT_FOUND')
+      }
+
+      this._articlesStatisticsToUpdate[articleId] = {
+        views: 0,
+        points: 0
+      }
     }
+  }
 
-    // async updateArticlesLeaderboardSnapshot() {
-    //     const articles = await useDrizzle().query.articles.findMany({
-    //         limit: 10,
-    //         orderBy: [desc(tables.articles.points)]
-    //     })
+  private clearArticleStatisticsToUpdateObject () {
+    this._articlesStatisticsToUpdate = {}
+  }
 
-    //     this.articlesIdsLeaderboardSnapshot = articles.map(article => article.id)
-    // }
-
-    async addView(articleId: number) {
-        await this.addArticleToCacheObjectIfNotExists(articleId)
-
-        this._articlesStatisticsToUpdate[articleId].views += 1
-    }
-
-    private async addArticleToCacheObjectIfNotExists(articleId: number) {
-        if (this._articlesStatisticsToUpdate[articleId] == null) {
-            const article = await useDrizzle().query.articles.findFirst({
-                where: eq(tables.articles.id, articleId)
-            })
-
-            if (article == null) {
-                throw new Error('ARTICLE_NOT_FOUND')
-            }
-
-            this._articlesStatisticsToUpdate[articleId] = {
-                views: 0,
-                points: 0
-            }
-        }
-    }
-
-    private clearArticleStatisticsToUpdateObject() {
-        this._articlesStatisticsToUpdate = {}
-    }
-
-    /**
+  /**
      * Generate a weighted random value based on the current value.
      * Higher current values result in slightly higher random increments.
      */
-    private getWeightedRandom(currentValue: number): number {
-        const base = randomInt(1, 100);
+  private getWeightedRandom (currentValue: number): number {
+    const base = randomInt(1, 100)
 
-        // Add an additional increment based on the current value (scaled down to avoid excessive changes)
-        const weightedBonus = Math.floor(currentValue * 0.05); // 5% of the current value
+    // Add an additional increment based on the current value (scaled down to avoid excessive changes)
+    const weightedBonus = Math.floor(currentValue * 0.05) // 5% of the current value
 
-        // Cap the result to prevent excessively large adjustments
-        return Math.min(base + weightedBonus, 50);
-    }
-
+    // Cap the result to prevent excessively large adjustments
+    return Math.min(base + weightedBonus, 50)
+  }
 }
 
 const articlesStatisticsService = new ArticlesStatisticsService()

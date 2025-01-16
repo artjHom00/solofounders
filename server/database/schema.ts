@@ -1,5 +1,18 @@
 import { users, usersRelations } from './tables/users'
 import { articles, articlesRelations } from './tables/articles'
-import { upvotes, upvotesRelations } from './tables/upvotes'
+import { articleUpvotes, articleUpvotesRelations } from './tables/articleUpvotes'
+import { threads, threadsRelations } from './tables/threads'
+import { threadUpvotes, threadUpvotesRelations } from './tables/threadUpvotes'
 
-export { users, usersRelations, articles, articlesRelations, upvotes, upvotesRelations }
+export {
+  users,
+  usersRelations,
+  articles,
+  articlesRelations,
+  articleUpvotes,
+  articleUpvotesRelations,
+  threads,
+  threadsRelations,
+  threadUpvotes,
+  threadUpvotesRelations
+}

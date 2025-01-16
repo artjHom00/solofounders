@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   app: {
     head: {
       script: [{ src: 'https://kit.fontawesome.com/7db26f83a2.js', crossorigin: 'anonymous' }]
-    },
+    }
   },
   build: {
     transpile: ['vue-toastification']
@@ -22,7 +22,7 @@ export default defineNuxtConfig({
   postcss: {
     plugins: {
       tailwindcss: {},
-      autoprefixer: {},
+      autoprefixer: {}
     }
   },
 

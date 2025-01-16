@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import SubmissionForm from '../components/SubmissionForm.vue'
 import { ClientOnly } from '#components'
-import SubmissionForm from '../components/SubmissionForm.vue';
 </script>
 
 <template>
@@ -11,6 +11,6 @@ import SubmissionForm from '../components/SubmissionForm.vue';
     before submission, make sure to read <a class="hover:underline" href="#">our rules of writing</a>;
   </p>
   <div class="article-content mx-auto container max-w-screen-xl mt-8">
-    <SubmissionForm/>
+    <SubmissionForm />
   </div>
 </template>

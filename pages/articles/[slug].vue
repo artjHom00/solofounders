@@ -1,11 +1,10 @@
 <script lang="ts" setup>
 
-import { useToast } from "vue-toastification";
+import { useToast } from 'vue-toastification'
+import Avatar from 'vue-boring-avatars'
 import ArticleMarkdownRenderer from '../../components/Article/ArticleMarkdownRenderer.vue'
 import type { IArticleBySlugResponse } from '../../types/responses/IArticleBySlugResponse'
-import Avatar from "vue-boring-avatars";
-import DeleteSuccessToast from "../../components/Toasts/DeleteSuccessToast.vue";
-
+import DeleteSuccessToast from '../../components/Toasts/DeleteSuccessToast.vue'
 
 const route = useRoute()
 const toast = useToast()
@@ -14,16 +13,15 @@ const slug = route.params.slug
 
 const { data: articleBySlugResponse } = useFetch<IArticleBySlugResponse>('/api/articles?slug=' + slug)
 
-
 const deleteConfirmationModalSel = 'delete-confirmation'
 
 const showDeleteConfirmationModal = async () => {
-  const modal = document.getElementById(deleteConfirmationModalSel) as any 
+  const modal = document.getElementById(deleteConfirmationModalSel) as any
   modal.showModal()
 }
 
 const hideDeleteConfirmationModal = async () => {
-  const modal = document.getElementById(deleteConfirmationModalSel) as any 
+  const modal = document.getElementById(deleteConfirmationModalSel) as any
   modal.hideModal()
 }
 
@@ -37,14 +35,12 @@ const handleDeleting = async () => {
 
   toast.success(DeleteSuccessToast)
   navigateTo('/')
-
 }
-
 
 const handleUpvote = async () => {
   if (articleBySlugResponse.value == null) {
     // todo alert
-    return;
+    return
   }
 
   await $fetch('/api/articles/upvote', {
@@ -55,7 +51,6 @@ const handleUpvote = async () => {
   })
 
   articleBySlugResponse.value.hasUpvoted = true
-
 }
 
 </script>
@@ -65,14 +60,22 @@ const handleUpvote = async () => {
     <div class="container max-w-screen-sm mx-auto mt-8 dark:text-light">
       <dialog id="delete-confirmation" class="modal">
         <div class="modal-box dark:bg-dark">
-          <h3 class="text-lg font-bold">Are you sure?</h3>
-          <p class="py-4">Are you sure you want to delete this article? This action cannot be undone. Please confirm to proceed.</p>
+          <h3 class="text-lg font-bold">
+            Are you sure?
+          </h3>
+          <p class="py-4">
+            Are you sure you want to delete this article? This action cannot be undone. Please confirm to proceed.
+          </p>
           <div class="flex justify-end gap-4">
-            <button class="btn btn-error text-white" @click="handleDeleting">Delete the article</button>
+            <button class="btn btn-error text-white" @click="handleDeleting">
+              Delete the article
+            </button>
           </div>
         </div>
         <form method="dialog" class="modal-backdrop" @click="hideDeleteConfirmationModal">
-          <button class="cursor-default">Close</button>
+          <button class="cursor-default">
+            Close
+          </button>
         </form>
       </dialog>
       <div v-if="articleBySlugResponse != null">
@@ -81,17 +84,33 @@ const handleUpvote = async () => {
             <button class="btn dark:btn-secondary" @click="navigateTo('/')">
               <i class="fa-solid fa-chevron-left text-xs w-3 h-3" />
             </button>
-            <NuxtLink class="tooltip flex gap-4 text-left items-center dark:tooltip-secondary"
-              data-tip="Go to X account" target="_blank"
-              :to="`https://x.com/${articleBySlugResponse.data.author.handle}`">
+            <NuxtLink
+              class="tooltip flex gap-4 text-left items-center dark:tooltip-secondary"
+              data-tip="Go to X account"
+              target="_blank"
+              :to="`https://x.com/${articleBySlugResponse.data.author.handle}`"
+            >
               <div>
-                <img class="rounded-lg" :src="articleBySlugResponse.data.author.avatar"
-                  v-if="articleBySlugResponse.data.author.avatar" alt="">
-                <Avatar class="rounded-lg" :size="48" :square="true" variant="bauhaus"
-                  :name="articleBySlugResponse.data.author.handle" :colors="['#FFFFFF', '#212121', '#52CA72']" v-else />
+                <img
+                  v-if="articleBySlugResponse.data.author.avatar"
+                  class="rounded-lg"
+                  :src="articleBySlugResponse.data.author.avatar"
+                  alt=""
+                >
+                <Avatar
+                  v-else
+                  class="rounded-lg"
+                  :size="48"
+                  :square="true"
+                  variant="bauhaus"
+                  :name="articleBySlugResponse.data.author.handle"
+                  :colors="['#FFFFFF', '#212121', '#52CA72']"
+                />
               </div>
               <div>
-                <div class="font-semibold">By @{{ articleBySlugResponse.data.author.handle }}</div>
+                <div class="font-semibold">
+                  By @{{ articleBySlugResponse.data.author.handle }}
+                </div>
                 <div class="text-xs opacity-75">
                   On
                   <NuxtTime :datetime="articleBySlugResponse.data.createdAt" />
@@ -99,36 +118,48 @@ const handleUpvote = async () => {
               </div>
             </NuxtLink>
           </div>
-          <div class="dropdown dropdown-end" v-if="articleBySlugResponse.isAuthor === true">
-            <button class="btn dark:btn-secondary"><i class="fas fa-ellipsis-v w-3 h-3"></i></button>
-            <ul tabindex="0"
-              class="dropdown-content bg-light-secondary dark:bg-dark-secondary menu rounded-box z-[1] mt-2 w-52 p-2 shadow">
+          <div v-if="articleBySlugResponse.isAuthor === true" class="dropdown dropdown-end">
+            <button class="btn dark:btn-secondary">
+              <i class="fas fa-ellipsis-v w-3 h-3" />
+            </button>
+            <ul
+              tabindex="0"
+              class="dropdown-content bg-light-secondary dark:bg-dark-secondary menu rounded-box z-[1] mt-2 w-52 p-2 shadow"
+            >
               <!-- <li><a><i class="fa-solid fa-pen-to-square"></i> Edit</a></li> -->
-              <li class="text-red-500" @click="showDeleteConfirmationModal"><a><i
-                    class="fa-regular fa-trash-can"></i> Delete</a></li>
+              <li class="text-red-500" @click="showDeleteConfirmationModal">
+                <a><i
+                  class="fa-regular fa-trash-can"
+                /> Delete</a>
+              </li>
             </ul>
           </div>
         </div>
-        <h1 class="text-3xl mt-8 font-bold">{{ articleBySlugResponse.data.name }}</h1>
+        <h1 class="text-3xl mt-8 font-bold">
+          {{ articleBySlugResponse.data.name }}
+        </h1>
         <ArticleMarkdownRenderer :article="articleBySlugResponse.data" />
       </div>
 
       <div class="mt-8">
-        <div class="divider dark:divider-secondary"></div>
+        <div class="divider dark:divider-secondary" />
         <div class="mb-5 flex gap-4">
           <AuthState>
             <template #default="{ loggedIn, clear }">
               <div>
-                <button class="btn dark:btn-secondary" @click="handleUpvote"
+                <button
+                  class="btn dark:btn-secondary"
                   :variant="(articleBySlugResponse?.hasUpvoted === true) ? 'primary' : 'secondary'"
-                  :disabled="loggedIn === false || (articleBySlugResponse?.hasUpvoted === true)">
+                  :disabled="loggedIn === false || (articleBySlugResponse?.hasUpvoted === true)"
+                  @click="handleUpvote"
+                >
                   <i class="fa-regular fa-thumbs-up" />
                 </button>
               </div>
-              <button class="btn dark:btn-secondary" @click="null" variant="secondary" :disabled="loggedIn === false">
+              <button class="btn dark:btn-secondary" variant="secondary" :disabled="loggedIn === false" @click="null">
                 <i class="fa-regular fa-comment" />
               </button>
-              <button class="btn dark:btn-secondary" @click="null" variant="secondary" :disabled="loggedIn === false">
+              <button class="btn dark:btn-secondary" variant="secondary" :disabled="loggedIn === false" @click="null">
                 <i class="fa-solid fa-retweet" />
               </button>
             </template>

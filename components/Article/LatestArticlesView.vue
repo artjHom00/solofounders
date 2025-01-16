@@ -36,8 +36,11 @@ const handlePageChange = async (page: number) => {
       <ArticleTab v-for="article in latestArticles.data" v-bind="article" />
     </div>
     <div class="mt-8">
-      <Pagination :current-page="currentPage" :has-next-page="latestArticles.hasNextPage"
-        @page-change="handlePageChange" />
+      <Pagination
+        :current-page="currentPage"
+        :has-next-page="latestArticles.hasNextPage"
+        @page-change="handlePageChange"
+      />
     </div>
   </div>
 </template>

@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { MdEditor, config, type Footers, type ToolbarNames } from 'md-editor-v3';
+import { MdEditor, config, type Footers, type ToolbarNames } from 'md-editor-v3'
 
-import 'md-editor-v3/lib/style.css';
-import { useToast } from "vue-toastification";
-import SubmitSuccessToast from './Toasts/SubmitSuccessToast.vue';
-import SubmitErrorToast from './Toasts/SubmitErrorToast.vue';
+import 'md-editor-v3/lib/style.css'
+import { useToast } from 'vue-toastification'
+import SubmitSuccessToast from './Toasts/SubmitSuccessToast.vue'
+import SubmitErrorToast from './Toasts/SubmitErrorToast.vue'
 
 const initialHeadingPlaceholder = "Heading, e.g. 🚀 How we've scaled our AI SaaS from $0 to $50k MRR in 4 months!"
 const initialEditorText = `## 👋 Welcome to Solofounders Editor
@@ -30,42 +30,52 @@ const content = ref(initialEditorText)
 
 const editorId = 'editor'
 
-const toolbarExclude: ToolbarNames[] = ['underline', 'unorderedList', 'table', 'catalog', 'fullscreen', 'htmlPreview', 'github', 'katex', 'previewOnly', 'pageFullscreen', 'save', 'mermaid', 'task', 'orderedList', 'sub', 'sup',]
-const footers: Footers[] = ['markdownTotal'];
+const toolbarExclude: ToolbarNames[] = ['underline', 'unorderedList', 'table', 'catalog', 'fullscreen', 'htmlPreview', 'github', 'katex', 'previewOnly', 'pageFullscreen', 'save', 'mermaid', 'task', 'orderedList', 'sub', 'sup']
+const footers: Footers[] = ['markdownTotal']
 
 const submitHandle = async () => {
-    try {
+  try {
+    const url = await $fetch('/api/articles', {
+      method: 'POST',
+      body: {
+        name: heading.value,
+        content: content.value
+      }
+    })
 
-        const url = await $fetch(`/api/articles`, {
-            method: 'POST',
-            body: {
-                name: heading.value,
-                content: content.value,
-            }
-        })
-
-        toast.success(SubmitSuccessToast)
-        navigateTo('/articles/' + url)
-    } catch (e) {
-        toast.error(SubmitErrorToast)
-    }
+    toast.success(SubmitSuccessToast)
+    navigateTo('/articles/' + url)
+  } catch (e) {
+    toast.error(SubmitErrorToast)
+  }
 }
 </script>
 
 <template>
-    <div class="container mx-auto">
-        <ClientOnly>
-            <input type="text" v-model="heading" :placeholder="initialHeadingPlaceholder"
-                class="input font-semibold border-[#dddddd] dark:input-bordered bg-light placeholder:text-[#3f4a54a2] dark:placeholder:text-[#999] dark:bg-dark-secondary dark:focus:bg-dark-secondary w-full" />
-            <MdEditor class="article-content rounded-lg min-h-screen mt-5" :id="editorId" :footers="footers"
-                v-model="content" language="en_US" :toolbars-exclude="toolbarExclude"
-                :theme="colorMode.value === 'dark' ? 'dark' : 'light'" noImgZoomIn />
-            <button class="mt-4 block mx-auto btn dark:btn-secondary" @click="submitHandle">Submit the story!</button>
-        </ClientOnly>
-    </div>
+  <div class="container mx-auto">
+    <ClientOnly>
+      <input
+        v-model="heading"
+        type="text"
+        :placeholder="initialHeadingPlaceholder"
+        class="input font-semibold border-[#dddddd] dark:input-bordered bg-light placeholder:text-[#3f4a54a2] dark:placeholder:text-[#999] dark:bg-dark-secondary dark:focus:bg-dark-secondary w-full"
+      >
+      <MdEditor
+        :id="editorId"
+        v-model="content"
+        class="article-content rounded-lg min-h-screen mt-5"
+        :footers="footers"
+        language="en_US"
+        :toolbars-exclude="toolbarExclude"
+        :theme="colorMode.value === 'dark' ? 'dark' : 'light'"
+        no-img-zoom-in
+      />
+      <button class="mt-4 block mx-auto btn dark:btn-secondary" @click="submitHandle">
+        Submit the story!
+      </button>
+    </ClientOnly>
+  </div>
 </template>
-
-
 
 <style>
 /* @import '/assets/css/article.css'; */
@@ -118,7 +128,7 @@ body .md-editor-code-block {
     font-family: 'Fira Code', monospace !important;
     padding: 2px 4px !important;
     border-radius: 4px !important;
-} 
+}
 body .md-editor-code-block * {
     font-family: 'Fira Code', monospace !important;
 }

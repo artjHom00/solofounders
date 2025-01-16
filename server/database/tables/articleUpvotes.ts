@@ -3,7 +3,7 @@ import { integer, pgTable, primaryKey, timestamp } from 'drizzle-orm/pg-core'
 import { users } from './users'
 import { articles } from './articles'
 
-export const upvotes = pgTable('users_upvotes', {
+export const articleUpvotes = pgTable('article_upvotes', {
   userId: integer('user_id').notNull().references(() => users.id),
   articleId: integer('article_id').notNull().references(() => articles.id, { onDelete: 'cascade' }),
   createdAt: timestamp('created_at').notNull().defaultNow()
@@ -11,15 +11,15 @@ export const upvotes = pgTable('users_upvotes', {
   pk: primaryKey({ columns: [t.userId, t.articleId] })
 }))
 
-export const upvotesRelations = relations(upvotes, ({ one }) => ({
+export const articleUpvotesRelations = relations(articleUpvotes, ({ one }) => ({
   articles: one(articles, {
-    fields: [upvotes.articleId],
+    fields: [articleUpvotes.articleId],
     references: [articles.id]
   }),
   user: one(users, {
-    fields: [upvotes.userId],
+    fields: [articleUpvotes.userId],
     references: [users.id]
   })
 }))
 
-export type NewUser = typeof upvotes.$inferInsert;
+export type NewUser = typeof articleUpvotes.$inferInsert;

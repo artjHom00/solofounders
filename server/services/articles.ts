@@ -1,11 +1,11 @@
-import { count, desc } from 'drizzle-orm'
+import { count, desc, inArray } from 'drizzle-orm'
 import { NewArticle, articles } from '../database/tables/articles'
 import { tables, useDrizzle } from '../utils/drizzle'
-import userService from './users'
 import { mockArticles } from '../static/articles'
+import userService from './users'
 
 class ArticleService {
-  async seedArticlesIfNotExist() {
+  async seedArticlesIfNotExist () {
     const articles = await useDrizzle().select().from(tables.articles)
 
     if (articles.length > 0) { throw new Error('ARTICLES_ALREADY_SEEDED') }
@@ -13,7 +13,7 @@ class ArticleService {
     await useDrizzle().insert(tables.articles).values(mockArticles).execute()
   }
 
-  async getLatestArticles(take: number, skip: number) {
+  async getLatestArticles (take: number, skip: number) {
     const articles = await useDrizzle().query.articles.findMany({
       with: {
         author: true
@@ -31,12 +31,12 @@ class ArticleService {
     return response
   }
 
-  async getArticleById(id: number) {
+  async getArticleById (articleId: number) {
     const article = await useDrizzle().query.articles.findFirst({
       with: {
         author: true
       },
-      where: eq(tables.articles.id, id)
+      where: eq(tables.articles.id, articleId)
     })
 
     if (article == null) {
@@ -46,10 +46,11 @@ class ArticleService {
     return article
   }
 
-  async getArticleBySlug(slug: string, userXId?: string) {
+  async getArticleBySlug (slug: string, userXId?: string) {
     const article = await useDrizzle().query.articles.findFirst({
       with: {
-        author: true
+        author: true,
+        threads: true
       },
       where: eq(tables.articles.slug, slug)
     })
@@ -58,32 +59,46 @@ class ArticleService {
       throw new Error('ARTICLE_NOT_FOUND')
     }
 
-    let hasUpvoted = false
+    const threadsIds = article.threads.map(thread => thread.id)
+
+    let hasUpvotedArticle = false
     let isAuthor = false
     if (userXId != null) {
       const user = await userService.getOrThrowUserByXId(userXId)
 
-      const usersUpvote = await useDrizzle().query.upvotes.findFirst({
+      const usersUpvote = await useDrizzle().query.articleUpvotes.findFirst({
         where: and(
-          eq(tables.upvotes.userId, user.id),
-          eq(tables.upvotes.articleId, article.id)
+          eq(tables.articleUpvotes.userId, user.id),
+          eq(tables.articleUpvotes.articleId, article.id)
         )
       })
 
-      hasUpvoted = (usersUpvote != null)
+      const usersUpvotes = await useDrizzle().query.threadUpvotes.findMany({
+        where: inArray(tables.threadUpvotes.threadId, threadsIds)
+      })
+
+      article.threads = article.threads.map((thread) => {
+        const userUpvote = usersUpvotes.find(upvote => upvote.threadId === thread.id)
+        return {
+          ...thread,
+          hasUpvoted: (userUpvote != null)
+        }
+      })
+
+      hasUpvotedArticle = (usersUpvote != null)
       isAuthor = article.authorId === user.id
     }
 
     const response = {
       data: article,
       isAuthor,
-      hasUpvoted
+      hasUpvoted: hasUpvotedArticle
     }
 
     return response
   }
 
-  async upvoteArticle(userXId: string, articleId: number) {
+  async upvoteArticle (userXId: string, articleId: number) {
     await useDrizzle().transaction(async (tx) => {
       try {
         const user = await userService.getOrThrowUserByXId(userXId)
@@ -91,16 +106,16 @@ class ArticleService {
         const [article] = await tx.select().from(tables.articles).where(eq(tables.articles.id, articleId)).for('update')
         if (article == null) { throw new Error('ARTICLE_NOT_FOUND') }
 
-        const userUpvote = await tx.select().from(tables.upvotes).where(
+        const userUpvote = await tx.select().from(tables.articleUpvotes).where(
           and(
-            eq(tables.upvotes.userId, user.id),
-            eq(tables.upvotes.articleId, articleId)
+            eq(tables.articleUpvotes.userId, user.id),
+            eq(tables.articleUpvotes.articleId, articleId)
           )
         )
 
         if (userUpvote.length > 0) { throw new Error('ALREADY_UPVOTED') }
 
-        await tx.insert(tables.upvotes).values({
+        await tx.insert(tables.articleUpvotes).values({
           userId: user.id,
           articleId
         })
@@ -112,24 +127,24 @@ class ArticleService {
     })
   }
 
-  async createArticle(userXId: string, name: string, content: string) {
+  async createArticle (userXId: string, name: string, content: string) {
     const user = await userService.getOrThrowUserByXId(userXId)
 
     const slug = this.generateSlug(name)
     await useDrizzle().insert(tables.articles).values({
-      name: name,
-      content: content,
+      name,
+      content,
       authorId: user.id,
-      slug: slug
+      slug
     }).execute()
 
     return slug
   }
 
-  async deleteArticle(userXId: string, articleId: number) {
+  async deleteArticle (userXId: string, articleId: number) {
     const user = await userService.getOrThrowUserByXId(userXId)
 
-    const [article] = await useDrizzle().select().from(tables.articles).where(eq(tables.articles.id, articleId)).for('update')
+    const [article] = await useDrizzle().select().from(tables.articles).where(eq(tables.articles.id, articleId))
     if (article == null) {
       throw new Error('ARTICLE_NOT_FOUND')
     }
@@ -141,7 +156,7 @@ class ArticleService {
     await useDrizzle().delete(tables.articles).where(eq(tables.articles.id, articleId)).execute()
   }
 
-  private async hasNextPage(take: number, skip: number) {
+  private async hasNextPage (take: number, skip: number) {
     const total = skip + take
 
     const [{ count: articlesCount }] = await useDrizzle().select({ count: count() }).from(articles)
@@ -153,16 +168,15 @@ class ArticleService {
     return true
   }
 
-  private generateSlug(text: string): string {
+  private generateSlug (text: string): string {
     return text
       .toLowerCase() // Convert to lowercase
       .trim() // Remove leading and trailing whitespace
       .replace(/[^a-z0-9\s-]/g, '') // Remove non-alphanumeric characters except spaces and hyphens
       .replace(/\s+/g, '-') // Replace spaces with hyphens
       .replace(/-+/g, '-') // Replace multiple hyphens with a single hyphen
-      .replace(/^-+|-+$/g, ''); // Remove leading or trailing hyphens
+      .replace(/^-+|-+$/g, '') // Remove leading or trailing hyphens
   }
-
 }
 
 const articleService = new ArticleService()

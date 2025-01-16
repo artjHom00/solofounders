@@ -10,11 +10,11 @@ const handleThemeSwitch = () => {
 }
 </script>
 <template>
-    <ClientOnly >
-      <button class="btn btn-ghost" @click="handleThemeSwitch">
-        {{ $colorMode.value }}
-      </button>
-    </ClientOnly>
+  <ClientOnly>
+    <button class="btn btn-ghost" @click="handleThemeSwitch">
+      {{ $colorMode.value }}
+    </button>
+  </ClientOnly>
 </template>
 
 <style>

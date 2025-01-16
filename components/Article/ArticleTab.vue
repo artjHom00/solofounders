@@ -11,7 +11,7 @@ const delta = Date.now() - new Date(definedProps.createdAt).getTime()
 const formattedPoints = computed(() => {
   const points = definedProps.points
 
-  if(points > 1000) {
+  if (points > 1000) {
     return (points / 1000).toFixed(0) + 'K+'
   }
 

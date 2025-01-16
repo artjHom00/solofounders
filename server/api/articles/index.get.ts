@@ -2,8 +2,8 @@ import articleService from '../../services/articles'
 import { byIdSchema } from '../../validation/byId'
 import { bySlugSchema } from '../../validation/bySlug'
 import { SessionUser } from '../../types/SessionUser'
-import { IArticle } from '~/types/article/IArticle'
 import articlesStatisticsService from '../../services/articlesStatistics'
+import { IArticle } from '~/types/article/IArticle'
 
 export default defineEventHandler(async (event) => {
   try {

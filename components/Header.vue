@@ -36,12 +36,12 @@ defineProps<props>()
 
         <AuthState>
           <template #default="{ loggedIn }">
-            <NuxtLink to="/submit" v-if="loggedIn === true">
+            <NuxtLink v-if="loggedIn === true" to="/submit">
               <button class="btn btn-primary text-light">
                 submit yours
               </button>
             </NuxtLink>
-            <NuxtLink to="/api/auth/x" target="_blank" v-else>
+            <NuxtLink v-else to="/api/auth/x" target="_blank">
               <button class="btn btn-secondary dark:btn-neutral">
                 auth via X
               </button>
