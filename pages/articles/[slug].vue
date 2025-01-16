@@ -5,6 +5,7 @@ import Avatar from 'vue-boring-avatars'
 import ArticleMarkdownRenderer from '../../components/Article/ArticleMarkdownRenderer.vue'
 import type { IArticleBySlugResponse } from '../../types/responses/IArticleBySlugResponse'
 import DeleteSuccessToast from '../../components/Toasts/DeleteSuccessToast.vue'
+import ThreadsView from '../../components/Article/Threads/ThreadsView.vue'
 
 const route = useRoute()
 const toast = useToast()
@@ -139,43 +140,44 @@ const handleUpvote = async () => {
           {{ articleBySlugResponse.data.name }}
         </h1>
         <ArticleMarkdownRenderer :article="articleBySlugResponse.data" />
+        <div class="mt-8">
+          <div class="divider dark:divider-secondary" />
+          <div class="mb-5 flex gap-4">
+            <AuthState>
+              <template #default="{ loggedIn, clear }">
+                <div>
+                  <button
+                    class="btn dark:btn-secondary"
+                    :variant="(articleBySlugResponse?.hasUpvoted === true) ? 'primary' : 'secondary'"
+                    :disabled="loggedIn === false || (articleBySlugResponse?.hasUpvoted === true)"
+                    @click="handleUpvote"
+                  >
+                    <i class="fa-regular fa-thumbs-up" />
+                  </button>
+                </div>
+                <button class="btn dark:btn-secondary" variant="secondary" :disabled="loggedIn === false" @click="null">
+                  <i class="fa-regular fa-comment" />
+                </button>
+                <button class="btn dark:btn-secondary" variant="secondary" :disabled="loggedIn === false" @click="null">
+                  <i class="fa-solid fa-retweet" />
+                </button>
+              </template>
+              <template #placeholder>
+                <button disabled>
+                  Loading...
+                </button>
+              </template>
+            </AuthState>
+          </div>
+          <span class="text-sm">Liked the story? <br>
+            <NuxtLink to="https://x.com/solofounders_" target="_blank" class="!underline">Follow us on X</NuxtLink> for
+            more
+            content!
+          </span>
+        </div>
+        <ThreadsView :threads="articleBySlugResponse?.data.threads"/>
       </div>
 
-      <div class="mt-8">
-        <div class="divider dark:divider-secondary" />
-        <div class="mb-5 flex gap-4">
-          <AuthState>
-            <template #default="{ loggedIn, clear }">
-              <div>
-                <button
-                  class="btn dark:btn-secondary"
-                  :variant="(articleBySlugResponse?.hasUpvoted === true) ? 'primary' : 'secondary'"
-                  :disabled="loggedIn === false || (articleBySlugResponse?.hasUpvoted === true)"
-                  @click="handleUpvote"
-                >
-                  <i class="fa-regular fa-thumbs-up" />
-                </button>
-              </div>
-              <button class="btn dark:btn-secondary" variant="secondary" :disabled="loggedIn === false" @click="null">
-                <i class="fa-regular fa-comment" />
-              </button>
-              <button class="btn dark:btn-secondary" variant="secondary" :disabled="loggedIn === false" @click="null">
-                <i class="fa-solid fa-retweet" />
-              </button>
-            </template>
-            <template #placeholder>
-              <button disabled>
-                Loading...
-              </button>
-            </template>
-          </AuthState>
-        </div>
-        <span class="text-sm">Liked the story? <br>
-          <NuxtLink to="https://x.com/solofounders_" target="_blank" class="!underline">Follow us on X</NuxtLink> for
-          more
-          content!
-        </span>
-      </div>
     </div>
   </main>
 </template>
