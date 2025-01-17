@@ -1,12 +1,12 @@
 <script lang="ts" setup>
+import { TimeConstants } from '../../utils/TimeConstants';
 import type { IBaseArticle } from '../../types/article/IBaseArticle'
 
-const MS_IN_DAY = 24 * 60 * 60 * 1000
 type props = IBaseArticle
 
 const definedProps = defineProps<props>()
 
-const delta = Date.now() - new Date(definedProps.createdAt).getTime()
+const delta = timePassed(definedProps.createdAt)
 
 const formattedPoints = computed(() => {
   const points = definedProps.points
@@ -35,7 +35,7 @@ const formattedPoints = computed(() => {
       </h3>
       <span class="text-sm opacity-50">by <a href="#">@{{ author?.handle }}</a> |
         <span>
-          <NuxtTime :datetime="createdAt" :relative="delta < MS_IN_DAY && delta > 0" />
+          <NuxtTime :datetime="createdAt" :relative="delta < TimeConstants.MS_IN_DAY && delta > 0" />
         </span> |
         <span>{{ views }} views</span>
       </span>

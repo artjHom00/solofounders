@@ -1,4 +1,4 @@
-import { count, desc, inArray } from 'drizzle-orm'
+import { asc, count, desc, inArray } from 'drizzle-orm'
 import { NewArticle, articles } from '../database/tables/articles'
 import { tables, useDrizzle } from '../utils/drizzle'
 import { mockArticles } from '../static/articles'
@@ -50,9 +50,20 @@ class ArticleService {
     const article = await useDrizzle().query.articles.findFirst({
       with: {
         author: true,
-        threads: true
+        threads: {
+          with: {
+            user: {
+              columns: {
+                id: true,
+                handle: true,
+                avatar: true,
+              }
+            },
+          },
+          orderBy: [desc(sql`CASE WHEN ${tables.threads.replyTo} IS NULL THEN ${tables.threads.points} ELSE NULL END`), asc(tables.threads.createdAt)] // gpt generated
+        },
       },
-      where: eq(tables.articles.slug, slug)
+      where: eq(tables.articles.slug, slug),
     })
 
     if (article == null) {

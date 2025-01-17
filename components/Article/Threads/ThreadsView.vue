@@ -4,30 +4,26 @@ import ThreadBlock from './ThreadBlock.vue';
 import type { IBaseThread } from '../../../types/thread/IBaseThread'
 
 type props = {
-    threads: IBaseThread[]
+    threads: IBaseThread[],
+    isAuthorized: boolean
 }
 
 defineProps<props>()
 
-// Methods for thread actions
-function upvote(threadId: number) {
-  return null
-}
+const $emit = defineEmits(['upvote', 'reply'])
 
-function reply(threadId: number) {
-  return null
-}
 </script>
 
 <template>
-  <div class="container mx-auto p-6">
-    <h1 class="text-2xl font-bold mb-6">Threads</h1>
+  <div>
+    <input class="mb-8 input border-[#dddddd] dark:input-bordered bg-light placeholder:text-[#3f4a54a2] dark:placeholder:text-[#999] dark:bg-dark-secondary dark:focus:bg-dark-secondary w-full" placeholder="Add a comment" type="text">
     <div v-for="thread in threads.filter((t) => t.replyTo === null)" :key="thread.id">
       <ThreadBlock
         :thread="thread"
         :threads="threads"
-        @upvote="upvote"
-        @reply="reply"
+        :is-authorized="isAuthorized"
+        @upvote="(threadId: number) => $emit('upvote', threadId)"
+        @reply="(threadId: number) => $emit('reply', threadId)"
       />
     </div>
   </div>

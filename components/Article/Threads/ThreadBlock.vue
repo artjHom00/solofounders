@@ -1,49 +1,40 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { IBaseThread } from '../../../types/thread/IBaseThread'
+import { TimeConstants } from '../../../utils/TimeConstants';
 
 type props = {
-  thread: IBaseThread, // The single thread to render
-  threads: IBaseThread[], // All threads in the article
+  thread: IBaseThread,
+  threads: IBaseThread[],
+  isAuthorized: boolean,
 }
-// Props for the component
 const definedProps = defineProps<props>();
 
-// Emit events for thread actions
 const emit = defineEmits(['upvote', 'reply']);
 
-// Get replies for the current thread
 const replies = computed(() =>
-    definedProps.threads.filter((t) => t.replyTo === definedProps.thread.id)
+  definedProps.threads.filter((t) => t.replyTo === definedProps.thread.id)
 );
 </script>
 
 <template>
-  <div class="border-l-2 border-gray-200 pl-4 mb-6">
-    <!-- Main thread block -->
-    <div class="card bg-base-100 shadow-lg">
-      <div class="card-body p-4">
-        <!-- Thread content -->
-        <h2 class="card-title">
-          Thread #{{ thread.id }}
-          <span class="badge badge-secondary ml-2">{{ thread.points }} points</span>
-        </h2>
-        <p class="text-gray-700">{{ thread.content }}</p>
-        <p class="text-sm text-gray-500">Posted: {{ new Date(thread.createdAt).toLocaleString() }}</p>
-
-        <!-- Actions -->
-        <div class="card-actions mt-3 flex justify-start">
-          <button
-            class="btn btn-primary btn-sm"
-            @click="$emit('upvote', thread.id)"
-          >
-            Upvote
+  <div class="border-l-2 dark:border-secondary pl-2 mb-6">
+    <div class="card">
+      <div class="p-2 flex flex-col gap-2">
+        <div class="flex items-center gap-4">
+          <span class="font-bold text-xl overflow-hidden text-left">{{ thread.points }}</span>
+          <UserCard :avatar-size="32" :user="thread.user">
+            <NuxtTime date-style="medium" :datetime="thread.createdAt"
+            :relative="timePassed(thread.createdAt) < TimeConstants.MS_IN_DAY && timePassed(thread.createdAt) > 0" />
+          </UserCard>
+        </div>
+        <p class="text-sm">{{ thread.content }}</p>
+        <div class="card-actions flex justify-start" v-if="isAuthorized === true">
+          <button class="btn dark:btn-secondary btn-sm" :disabled="thread.hasUpvoted" @click="$emit('upvote', thread.id)">
+            <i class="fa-regular fa-thumbs-up" />
           </button>
-          <button
-            class="btn btn-accent btn-sm"
-            @click="$emit('reply', thread.id)"
-          >
-            Reply
+          <button class="btn dark:btn-secondary btn-sm" @click="$emit('reply', thread.id)">
+            <i class="fa-regular fa-comment" />
           </button>
         </div>
       </div>
@@ -51,15 +42,8 @@ const replies = computed(() =>
 
     <!-- Replies -->
     <div class="ml-4 mt-4" v-if="replies.length">
-      <h4 class="text-gray-500 text-sm font-semibold">Replies:</h4>
-      <ThreadBlock
-        v-for="reply in replies"
-        :key="reply.id"
-        :thread="reply"
-        :threads="threads"
-        @upvote="$emit('upvote', $event)"
-        @reply="$emit('reply', $event)"
-      />
+      <ThreadBlock :is-authorized="isAuthorized" v-for="reply in replies" :key="reply.id" :thread="reply" :threads="threads"
+        @upvote="$emit('upvote', reply.id)" @reply="$emit('reply', reply.id)" />
     </div>
   </div>
 </template>

@@ -16,6 +16,7 @@ class ThreadsService {
 
     const user = await userService.getOrThrowUserByXId(userXId)
 
+    let replyThreadId = replyTo;
     if (replyTo != null) {
       const thread = await useDrizzle().query.threads.findFirst({
         where: eq(tables.threads.id, replyTo)
@@ -24,13 +25,17 @@ class ThreadsService {
       if (thread == null) {
         throw new Error('THREAD_NOT_FOUND')
       }
+
+      if(thread.replyTo != null) {
+        replyThreadId = thread.replyTo
+      }
     }
 
     await useDrizzle().insert(tables.threads).values({
       content,
       userId: user.id,
       articleId: article.id,
-      replyTo: replyTo ?? null
+      replyTo: replyThreadId
     }).execute()
   }
 

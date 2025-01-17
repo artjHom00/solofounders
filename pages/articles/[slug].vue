@@ -38,7 +38,7 @@ const handleDeleting = async () => {
   navigateTo('/')
 }
 
-const handleUpvote = async () => {
+const handleArticleUpvote = async () => {
   if (articleBySlugResponse.value == null) {
     // todo alert
     return
@@ -52,6 +52,29 @@ const handleUpvote = async () => {
   })
 
   articleBySlugResponse.value.hasUpvoted = true
+}
+
+const handleThreadUpvote = async (threadId: number) => {
+  if (articleBySlugResponse.value == null) {
+    // todo alert
+    return
+  }
+  
+  await $fetch('/api/articles/threads/upvote', {
+    method: 'POST',
+    body: {
+      thread: threadId
+    }
+  })
+
+  const thread = articleBySlugResponse.value.data.threads.find((thread) => thread.id === threadId)
+  if(thread == null) {
+    // todo alert
+    return
+  }
+
+  thread.hasUpvoted = true
+  thread.points += 1
 }
 
 </script>
@@ -85,39 +108,9 @@ const handleUpvote = async () => {
             <button class="btn dark:btn-secondary" @click="navigateTo('/')">
               <i class="fa-solid fa-chevron-left text-xs w-3 h-3" />
             </button>
-            <NuxtLink
-              class="tooltip flex gap-4 text-left items-center dark:tooltip-secondary"
-              data-tip="Go to X account"
-              target="_blank"
-              :to="`https://x.com/${articleBySlugResponse.data.author.handle}`"
-            >
-              <div>
-                <img
-                  v-if="articleBySlugResponse.data.author.avatar"
-                  class="rounded-lg"
-                  :src="articleBySlugResponse.data.author.avatar"
-                  alt=""
-                >
-                <Avatar
-                  v-else
-                  class="rounded-lg"
-                  :size="48"
-                  :square="true"
-                  variant="bauhaus"
-                  :name="articleBySlugResponse.data.author.handle"
-                  :colors="['#FFFFFF', '#212121', '#52CA72']"
-                />
-              </div>
-              <div>
-                <div class="font-semibold">
-                  By @{{ articleBySlugResponse.data.author.handle }}
-                </div>
-                <div class="text-xs opacity-75">
-                  On
-                  <NuxtTime :datetime="articleBySlugResponse.data.createdAt" />
-                </div>
-              </div>
-            </NuxtLink>
+            <UserCard :user="articleBySlugResponse.data.author">
+              On <NuxtTime :datetime="articleBySlugResponse.data.createdAt" />
+            </UserCard>
           </div>
           <div v-if="articleBySlugResponse.isAuthor === true" class="dropdown dropdown-end">
             <button class="btn dark:btn-secondary">
@@ -150,7 +143,7 @@ const handleUpvote = async () => {
                     class="btn dark:btn-secondary"
                     :variant="(articleBySlugResponse?.hasUpvoted === true) ? 'primary' : 'secondary'"
                     :disabled="loggedIn === false || (articleBySlugResponse?.hasUpvoted === true)"
-                    @click="handleUpvote"
+                    @click="handleArticleUpvote"
                   >
                     <i class="fa-regular fa-thumbs-up" />
                   </button>
@@ -175,7 +168,16 @@ const handleUpvote = async () => {
             content!
           </span>
         </div>
-        <ThreadsView :threads="articleBySlugResponse?.data.threads"/>
+        <AuthState>
+          <template #default="{loggedIn, clear}">
+            <ThreadsView class="mt-8" @upvote="handleThreadUpvote" :is-authorized="loggedIn === true" :threads="articleBySlugResponse?.data.threads"/>
+          </template>
+          <template #placeholder>
+            <button disabled>
+              Loading...
+            </button>
+          </template>
+        </AuthState>
       </div>
 
     </div>
