@@ -12,7 +12,7 @@ class AuthService {
       name: twitterUser.name,
       handle: twitterUser.username,
       twitterId: twitterUser.id,
-      avatar: twitterUser.profile_image_url
+      avatar: twitterUser.profile_image_url?.replace('_normal', '')
     }
 
     await useDrizzle().insert(tables.users).values(newUser)
