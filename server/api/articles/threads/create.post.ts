@@ -1,3 +1,4 @@
+import { ErrorsTemplates } from '~/utils/ErrorsTemplates'
 import threadsService from '../../../services/threads'
 import { SessionUser } from '../../../types/SessionUser'
 
@@ -6,7 +7,7 @@ export default defineEventHandler(async (event) => {
     const session = await getUserSession(event)
 
     if (session.user == null) {
-      throw new Error('NOT_AUTHORIZED')
+      throw new Error(ErrorsTemplates.NOT_AUTHORIZED)
     }
 
     const user = session.user as SessionUser
@@ -14,18 +15,20 @@ export default defineEventHandler(async (event) => {
     const body = await readBody(event)
 
     if (body.content == null) {
-      throw new Error('CONTENT_NOT_PROVIDED')
+      throw new Error(ErrorsTemplates.DATA_NOT_PROVIDED)
     }
 
     if (body.article == null || isNaN(Number(body.article))) {
-      throw new Error('ARTICLE_NOT_PROVIDED')
+      throw new Error(ErrorsTemplates.DATA_NOT_PROVIDED)
     }
 
     if (body.replyTo != null && isNaN(Number(body.replyTo))) {
-      throw new Error('REPLYTO_SHOULD_BE_NUMBER')
+      throw new Error(ErrorsTemplates.DATA_NOT_PROVIDED)
     }
 
-    await threadsService.createThread(body.article, user.xId, body.content, body.replyTo)
+    const thread = await threadsService.createThread(body.article, user.xId, body.content, body.replyTo)
+
+    return thread
   } catch (e) {
     return e
   }

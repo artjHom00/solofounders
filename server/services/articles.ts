@@ -3,6 +3,9 @@ import { NewArticle, articles } from '../database/tables/articles'
 import { tables, useDrizzle } from '../utils/drizzle'
 import { mockArticles } from '../static/articles'
 import userService from './users'
+import threadsService from './threads'
+import { IThread } from '~/types/thread/IThread'
+import { ErrorsTemplates } from '~/utils/ErrorsTemplates'
 
 class ArticleService {
   async seedArticlesIfNotExist () {
@@ -40,7 +43,7 @@ class ArticleService {
     })
 
     if (article == null) {
-      throw new Error('ARTICLE_NOT_FOUND')
+      throw new Error(ErrorsTemplates.ARTICLE_NOT_FOUND)
     }
 
     return article
@@ -67,13 +70,12 @@ class ArticleService {
     })
 
     if (article == null) {
-      throw new Error('ARTICLE_NOT_FOUND')
+      throw new Error(ErrorsTemplates.ARTICLE_NOT_FOUND)
     }
 
-    const threadsIds = article.threads.map(thread => thread.id)
-
-    let hasUpvotedArticle = false
-    let isAuthor = false
+    let hasUpvotedArticle: boolean = false
+    let isArticleAuthor: boolean = false
+    
     if (userXId != null) {
       const user = await userService.getOrThrowUserByXId(userXId)
 
@@ -84,25 +86,15 @@ class ArticleService {
         )
       })
 
-      const usersUpvotes = await useDrizzle().query.threadUpvotes.findMany({
-        where: inArray(tables.threadUpvotes.threadId, threadsIds)
-      })
-
-      article.threads = article.threads.map((thread) => {
-        const userUpvote = usersUpvotes.find(upvote => upvote.threadId === thread.id)
-        return {
-          ...thread,
-          hasUpvoted: (userUpvote != null)
-        }
-      })
+      article.threads = await threadsService.extendThreadsAttributes(user.id, article.threads)
 
       hasUpvotedArticle = (usersUpvote != null)
-      isAuthor = article.authorId === user.id
+      isArticleAuthor = (article.authorId === user.id)
     }
 
     const response = {
       data: article,
-      isAuthor,
+      isAuthor: isArticleAuthor,
       hasUpvoted: hasUpvotedArticle
     }
 
@@ -115,7 +107,7 @@ class ArticleService {
         const user = await userService.getOrThrowUserByXId(userXId)
 
         const [article] = await tx.select().from(tables.articles).where(eq(tables.articles.id, articleId)).for('update')
-        if (article == null) { throw new Error('ARTICLE_NOT_FOUND') }
+        if (article == null) { throw new Error(ErrorsTemplates.ARTICLE_NOT_FOUND) }
 
         const userUpvote = await tx.select().from(tables.articleUpvotes).where(
           and(
@@ -124,7 +116,7 @@ class ArticleService {
           )
         )
 
-        if (userUpvote.length > 0) { throw new Error('ALREADY_UPVOTED') }
+        if (userUpvote.length > 0) { throw new Error(ErrorsTemplates.ALREADY_UPVOTED) }
 
         await tx.insert(tables.articleUpvotes).values({
           userId: user.id,
@@ -157,11 +149,11 @@ class ArticleService {
 
     const [article] = await useDrizzle().select().from(tables.articles).where(eq(tables.articles.id, articleId))
     if (article == null) {
-      throw new Error('ARTICLE_NOT_FOUND')
+      throw new Error(ErrorsTemplates.ARTICLE_NOT_FOUND)
     }
 
     if (article.authorId !== user.id) {
-      throw new Error('NOT_AUTHOR_OF_ARTICLE')
+      throw new Error(ErrorsTemplates.NOT_AUTHOR)
     }
 
     await useDrizzle().delete(tables.articles).where(eq(tables.articles.id, articleId)).execute()

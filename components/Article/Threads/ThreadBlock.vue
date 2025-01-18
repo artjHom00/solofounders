@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { IBaseThread } from '../../../types/thread/IBaseThread'
 import { TimeConstants } from '../../../utils/TimeConstants';
+import type { IThreadExtended } from '../../../types/thread/IThreadExtended';
 
 type props = {
-  thread: IBaseThread,
-  threads: IBaseThread[],
+  thread: IThreadExtended,
+  threads: IThreadExtended[],
   isAuthorized: boolean,
 }
 const definedProps = defineProps<props>();
 
-const emit = defineEmits(['upvote', 'reply']);
+const emit = defineEmits(['upvote', 'reply', 'delete']);
 
 const replies = computed(() =>
   definedProps.threads.filter((t) => t.replyTo === definedProps.thread.id)
@@ -25,16 +25,22 @@ const replies = computed(() =>
           <span class="font-bold text-xl overflow-hidden text-left">{{ thread.points }}</span>
           <UserCard :avatar-size="32" :user="thread.user">
             <NuxtTime date-style="medium" :datetime="thread.createdAt"
-            :relative="timePassed(thread.createdAt) < TimeConstants.MS_IN_DAY && timePassed(thread.createdAt) > 0" />
+              :relative="timePassed(thread.createdAt) < TimeConstants.MS_IN_DAY && timePassed(thread.createdAt) > 0" />
           </UserCard>
         </div>
         <p class="text-sm">{{ thread.content }}</p>
-        <div class="card-actions flex justify-start" v-if="isAuthorized === true">
-          <button class="btn dark:btn-secondary btn-sm" :disabled="thread.hasUpvoted" @click="$emit('upvote', thread.id)">
-            <i class="fa-regular fa-thumbs-up" />
+        <div class="card-actions flex justify-start">
+          <button class="btn dark:btn-secondary btn-sm" :disabled="thread.hasUpvoted || isAuthorized === false"
+            @click="$emit('upvote', thread.id)">
+            <i class="fa-solid fa-chevron-up" />
           </button>
-          <button class="btn dark:btn-secondary btn-sm" @click="$emit('reply', thread.id)">
-            <i class="fa-regular fa-comment" />
+          <button class="btn dark:btn-secondary btn-sm" :disabled="isAuthorized === false"
+            @click="$emit('reply', thread.id)">
+            <i class="fa-regular fa-paper-plane" />
+          </button>
+          <button class="btn dark:btn-secondary btn-sm" v-if="thread.isAuthor === true"
+            @click="$emit('delete', thread.id)">
+            <i class="fa-regular fa-trash-can"></i>
           </button>
         </div>
       </div>
@@ -42,15 +48,9 @@ const replies = computed(() =>
 
     <!-- Replies -->
     <div class="ml-4 mt-4" v-if="replies.length">
-      <ThreadBlock :is-authorized="isAuthorized" v-for="reply in replies" :key="reply.id" :thread="reply" :threads="threads"
-        @upvote="$emit('upvote', reply.id)" @reply="$emit('reply', reply.id)" />
+      <ThreadBlock :is-authorized="isAuthorized" v-for="reply in replies" :key="reply.id" :thread="reply"
+        :threads="threads" @upvote="$emit('upvote', reply.id)" @reply="$emit('reply', reply.id)"
+        @delete="$emit('delete', reply.id)" />
     </div>
   </div>
 </template>
-
-<style scoped>
-/* Add additional spacing for nested replies */
-.border-l-2 {
-  border-left-width: 2px;
-}
-</style>

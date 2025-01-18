@@ -6,6 +6,9 @@ import ArticleMarkdownRenderer from '../../components/Article/ArticleMarkdownRen
 import type { IArticleBySlugResponse } from '../../types/responses/IArticleBySlugResponse'
 import DeleteSuccessToast from '../../components/Toasts/DeleteSuccessToast.vue'
 import ThreadsView from '../../components/Article/Threads/ThreadsView.vue'
+import type { IBaseThread } from '../../types/thread/IBaseThread'
+import type { IThread } from '../../types/thread/IThread'
+import type { IThreadExtended } from '../../types/thread/IThreadExtended'
 
 const route = useRoute()
 const toast = useToast()
@@ -77,6 +80,46 @@ const handleThreadUpvote = async (threadId: number) => {
   thread.points += 1
 }
 
+const handleThreadReply = async (content: string, replyTo?: IThreadExtended) => {
+  if (articleBySlugResponse.value == null) {
+    // todo alert
+    return
+  }
+  
+  try {
+    const createdThread = await $fetch<IThreadExtended | any>('/api/articles/threads/create', {
+      method: 'POST',
+      body: {
+        content: content,
+        replyTo: replyTo?.id,
+        article: articleBySlugResponse.value.data.id
+      }
+    })
+    articleBySlugResponse.value.data.threads.push(createdThread)
+  } catch(e: any) {
+    return toast.error(e.data?.message ?? 'Error Occured')
+  }
+
+}
+
+const handleThreadDelete = async (threadId: number) => {
+  if (articleBySlugResponse.value == null) {
+    // todo alert
+    return
+  }
+  
+  await $fetch('/api/articles/threads', {
+    method: 'delete',
+    body: {
+      thread: threadId
+    }
+  })
+
+  articleBySlugResponse.value.data.threads = articleBySlugResponse.value.data.threads.filter(
+    (thread) => thread.id !== threadId
+  );
+}
+
 </script>
 
 <template>
@@ -145,12 +188,9 @@ const handleThreadUpvote = async (threadId: number) => {
                     :disabled="loggedIn === false || (articleBySlugResponse?.hasUpvoted === true)"
                     @click="handleArticleUpvote"
                   >
-                    <i class="fa-regular fa-thumbs-up" />
+                    <i class="fa-solid fa-chevron-up" />
                   </button>
                 </div>
-                <button class="btn dark:btn-secondary" variant="secondary" :disabled="loggedIn === false" @click="null">
-                  <i class="fa-regular fa-comment" />
-                </button>
                 <button class="btn dark:btn-secondary" variant="secondary" :disabled="loggedIn === false" @click="null">
                   <i class="fa-solid fa-retweet" />
                 </button>
@@ -170,7 +210,7 @@ const handleThreadUpvote = async (threadId: number) => {
         </div>
         <AuthState>
           <template #default="{loggedIn, clear}">
-            <ThreadsView class="mt-8" @upvote="handleThreadUpvote" :is-authorized="loggedIn === true" :threads="articleBySlugResponse?.data.threads"/>
+            <ThreadsView class="mt-8" @reply="handleThreadReply" @upvote="handleThreadUpvote" @delete="handleThreadDelete" :is-authorized="loggedIn === true" :threads="articleBySlugResponse?.data.threads"/>
           </template>
           <template #placeholder>
             <button disabled>

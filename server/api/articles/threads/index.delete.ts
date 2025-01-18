@@ -1,6 +1,7 @@
+import { SessionUser } from '../../../types/SessionUser'
+import { IArticle } from '~/types/article/IArticle'
+import threadsService from '../../../services/threads'
 import { ErrorsTemplates } from '~/utils/ErrorsTemplates'
-import articleService from '../../services/articles'
-import { SessionUser } from '../../types/SessionUser'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -14,11 +15,11 @@ export default defineEventHandler(async (event) => {
 
     const body = await readBody(event)
 
-    if (body.article == null) {
-      throw new Error(ErrorsTemplates.DATA_NOT_PROVIDED)
+    if (body.thread == null) {
+        throw new Error(ErrorsTemplates.DATA_NOT_PROVIDED)
     }
 
-    await articleService.upvoteArticle(user.xId, body.article)
+    await threadsService.deleteThread(user.xId, body.thread)
   } catch (e) {
     return e
   }

@@ -1,5 +1,5 @@
 export interface IBaseUser {
     id: number,
     handle: string,
-    avatar?: string
+    avatar: string | null
 }

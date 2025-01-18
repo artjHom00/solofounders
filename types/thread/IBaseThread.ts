@@ -6,8 +6,6 @@ export interface IBaseThread {
     articleId: number,
     content: string,
     points: number,
-    createdAt: string,
-    replyTo?: number,
-    hasUpvoted?: boolean,
-    user: IBaseUser
+    createdAt: Date,
+    replyTo: number | null,
 }

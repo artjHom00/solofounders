@@ -1,6 +1,7 @@
 import { randomInt } from 'crypto'
 import { desc } from 'drizzle-orm'
 import { tables, useDrizzle } from '../utils/drizzle'
+import { ErrorsTemplates } from '~/utils/ErrorsTemplates'
 
 class ArticlesStatisticsService {
   // public articlesIdsLeaderboardSnapshot: number[] = []
@@ -27,7 +28,7 @@ class ArticlesStatisticsService {
       })
 
       if (article == null) {
-        throw new Error('ARTICLE_NOT_FOUND')
+        throw new Error(ErrorsTemplates.ARTICLE_NOT_FOUND)
       }
 
       const { views, points } = this._articlesStatisticsToUpdate[Number(articleId)]
@@ -60,7 +61,7 @@ class ArticlesStatisticsService {
       })
 
       if (article == null) {
-        throw new Error('ARTICLE_NOT_FOUND')
+        throw new Error(ErrorsTemplates.ARTICLE_NOT_FOUND)
       }
 
       this._articlesStatisticsToUpdate[articleId] = {

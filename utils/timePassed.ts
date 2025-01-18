@@ -1,3 +1,3 @@
-export const timePassed = (val: string) => {
+export const timePassed = (val: Date) => {
     return Date.now() - new Date(val).getTime()
 }

@@ -3,13 +3,14 @@ import { byIdSchema } from '../../validation/byId'
 import { bySlugSchema } from '../../validation/bySlug'
 import { SessionUser } from '../../types/SessionUser'
 import { IArticle } from '~/types/article/IArticle'
+import { ErrorsTemplates } from '~/utils/ErrorsTemplates'
 
 export default defineEventHandler(async (event) => {
   try {
     const session = await getUserSession(event)
 
     if (session.user == null) {
-      throw new Error('NOT_AUTHORIZED')
+      throw new Error(ErrorsTemplates.NOT_AUTHORIZED)
     }
 
     const user = session.user as SessionUser
@@ -17,7 +18,7 @@ export default defineEventHandler(async (event) => {
     const body = await readBody(event)
 
     if (body.article == null) {
-      throw new Error('ARTICLE_NOT_PROVIDED')
+      throw new Error(ErrorsTemplates.DATA_NOT_PROVIDED)
     }
 
     await articleService.deleteArticle(user.xId, body.article)

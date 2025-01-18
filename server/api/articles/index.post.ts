@@ -1,3 +1,4 @@
+import { ErrorsTemplates } from '~/utils/ErrorsTemplates'
 import articleService from '../../services/articles'
 import { SessionUser } from '../../types/SessionUser'
 
@@ -6,7 +7,7 @@ export default defineEventHandler(async (event) => {
     const session = await getUserSession(event)
 
     if (session.user == null) {
-      throw new Error('NOT_AUTHORIZED')
+      throw new Error(ErrorsTemplates.NOT_AUTHORIZED)
     }
 
     const user = session.user as SessionUser
@@ -14,11 +15,11 @@ export default defineEventHandler(async (event) => {
     const body = await readBody(event)
 
     if (body.content == null) {
-      throw new Error('CONTENT_NOT_PROVIDED')
+      throw new Error(ErrorsTemplates.DATA_NOT_PROVIDED)
     }
 
     if (body.name == null || body.name === '') {
-      throw new Error('ARTICLE_NAME_NOT_PROVIDED')
+      throw new Error(ErrorsTemplates.DATA_NOT_PROVIDED)
     }
 
     const createdUrl = await articleService.createArticle(user.xId, body.name, body.content)
