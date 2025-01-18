@@ -1,11 +1,11 @@
-import type { IBaseUser } from "../user/IBaseUser";
-
-export interface IBaseThread {
+export interface IThreadsByArticleResponse {
     id: number,
     userId: number,
     articleId: number,
     content: string,
     points: number,
-    createdAt: string | Date,
+    createdAt: string,
     replyTo: number | null,
+    hasUpvoted: boolean,
+    isAuthor: boolean,
 }

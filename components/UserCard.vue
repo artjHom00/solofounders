@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import type { IBaseUser } from '../types/user/IBaseUser';
 import type { IUser } from '../types/user/IUser';
+import Avatar from 'vue-boring-avatars'
+
 
 type props = {
     user: IBaseUser | IUser,

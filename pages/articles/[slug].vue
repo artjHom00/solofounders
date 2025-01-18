@@ -1,14 +1,10 @@
 <script lang="ts" setup>
 
 import { useToast } from 'vue-toastification'
-import Avatar from 'vue-boring-avatars'
 import ArticleMarkdownRenderer from '../../components/Article/ArticleMarkdownRenderer.vue'
 import type { IArticleBySlugResponse } from '../../types/responses/IArticleBySlugResponse'
 import ArticleDeleteSuccessToast from '../../components/Toasts/articles/ArticleDeleteSuccessToast.vue'
 import ThreadsView from '../../components/Article/Threads/ThreadsView.vue'
-import type { IBaseThread } from '../../types/thread/IBaseThread'
-import type { IThread } from '../../types/thread/IThread'
-import type { IThreadExtended } from '../../types/thread/IThreadExtended'
 
 const route = useRoute()
 const toast = useToast()

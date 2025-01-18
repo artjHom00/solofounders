@@ -13,7 +13,7 @@ export default defineNuxtConfig({
     families: {
       Inter: '100..900'
     }
-  }], 'nuxt-time', 'nuxt-auth-utils', '@nuxt-alt/markdown-it'],
+  }], 'nuxt-time', 'nuxt-auth-utils', '@nuxt-alt/markdown-it', '@nuxtjs/seo'],
 
   routeRules: {
     '/': { isr: 60 }
@@ -25,7 +25,6 @@ export default defineNuxtConfig({
       autoprefixer: {}
     }
   },
-
   colorMode: {
     classSuffix: '',
     preference: 'system',
@@ -35,5 +34,11 @@ export default defineNuxtConfig({
     runtime: true // Support `$md()`
   },
 
-  compatibilityDate: '2024-12-22'
+  compatibilityDate: '2024-12-22',
+  site: {
+    url: 'https://solofounders.xyz',
+    name: 'Solofounders',
+    description: 'The largest platform for indie hackers and solo entrepreneurs creating digital products. Share your journey, discover lifehacks, explore success stories, and connect with a community of creators building innovative SaaS and digital solutions.',
+    defaultLocale: 'en', // not needed if you have @nuxtjs/i18n installed
+  }
 })
