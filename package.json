@@ -20,6 +20,7 @@
     "@tiptap/starter-kit": "^2.10.4",
     "@tiptap/vue-3": "^2.10.4",
     "@vavt/cm-extension": "^1.6.0",
+    "@vercel/analytics": "^1.4.1",
     "drizzle-orm": "^0.38.2",
     "markdown-it": "^14.1.0",
     "md-editor-v3": "^5.2.1",
