@@ -6,6 +6,7 @@ import ThreadTab from './ThreadTab.vue';
 import { useToast } from 'vue-toastification';
 import ThreadDeleteSuccessToast from '../../Toasts/threads/ThreadDeleteSuccessToast.vue'
 import ThreadSubmitSuccessToast from '../../Toasts/threads/ThreadSubmitSuccessToast.vue';
+import ThreadUpvoteSuccessToast from '../../Toasts/threads/ThreadUpvoteSuccessToast.vue';
 
 type props = {
   articleId: number,
@@ -73,6 +74,8 @@ const handleThreadUpvote = async (threadId: number) => {
 
   thread.hasUpvoted = true
   thread.points += 1
+
+  toast.success(ThreadUpvoteSuccessToast)
 }
 
 const replyTo: Ref<IThreadExtended | null> = ref(null)
