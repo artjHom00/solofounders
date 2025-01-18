@@ -3,8 +3,8 @@ import { MdEditor, config, type Footers, type ToolbarNames } from 'md-editor-v3'
 
 import 'md-editor-v3/lib/style.css'
 import { useToast } from 'vue-toastification'
-import SubmitSuccessToast from './Toasts/SubmitSuccessToast.vue'
-import SubmitErrorToast from './Toasts/SubmitErrorToast.vue'
+import ArticleSubmitErrorToast from './Toasts/articles/ArticleSubmitErrorToast.vue'
+import ArticleSubmitSuccessToast from './Toasts/articles/ArticleSubmitSuccessToast.vue'
 
 const initialHeadingPlaceholder = "Heading, e.g. 🚀 How we've scaled our AI SaaS from $0 to $50k MRR in 4 months!"
 const initialEditorText = `## 👋 Welcome to Solofounders Editor
@@ -43,10 +43,10 @@ const submitHandle = async () => {
       }
     })
 
-    toast.success(SubmitSuccessToast)
+    toast.success(ArticleSubmitSuccessToast)
     navigateTo('/articles/' + url)
   } catch (e) {
-    toast.error(SubmitErrorToast)
+    toast.error(ArticleSubmitErrorToast)
   }
 }
 </script>

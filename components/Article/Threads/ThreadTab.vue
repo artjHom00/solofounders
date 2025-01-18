@@ -36,9 +36,9 @@ const replies = computed(() =>
           </button>
           <button class="btn dark:btn-secondary btn-sm" :disabled="isAuthorized === false"
             @click="$emit('reply', thread.id)">
-            <i class="fa-regular fa-paper-plane" />
+            <i class="fa-regular fa-message" />
           </button>
-          <button class="btn dark:btn-secondary btn-sm" v-if="thread.isAuthor === true"
+          <button v-if="thread.isAuthor === true" class="btn dark:btn-secondary btn-sm"
             @click="$emit('delete', thread.id)">
             <i class="fa-regular fa-trash-can"></i>
           </button>
@@ -46,9 +46,8 @@ const replies = computed(() =>
       </div>
     </div>
 
-    <!-- Replies -->
     <div class="ml-4 mt-4" v-if="replies.length">
-      <ThreadBlock :is-authorized="isAuthorized" v-for="reply in replies" :key="reply.id" :thread="reply"
+      <ThreadTab :is-authorized="isAuthorized" v-for="reply in replies" :key="reply.id" :thread="reply"
         :threads="threads" @upvote="$emit('upvote', reply.id)" @reply="$emit('reply', reply.id)"
         @delete="$emit('delete', reply.id)" />
     </div>

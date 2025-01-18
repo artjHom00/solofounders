@@ -5,7 +5,7 @@ export interface IBaseArticle {
     points: number;
     views: number;
     id: number;
-    createdAt: string;
+    createdAt: Date;
     authorId: number | null;
     slug: string;
     author: IUser

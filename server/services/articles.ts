@@ -53,18 +53,6 @@ class ArticleService {
     const article = await useDrizzle().query.articles.findFirst({
       with: {
         author: true,
-        threads: {
-          with: {
-            user: {
-              columns: {
-                id: true,
-                handle: true,
-                avatar: true,
-              }
-            },
-          },
-          orderBy: [desc(sql`CASE WHEN ${tables.threads.replyTo} IS NULL THEN ${tables.threads.points} ELSE NULL END`), asc(tables.threads.createdAt)] // gpt generated
-        },
       },
       where: eq(tables.articles.slug, slug),
     })
@@ -85,8 +73,6 @@ class ArticleService {
           eq(tables.articleUpvotes.articleId, article.id)
         )
       })
-
-      article.threads = await threadsService.extendThreadsAttributes(user.id, article.threads)
 
       hasUpvotedArticle = (usersUpvote != null)
       isArticleAuthor = (article.authorId === user.id)

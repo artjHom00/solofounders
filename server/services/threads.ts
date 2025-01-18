@@ -1,4 +1,4 @@
-import { inArray } from 'drizzle-orm'
+import { asc, desc, inArray } from 'drizzle-orm'
 import { NewUser } from '../database/tables/users'
 import { XAuthUser } from '../types/XAuthEvent'
 import { tables, useDrizzle } from '../utils/drizzle'
@@ -8,7 +8,46 @@ import { IThreadExtended } from '~/types/thread/IThreadExtended'
 import { ErrorsTemplates } from '~/utils/ErrorsTemplates'
 
 class ThreadsService {
-  async createThread (articleId: number, userXId: string, content: string, replyTo?: number) {
+  async getThreadsByArticleId(articleId: number, userXId?: string) {
+    const article = await useDrizzle().query.articles.findFirst({
+      with: {
+        author: true,
+      },
+      where: eq(tables.articles.id, articleId),
+    })
+
+    if (article == null) {
+      throw new Error(ErrorsTemplates.ARTICLE_NOT_FOUND)
+    }
+
+    const threads = await useDrizzle().query.threads.findMany({
+      with: {
+        user: {
+          columns: {
+            id: true,
+            handle: true,
+            avatar: true,
+          }
+        },
+      },
+      orderBy: [desc(sql`CASE WHEN ${tables.threads.replyTo} IS NULL THEN ${tables.threads.points} ELSE NULL END`), asc(tables.threads.createdAt)], // gpt generated
+      where: eq(tables.threads.articleId, articleId),
+    })
+
+    if (userXId != null) {
+      const user = await userService.getOrThrowUserByXId(userXId)
+
+      const extendedThreads = await this.extendThreadsAttributes(user.id, threads)
+      return extendedThreads
+    } else {
+      return threads.map(thread => { 
+        return { ...thread, hasUpvoted: false, isAuthor: false } 
+      })
+    }
+
+  }
+
+  async createThread(articleId: number, userXId: string, content: string, replyTo?: number) {
     const article = await useDrizzle().query.articles.findFirst({
       where: eq(tables.articles.id, articleId)
     })
@@ -29,12 +68,12 @@ class ThreadsService {
         throw new Error(ErrorsTemplates.THREAD_NOT_FOUND)
       }
 
-      if(thread.replyTo != null) {
+      if (thread.replyTo != null) {
         replyThreadId = thread.replyTo
       }
     }
 
-    const [{createdThreadId}] = await useDrizzle().insert(tables.threads).values({
+    const [{ createdThreadId }] = await useDrizzle().insert(tables.threads).values({
       content,
       userId: user.id,
       articleId: article.id,
@@ -48,7 +87,7 @@ class ThreadsService {
       }
     })
 
-    if(createdThread == null) {
+    if (createdThread == null) {
       throw new Error(ErrorsTemplates.INTERNAL_ERROR)
     }
 
@@ -57,7 +96,7 @@ class ThreadsService {
     return extendedThread
   }
 
-  async upvoteThread (userXId: string, threadId: number) {
+  async upvoteThread(userXId: string, threadId: number) {
     await useDrizzle().transaction(async (tx) => {
       try {
         const user = await userService.getOrThrowUserByXId(userXId)
@@ -91,7 +130,7 @@ class ThreadsService {
     })
   }
 
-  async deleteThread (userXId: string, threadId: number) {
+  async deleteThread(userXId: string, threadId: number) {
     const user = await userService.getOrThrowUserByXId(userXId)
 
     const [thread] = await useDrizzle().select().from(tables.threads).where(eq(tables.threads.id, threadId))
@@ -121,7 +160,7 @@ class ThreadsService {
         isAuthor: userId === thread.userId
       }
     })
-    
+
     return extendedThreads
   }
 

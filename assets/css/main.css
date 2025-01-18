@@ -6,6 +6,10 @@
     font-family: "Inter", serif;
 }
 
+::selection {
+    background-color: #52ca7280;
+}
+
 .Vue-Toastification__toast--success {
     background: oklch(var(--p)) !important;
 }

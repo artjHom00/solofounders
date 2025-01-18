@@ -1,6 +1,6 @@
 import type { IThread } from "./IThread";
 
 export interface IThreadExtended extends IThread {
-    hasUpvoted?: boolean,
+    hasUpvoted: boolean,
     isAuthor: boolean,
 }

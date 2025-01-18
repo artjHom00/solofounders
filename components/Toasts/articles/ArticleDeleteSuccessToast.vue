@@ -6,6 +6,6 @@
     <h5 class="font-semibold">
       Success!
     </h5>
-    <span class="text-sm">The article have been deleted successfully</span>
+    <span class="text-sm">The article has been deleted successfully</span>
   </div>
 </template>
