@@ -2,8 +2,19 @@
 export default defineNuxtConfig({
   app: {
     head: {
+      // because of nuxt-seo, somehow the 'script' is not recognizable
+      // @ts-ignore
       script: [{ src: 'https://kit.fontawesome.com/7db26f83a2.js', crossorigin: 'anonymous' }]
     }
+  },
+  nitro: {
+    experimental: {
+      tasks: true
+    },
+    scheduledTasks: {
+      '0 */6 * * *': ['analytics:up'],
+      '* * * * *': ['analytics:sync'],
+    },
   },
   build: {
     transpile: ['vue-toastification']

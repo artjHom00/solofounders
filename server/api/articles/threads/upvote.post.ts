@@ -1,6 +1,6 @@
 import { ErrorsTemplates } from '~/utils/ErrorsTemplates'
 import threadsService from '../../../services/threads'
-import { SessionUser } from '../../../types/SessionUser'
+import { SessionUser } from '../../../../types/SessionUser'
 
 export default defineEventHandler(async (event) => {
   try {

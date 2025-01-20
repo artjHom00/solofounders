@@ -1,11 +1,13 @@
 import { asc, desc, inArray } from 'drizzle-orm'
 import { NewUser } from '../database/tables/users'
-import { XAuthUser } from '../types/XAuthEvent'
+import { XAuthUser } from '../../types/XAuthEvent'
 import { tables, useDrizzle } from '../utils/drizzle'
 import userService from './users'
 import { IThread } from '~/types/thread/IThread'
 import { IThreadExtended } from '~/types/thread/IThreadExtended'
 import { ErrorsTemplates } from '~/utils/ErrorsTemplates'
+import notificationsService from './notifications'
+import { NotificationTypes } from '~/types/Notification'
 
 class ThreadsService {
   async getThreadsByArticleId(articleId: number, userXId?: string) {
@@ -124,6 +126,7 @@ class ThreadsService {
         })
 
         await tx.update(tables.threads).set({ points: thread.points + 1 }).where(eq(tables.threads.id, threadId))
+        await notificationsService.pushNotification(NotificationTypes.UPVOTE, thread.articleId)
       } catch (e) {
         throw e
       }

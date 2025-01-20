@@ -1,4 +1,4 @@
-import { SessionUser } from '../../../types/SessionUser'
+import { SessionUser } from '../../../../types/SessionUser'
 import { IArticle } from '~/types/article/IArticle'
 import threadsService from '../../../services/threads'
 import { ErrorsTemplates } from '~/utils/ErrorsTemplates'

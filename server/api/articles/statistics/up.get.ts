@@ -1,4 +1,4 @@
-import { SessionUser } from '../../../types/SessionUser'
+import { SessionUser } from '../../../../types/SessionUser'
 import articlesStatisticsService from '../../../services/articlesStatistics'
 import { IArticle } from '~/types/article/IArticle'
 

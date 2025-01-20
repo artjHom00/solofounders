@@ -1,7 +1,7 @@
 import articleService from '../../services/articles'
 import { byIdSchema } from '../../validation/byId'
 import { bySlugSchema } from '../../validation/bySlug'
-import { SessionUser } from '../../types/SessionUser'
+import { SessionUser } from '../../../types/SessionUser'
 import { IArticle } from '~/types/article/IArticle'
 import { ErrorsTemplates } from '~/utils/ErrorsTemplates'
 

@@ -1,5 +1,5 @@
   import { byIdSchema } from '../../../validation/byId'
-import { SessionUser } from '../../../types/SessionUser'
+import { SessionUser } from '../../../../types/SessionUser'
 import threadsService from '../../../services/threads'
 
 export default defineEventHandler(async (event) => {

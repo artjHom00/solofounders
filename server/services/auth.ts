@@ -1,5 +1,5 @@
 import { NewUser } from '../database/tables/users'
-import { XAuthUser } from '../types/XAuthEvent'
+import { XAuthUser } from '../../types/XAuthEvent'
 import { tables, useDrizzle } from '../utils/drizzle'
 
 class AuthService {

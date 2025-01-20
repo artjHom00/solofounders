@@ -1,5 +1,5 @@
 import authService from '../../services/auth'
-import { XAuthToken, XAuthUser } from '../../types/XAuthEvent'
+import { XAuthToken, XAuthUser } from '../../../types/XAuthEvent'
 export default defineOAuthXEventHandler({
   async onSuccess (event, { user, tokens }) {
     user = user as XAuthUser
