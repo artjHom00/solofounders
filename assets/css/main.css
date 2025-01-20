@@ -17,3 +17,7 @@
 .Vue-Toastification__toast--error {
     background: #ca5252 !important;
 }
+
+.router-link-active {
+    color: inherit !important
+}

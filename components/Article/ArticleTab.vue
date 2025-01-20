@@ -21,9 +21,9 @@ const formattedPoints = computed(() => {
 
 <template>
   <NuxtLink :to="`/articles/${slug}`" class="flex items-center gap-4 hover:underline">
-    <div>
+    <!-- <div>
       <i class="fa-solid fa-circle text-primary animate-pulse" />
-    </div>
+    </div> -->
     <div>
       <p class="font-bold text-3xl w-20 overflow-hidden text-left">
         {{ formattedPoints }}

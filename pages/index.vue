@@ -3,7 +3,7 @@ import LatestArticlesView from '../components/Article/LatestArticlesView.vue'
 </script>
 
 <template>
-  <div class="container mx-auto">
+  <div class="mx-auto">
     <div class="mt-8">
       <h1 class="mt-8 text-3xl font-black">
         Featured Stories
