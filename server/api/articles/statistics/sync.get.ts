@@ -10,12 +10,7 @@ export default defineEventHandler(async (event) => {
       throw new Error('Unauthorized')
     }
 
-    const session = await getUserSession(event)
-    const user = session.user as SessionUser | undefined
-
-    const article = await articlesStatisticsService.syncWithDb()
-
-    return article
+    await articlesStatisticsService.syncWithDb()
   } catch (e) {
     return e
   }
