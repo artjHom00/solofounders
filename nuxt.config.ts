@@ -24,7 +24,7 @@ export default defineNuxtConfig({
     families: {
       Inter: '100..900'
     }
-  }], 'nuxt-time', 'nuxt-auth-utils', '@nuxt-alt/markdown-it', '@nuxtjs/seo'],
+  }], 'nuxt-time', 'nuxt-auth-utils', '@nuxt-alt/markdown-it', '@nuxtjs/seo', '@pinia/nuxt'],
 
   routeRules: {
     '/': { isr: 60 }

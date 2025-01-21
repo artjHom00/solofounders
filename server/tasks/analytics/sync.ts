@@ -6,7 +6,6 @@ export default defineTask({
         description: "Sync cached analytics with DB",
     },
     async run() {
-        console.log(new Date().toLocaleString())
         try {
             await articlesStatisticsService.syncWithDb()
 
