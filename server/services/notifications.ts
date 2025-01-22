@@ -1,10 +1,11 @@
-import { randomInt } from 'crypto'
-import { desc } from 'drizzle-orm'
-import { tables, useDrizzle } from '../utils/drizzle'
-import { ErrorsTemplates } from '~/utils/ErrorsTemplates'
+import { TimeConstants } from '~/utils/TimeConstants'
 import { EventNotification, NotificationTypes } from '../../types/Notification'
 
 class NotificationsService {
+
+  constructor() {
+    this.startClearingNotifications()
+  }
 
   public notifications: EventNotification[] = []
 
@@ -15,8 +16,10 @@ class NotificationsService {
     })
   }
 
-  async clearNotifications() {
-    this.notifications = []
+  startClearingNotifications() {
+    setInterval(() => {
+      this.notifications = []
+    }, 3 * TimeConstants.MS_IN_SEC)
   }
 }
 
