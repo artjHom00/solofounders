@@ -23,6 +23,7 @@ const formattedPoints = computed(() => {
 <template>
   <NuxtLink :to="`/articles/${slug}`" class="flex items-center gap-4 hover:underline transition-all duration-200">
     <div
+    class="transition-all duration-500"
       :class="notificationsStore.currentNotifications.find(notification => notification.id === id) ? 'opacity-100' : 'opacity-0'">
       <i class="fa-solid fa-circle text-[7px] text-primary" />
     </div>
@@ -45,4 +46,5 @@ const formattedPoints = computed(() => {
   </NuxtLink>
 </template>
 
-<style></style>
+<style>
+</style>
