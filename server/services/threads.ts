@@ -93,6 +93,7 @@ class ThreadsService {
     }
 
     const [extendedThread] = await this.extendThreadsAttributes(user.id, [createdThread])
+    await notificationsService.pushNotification(NotificationTypes.NEW_THREAD, createdThread.articleId)
 
     return extendedThread
   }

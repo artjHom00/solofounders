@@ -1,4 +1,5 @@
 export enum NotificationTypes {
+    NEW_THREAD = 'new thread',
     UPVOTE = 'upvote'
 }
 
