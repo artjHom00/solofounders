@@ -21,9 +21,10 @@ const formattedPoints = computed(() => {
 </script>
 
 <template>
-  <NuxtLink :to="`/articles/${slug}`" class="flex items-center gap-4 hover:underline">
-    <div v-show="notificationsStore.currentNotifications.find(notification => notification.id === id)">
-      <i class="fa-solid fa-circle text-[7px] text-primary animate-ping" />
+  <NuxtLink :to="`/articles/${slug}`" class="flex items-center gap-4 hover:underline transition-all duration-200">
+    <div
+      :class="notificationsStore.currentNotifications.find(notification => notification.id === id) ? 'opacity-100' : 'opacity-0'">
+      <i class="fa-solid fa-circle text-[7px] text-primary" />
     </div>
     <div>
       <p class="font-bold text-3xl w-20 overflow-hidden text-left">
