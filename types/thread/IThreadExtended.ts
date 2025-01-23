@@ -1,4 +1,4 @@
-import type { IThread } from "./IThread";
+import type { IThread } from './IThread'
 
 export interface IThreadExtended extends IThread {
     hasUpvoted: boolean,

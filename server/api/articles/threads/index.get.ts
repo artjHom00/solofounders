@@ -1,4 +1,4 @@
-  import { byIdSchema } from '../../../validation/byId'
+import { byIdSchema } from '../../../validation/byId'
 import { SessionUser } from '../../../../types/SessionUser'
 import threadsService from '../../../services/threads'
 

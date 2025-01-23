@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { TimeConstants } from '../../utils/TimeConstants';
+import { TimeConstants } from '../../utils/TimeConstants'
 import type { IBaseArticle } from '../../types/article/IBaseArticle'
 
 type props = IBaseArticle

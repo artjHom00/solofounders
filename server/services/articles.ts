@@ -52,9 +52,9 @@ class ArticleService {
   async getArticleBySlug (slug: string, userXId?: string) {
     const article = await useDrizzle().query.articles.findFirst({
       with: {
-        author: true,
+        author: true
       },
-      where: eq(tables.articles.slug, slug),
+      where: eq(tables.articles.slug, slug)
     })
 
     if (article == null) {
@@ -63,7 +63,7 @@ class ArticleService {
 
     let hasUpvotedArticle: boolean = false
     let isArticleAuthor: boolean = false
-    
+
     if (userXId != null) {
       const user = await userService.getOrThrowUserByXId(userXId)
 

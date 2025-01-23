@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 const { loggedIn, user, session, fetch, clear } = useUserSession()
 
-const notificationsStore = useNotificationsStore();
+const notificationsStore = useNotificationsStore()
 
 onMounted(() => {
-  notificationsStore.startPolling();
-});
+  notificationsStore.startPolling()
+})
 </script>
 
 <template>

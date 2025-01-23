@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from 'vue'
+import { useToast } from 'vue-toastification'
 import type { IBaseThread } from '../../../types/thread/IBaseThread'
-import type { IThreadExtended } from '../../../types/thread/IThreadExtended';
-import ThreadTab from './ThreadTab.vue';
-import { useToast } from 'vue-toastification';
+import type { IThreadExtended } from '../../../types/thread/IThreadExtended'
 import ThreadDeleteSuccessToast from '../../Toasts/threads/ThreadDeleteSuccessToast.vue'
-import ThreadSubmitSuccessToast from '../../Toasts/threads/ThreadSubmitSuccessToast.vue';
-import ThreadUpvoteSuccessToast from '../../Toasts/threads/ThreadUpvoteSuccessToast.vue';
+import ThreadSubmitSuccessToast from '../../Toasts/threads/ThreadSubmitSuccessToast.vue'
+import ThreadUpvoteSuccessToast from '../../Toasts/threads/ThreadUpvoteSuccessToast.vue'
+import ThreadTab from './ThreadTab.vue'
 
 type props = {
   articleId: number,
@@ -38,13 +38,13 @@ const handleThreadDelete = async (confirm: boolean, threadId: number | null) => 
         }
       })
 
-      threads.value = threads.value.filter((thread) => thread.id !== threadId)
+      threads.value = threads.value.filter(thread => thread.id !== threadId)
       deleteThreadId.value = null
 
       toast.success(ThreadDeleteSuccessToast)
       modal.close()
 
-      break;
+      break
     case false:
       deleteThreadId.value = threadId
 
@@ -65,7 +65,7 @@ const handleThreadUpvote = async (threadId: number) => {
     }
   })
 
-  const thread = threads.value.find((thread) => thread.id === threadId)
+  const thread = threads.value.find(thread => thread.id === threadId)
 
   if (thread == null) {
     // todo alert error
@@ -106,7 +106,6 @@ const handleThreadReply = async () => {
   } catch (e: any) {
     return toast.error(e.data?.message ?? 'Error Occured')
   }
-
 }
 
 </script>
@@ -116,25 +115,44 @@ const handleThreadReply = async () => {
     <AuthState>
       <template #default="{ loggedIn, clear }">
         <div>
-          <DeleteConfirmationModal :id="deleteConfirmationModalId"
-            @confirm="handleThreadDelete(true, deleteThreadId)" />
-          <h2 class="mb-4 text-lg font-semibold">Threads</h2>
+          <DeleteConfirmationModal
+            :id="deleteConfirmationModalId"
+            @confirm="handleThreadDelete(true, deleteThreadId)"
+          />
+          <h2 class="mb-4 text-lg font-semibold">
+            Threads
+          </h2>
           <div class="mb-4 flex flex-col gap-2">
             <div class="flex gap-4">
-              <input v-model="replyContent"
+              <input
+                v-model="replyContent"
                 class="input border-[#dddddd] dark:input-bordered bg-light placeholder:text-[#3f4a54a2] dark:placeholder:text-[#999] dark:bg-dark-secondary dark:focus:bg-dark-secondary w-full"
-                placeholder="Add a comment" :disabled="loggedIn === false" type="text">
-              <button class="btn dark:btn-secondary" :disabled="loggedIn === false"
-                @click="handleThreadReply">Submit</button>
+                placeholder="Add a comment"
+                :disabled="loggedIn === false"
+                type="text"
+              >
+              <button
+                class="btn dark:btn-secondary"
+                :disabled="loggedIn === false"
+                @click="handleThreadReply"
+              >
+                Submit
+              </button>
             </div>
-            <p v-if="replyTo" class="text-sm">Replying to: {{ replyTo.user.handle }}</p>
+            <p v-if="replyTo" class="text-sm">
+              Replying to: {{ replyTo.user.handle }}
+            </p>
           </div>
 
-          <div v-for="thread in threads.filter((t) => t.replyTo === null)" :key="thread.id" v-if="threads">
-            <ThreadTab :thread="thread" :threads="threads" :is-authorized="loggedIn === true"
+          <div v-for="thread in threads.filter((t) => t.replyTo === null)" v-if="threads" :key="thread.id">
+            <ThreadTab
+              :thread="thread"
+              :threads="threads"
+              :is-authorized="loggedIn === true"
               @upvote="(threadId: number) => handleThreadUpvote(threadId)"
               @reply="(threadId: number) => replyTo = threads?.find((thread) => thread.id === threadId) ?? null"
-              @delete="(threadId: number) => handleThreadDelete(false, threadId)" />
+              @delete="(threadId: number) => handleThreadDelete(false, threadId)"
+            />
           </div>
         </div>
       </template>

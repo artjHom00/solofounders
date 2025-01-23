@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import type { ILatestArticlesResponse } from '../../types/responses/ILatestArticlesResponse'
+import type { EventNotification } from '../../types/Notification'
+import { TimeConstants } from '../../utils/TimeConstants'
 import ArticleTab from '~/components/Article/ArticleTab.vue'
 import Pagination from '~/components/Pagination.vue'
-import type { EventNotification } from '../../types/Notification';
-import { TimeConstants } from '../../utils/TimeConstants';
 
 const props = defineProps<{
   initialPage?: number;

@@ -1,9 +1,8 @@
-import { TimeConstants } from '~/utils/TimeConstants'
 import { EventNotification, NotificationTypes } from '../../types/Notification'
+import { TimeConstants } from '~/utils/TimeConstants'
 
 class NotificationsService {
-
-  constructor() {
+  constructor () {
     this.startClearingNotifications()
   }
 
@@ -11,12 +10,12 @@ class NotificationsService {
 
   async pushNotification (type: NotificationTypes, id: number) {
     this.notifications.push({
-        type: type,
-        id: id,
+      type,
+      id
     })
   }
 
-  startClearingNotifications() {
+  startClearingNotifications () {
     setInterval(() => {
       this.notifications = []
     }, 3 * TimeConstants.MS_IN_SEC)

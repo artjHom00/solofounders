@@ -1,5 +1,5 @@
-import { ErrorsTemplates } from '~/utils/ErrorsTemplates'
 import { tables, useDrizzle } from '../utils/drizzle'
+import { ErrorsTemplates } from '~/utils/ErrorsTemplates'
 
 class UserService {
   async getOrThrowUserByXId (XId: string) {

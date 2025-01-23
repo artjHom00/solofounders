@@ -3,19 +3,19 @@ import { NewUser } from '../database/tables/users'
 import { XAuthUser } from '../../types/XAuthEvent'
 import { tables, useDrizzle } from '../utils/drizzle'
 import userService from './users'
+import notificationsService from './notifications'
 import { IThread } from '~/types/thread/IThread'
 import { IThreadExtended } from '~/types/thread/IThreadExtended'
 import { ErrorsTemplates } from '~/utils/ErrorsTemplates'
-import notificationsService from './notifications'
 import { NotificationTypes } from '~/types/Notification'
 
 class ThreadsService {
-  async getThreadsByArticleId(articleId: number, userXId?: string) {
+  async getThreadsByArticleId (articleId: number, userXId?: string) {
     const article = await useDrizzle().query.articles.findFirst({
       with: {
-        author: true,
+        author: true
       },
-      where: eq(tables.articles.id, articleId),
+      where: eq(tables.articles.id, articleId)
     })
 
     if (article == null) {
@@ -28,12 +28,12 @@ class ThreadsService {
           columns: {
             id: true,
             handle: true,
-            avatar: true,
+            avatar: true
           }
-        },
+        }
       },
       orderBy: [desc(sql`CASE WHEN ${tables.threads.replyTo} IS NULL THEN ${tables.threads.points} ELSE NULL END`), asc(tables.threads.createdAt)], // gpt generated
-      where: eq(tables.threads.articleId, articleId),
+      where: eq(tables.threads.articleId, articleId)
     })
 
     if (userXId != null) {
@@ -42,14 +42,13 @@ class ThreadsService {
       const extendedThreads = await this.extendThreadsAttributes(user.id, threads)
       return extendedThreads
     } else {
-      return threads.map(thread => { 
-        return { ...thread, hasUpvoted: false, isAuthor: false } 
+      return threads.map((thread) => {
+        return { ...thread, hasUpvoted: false, isAuthor: false }
       })
     }
-
   }
 
-  async createThread(articleId: number, userXId: string, content: string, replyTo?: number) {
+  async createThread (articleId: number, userXId: string, content: string, replyTo?: number) {
     const article = await useDrizzle().query.articles.findFirst({
       where: eq(tables.articles.id, articleId)
     })
@@ -60,7 +59,7 @@ class ThreadsService {
 
     const user = await userService.getOrThrowUserByXId(userXId)
 
-    let replyThreadId = replyTo;
+    let replyThreadId = replyTo
     if (replyTo != null) {
       const thread = await useDrizzle().query.threads.findFirst({
         where: eq(tables.threads.id, replyTo)
@@ -80,7 +79,7 @@ class ThreadsService {
       userId: user.id,
       articleId: article.id,
       replyTo: replyThreadId
-    }).returning({ createdThreadId: tables.threads.id }).execute();
+    }).returning({ createdThreadId: tables.threads.id }).execute()
 
     const createdThread = await useDrizzle().query.threads.findFirst({
       where: eq(tables.threads.id, createdThreadId),
@@ -98,7 +97,7 @@ class ThreadsService {
     return extendedThread
   }
 
-  async upvoteThread(userXId: string, threadId: number) {
+  async upvoteThread (userXId: string, threadId: number) {
     await useDrizzle().transaction(async (tx) => {
       try {
         const user = await userService.getOrThrowUserByXId(userXId)
@@ -133,7 +132,7 @@ class ThreadsService {
     })
   }
 
-  async deleteThread(userXId: string, threadId: number) {
+  async deleteThread (userXId: string, threadId: number) {
     const user = await userService.getOrThrowUserByXId(userXId)
 
     const [thread] = await useDrizzle().select().from(tables.threads).where(eq(tables.threads.id, threadId))
@@ -148,7 +147,7 @@ class ThreadsService {
     await useDrizzle().delete(tables.threads).where(eq(tables.threads.id, threadId)).execute()
   }
 
-  async extendThreadsAttributes(userId: number, threads: IThread[]): Promise<IThreadExtended[]> {
+  async extendThreadsAttributes (userId: number, threads: IThread[]): Promise<IThreadExtended[]> {
     const threadsIds = threads.map(thread => thread.id)
 
     const userThreadsUpvotes = await useDrizzle().query.threadUpvotes.findMany({
@@ -166,7 +165,6 @@ class ThreadsService {
 
     return extendedThreads
   }
-
 }
 
 const threadsService = new ThreadsService()

@@ -1,4 +1,4 @@
-import type { IBaseUser } from "../user/IBaseUser";
+import type { IBaseUser } from '../user/IBaseUser'
 
 export interface IBaseThread {
     id: number,

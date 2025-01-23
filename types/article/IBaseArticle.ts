@@ -1,4 +1,4 @@
-import type { IUser } from "../user/IUser";
+import type { IUser } from '../user/IUser'
 
 export interface IBaseArticle {
     name: string | null;

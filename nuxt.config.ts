@@ -13,8 +13,8 @@ export default defineNuxtConfig({
     },
     scheduledTasks: {
       '0 */6 * * *': ['analytics:up'],
-      '* * * * *': ['analytics:sync'],
-    },
+      '* * * * *': ['analytics:sync']
+    }
   },
   build: {
     transpile: ['vue-toastification']
@@ -50,6 +50,6 @@ export default defineNuxtConfig({
     url: 'https://solofounders.xyz',
     name: 'Solofounders',
     description: 'The largest platform for indie hackers and solo entrepreneurs creating digital products. Share your journey, discover lifehacks, explore success stories, and connect with a community of creators building innovative SaaS and digital solutions.',
-    defaultLocale: 'en', // not needed if you have @nuxtjs/i18n installed
+    defaultLocale: 'en' // not needed if you have @nuxtjs/i18n installed
   }
 })

@@ -11,14 +11,20 @@ defineProps<props>()
     <div class="gap-10 justify-between items-center flex py-9">
       <div class="flex font-medium text-sm gap-10 items-center">
         <NuxtLink to="/">
-          <img v-if="$colorMode.unknown !== true" class="w-12"
-            :src="$colorMode.value === 'dark' ? '/logo-dark.svg' : '/logo.svg'" alt="logo">
+          <img
+            v-if="$colorMode.unknown !== true"
+            class="w-12"
+            :src="$colorMode.value === 'dark' ? '/logo-dark.svg' : '/logo.svg'"
+            alt="logo"
+          >
         </NuxtLink>
         <div class="hidden md:flex md:gap-10">
           <NuxtLink to="/" class="hover:underline">
             stories
           </NuxtLink>
-          <NuxtLink to="/" class="hover:underline">about us</NuxtLink>
+          <NuxtLink to="/" class="hover:underline">
+            about us
+          </NuxtLink>
         </div>
       </div>
       <div class="items-center hidden md:flex md:gap-10">
@@ -64,7 +70,9 @@ defineProps<props>()
             </NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/">about us</NuxtLink>
+            <NuxtLink to="/">
+              about us
+            </NuxtLink>
           </li>
           <li>
             <NuxtLink to="https://x.com/solofounders_" target="_blank">
@@ -75,10 +83,10 @@ defineProps<props>()
             <AuthState>
               <template #default="{ loggedIn }">
                 <NuxtLink v-if="loggedIn === true" to="/submit">
-                    submit yours
+                  submit yours
                 </NuxtLink>
                 <NuxtLink v-else to="/api/auth/x" target="_blank">
-                    auth via X
+                  auth via X
                 </NuxtLink>
               </template>
               <template #placeholder>

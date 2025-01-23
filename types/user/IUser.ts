@@ -1,4 +1,4 @@
-import type { IBaseUser } from "./IBaseUser";
+import type { IBaseUser } from './IBaseUser'
 
 export interface IUser extends IBaseUser {
     twitterId: string;
