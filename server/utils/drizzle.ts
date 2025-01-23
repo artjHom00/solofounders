@@ -11,6 +11,11 @@ export const createDatabaseConnection = () => {
     throw new Error('DATABASE_CONNECTION_URL_NOT_PROVIDED')
   }
 
+  logger.info({
+    topic: 'drizzle',
+    msg: "db connected"
+  });
+
   return drizzle(process.env.DATABASE_URL, { schema })
 }
 

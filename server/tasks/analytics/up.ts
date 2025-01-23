@@ -1,4 +1,5 @@
 import articlesStatisticsService from '../../services/articlesStatistics'
+import { logger } from '../../utils/winston'
 
 export default defineTask({
   meta: {
@@ -7,13 +8,27 @@ export default defineTask({
   },
   async run () {
     try {
+
+      logger.info({
+        topic: 'analytics:up',
+        msg: "starting"
+      });
+
       await articlesStatisticsService.upAllArticles()
 
+      logger.info({
+        topic: 'analytics:up',
+        msg: "done"
+      });
+      
       return {
         result: 'success'
       }
     } catch (e) {
-      // todo add log
+      logger.error({
+        topic: 'analytics:sync',
+        msg: e
+      })
       return {
         result: 'fail'
       }
