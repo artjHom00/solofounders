@@ -12,7 +12,8 @@ const handleThemeSwitch = () => {
 <template>
   <ClientOnly>
     <button class="btn btn-ghost" @click="handleThemeSwitch">
-      {{ $colorMode.value }}
+      <i class="fa-regular fa-moon w-4" v-if="$colorMode.value === 'dark'"></i>
+      <i class="fa-regular fa-sun w-4" v-else></i>
     </button>
   </ClientOnly>
 </template>
