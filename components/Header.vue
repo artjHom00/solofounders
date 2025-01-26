@@ -1,9 +1,25 @@
 <script lang="ts" setup>
+import { useToast } from 'vue-toastification';
+
 type props = {
   user: object | null
 }
 
+const toast = useToast()
+
 defineProps<props>()
+
+const searchQuery = ref('')
+
+const handleSearch = (() => {
+  if(searchQuery.value != '') {
+    navigateTo(`/search?q=${searchQuery.value}`, {
+      replace: true,
+    })
+  } else {
+    toast.error('No search query provided')
+  }
+})
 </script>
 
 <template>
@@ -20,12 +36,12 @@ defineProps<props>()
         </NuxtLink>
       </div>
       <div class="md:flex flex-grow md:flex-grow-0 gap-4">
-        <div>
-          <label class="input text-sm border-[#dddddd] dark:input-bordered bg-light placeholder:text-[#3f4a54a2] dark:placeholder:text-[#999] dark:bg-dark-secondary dark:focus:bg-dark-secondary w-full flex items-center gap-2">
-          <input type="text" class="h-full w-full sm:min-w-64" placeholder="Search" />
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </label>
-        </div>
+          <form @submit.prevent="handleSearch" >
+            <label class="input pr-0 text-sm border-[#dddddd] dark:input-bordered bg-light placeholder:text-[#3f4a54a2] dark:placeholder:text-[#999] dark:bg-dark-secondary dark:focus:bg-dark-secondary w-full flex items-center gap-2">
+            <input v-model="searchQuery" type="text" class="h-full w-full sm:min-w-64" placeholder="Search" />
+            <button type="submit" class="h-full w-16"><i class="fa-solid fa-magnifying-glass"></i></button>
+          </label>
+          </form>
         <div class="items-center hidden md:flex md:gap-10">
           <div class="flex gap-2">
             <NuxtLink to="https://x.com/solofounders_" target="_blank">

@@ -21,3 +21,7 @@
 .router-link-active {
     color: inherit !important
 }
+
+button:disabled {
+    opacity: 0.2;
+}

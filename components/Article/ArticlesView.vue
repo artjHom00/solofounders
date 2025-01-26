@@ -6,6 +6,7 @@ import ArticleTab from '~/components/Article/ArticleTab.vue'
 import Pagination from '~/components/Pagination.vue'
 
 const props = defineProps<{
+  searchQuery?: string;
   initialPage?: number;
   defaultTake?: number;
 }>()
@@ -18,13 +19,18 @@ if (!isNaN(Number(route.query.page))) {
   currentPage.value = Number(route.query.page)
 }
 
-const { data: latestArticles } = useFetch<ILatestArticlesResponse>(`/api/articles/latest?take=${defaultTake}&skip=${currentPage.value * defaultTake}`)
+let articlesFetchUrl = `/api/articles/list?take=${defaultTake}&skip=${currentPage.value * defaultTake}`
+if(props.searchQuery != null) {
+  articlesFetchUrl += `&search=${props.searchQuery}`
+}
+
+const { data: latestArticles } = useFetch<ILatestArticlesResponse>(articlesFetchUrl)
 
 const getNewArticles = async () => {
-  const newArticlesResponse: ILatestArticlesResponse = await $fetch(`/api/articles/latest?take=${defaultTake}&skip=${currentPage.value * defaultTake}`)
+  const newArticlesResponse: ILatestArticlesResponse = await $fetch(articlesFetchUrl)
   latestArticles.value = newArticlesResponse
-
 }
+
 const handlePageChange = async (page: number) => {
   currentPage.value = page
 
@@ -42,12 +48,14 @@ const pollNewArticles = () => {
 }
 
 onMounted(async () => {
-  pollNewArticles()
+  if(props.searchQuery == null) {
+    pollNewArticles()
+  }
 })
 </script>
 
 <template>
-  <div v-if="latestArticles" class="content-wrapper">
+  <div v-if="latestArticles && latestArticles.data.length > 0" class="content-wrapper">
     <div class="mt-8 flex flex-col gap-6 w-fit" v-auto-animate>
       <ArticleTab v-for="article in latestArticles.data" :key="article.id" v-bind="article" />
     </div>
@@ -58,6 +66,11 @@ onMounted(async () => {
         @page-change="handlePageChange"
       />
     </div>
+  </div>
+  <div v-else class="content-wrapper">
+    <h1 class="mt-8 text-xl font-semibold">
+        [nothing found]
+      </h1>
   </div>
 </template>
 

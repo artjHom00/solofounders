@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import LatestArticlesView from '../components/Article/LatestArticlesView.vue'
+import ArticlesView from '../components/Article/ArticlesView.vue'
 </script>
 
 <template>
@@ -11,7 +11,7 @@ import LatestArticlesView from '../components/Article/LatestArticlesView.vue'
       <h2 class="mt-2 opacity-75">
         Latest stories from indie founders
       </h2>
-      <LatestArticlesView :default-take="10" />
+      <ArticlesView :default-take="10" />
     </div>
   </div>
 </template>

@@ -1,18 +1,17 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
 import type { EventNotification } from '../types/Notification'
 import { TimeConstants } from '../utils/TimeConstants'
 
-const POLLING_INTERVAL = 0.5 * TimeConstants.MS_IN_SEC // Set the polling interval (e.g., 5000ms for 5 seconds)
+const POLLING_INTERVAL = 1 * TimeConstants.MS_IN_SEC
 
 export const useNotificationsStore = defineStore({
   id: 'notificationsStore',
   state: () => ({
     notifications: [] as EventNotification[],
-    pollingInterval: null as NodeJS.Timeout | null // To store the interval ID
+    pollingInterval: null as NodeJS.Timeout | null
   }),
   getters: {
-    currentNotifications: state => state.notifications // Renamed to avoid conflict with the state property
+    currentNotifications: state => state.notifications
   },
   actions: {
     async fetchNotifications () {

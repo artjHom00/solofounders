@@ -1,4 +1,4 @@
-import { asc, count, desc, inArray } from 'drizzle-orm'
+import { asc, count, desc, ilike, inArray, isNotNull } from 'drizzle-orm'
 import { NewArticle, articles } from '../database/tables/articles'
 import { tables, useDrizzle } from '../utils/drizzle'
 import { mockArticles } from '../static/articles'
@@ -16,19 +16,24 @@ class ArticleService {
     await useDrizzle().insert(tables.articles).values(mockArticles).execute()
   }
 
-  async getLatestArticles (take: number, skip: number) {
+  async getArticles (take: number, skip: number, search?: string) {
+        
+    let whereClause;
+    if(search != null) {
+      whereClause = or(ilike(tables.articles.name, `%${search}%`), ilike(tables.articles.content, `%${search}%`))
+    }
+      
     const articles = await useDrizzle().query.articles.findMany({
-      with: {
-        author: true
-      },
+      with: { author: true },
       limit: take,
       offset: skip,
-      orderBy: [desc(tables.articles.createdAt)]
-    })
-
+      orderBy: [desc(tables.articles.createdAt)],
+      where: whereClause,
+    });
+  
     const response = {
       data: articles,
-      hasNextPage: await this.hasNextPage(take, skip)
+      hasNextPage: await this.hasNextPage(take, skip, search)
     }
 
     return response
@@ -145,16 +150,25 @@ class ArticleService {
     await useDrizzle().delete(tables.articles).where(eq(tables.articles.id, articleId)).execute()
   }
 
-  private async hasNextPage (take: number, skip: number) {
-    const total = skip + take
+  private async hasNextPage (take: number, skip: number, search?: string) {
+    const total = skip + take;
 
-    const [{ count: articlesCount }] = await useDrizzle().select({ count: count() }).from(articles)
-
-    if (articlesCount <= total) {
-      return false
+    const query = useDrizzle()
+      .select({ count: count() })
+      .from(articles);
+  
+    if (search != null) {
+      query.where(
+        or(
+          ilike(tables.articles.name, `%${search}%`),
+          ilike(tables.articles.content, `%${search}%`)
+        )
+      );
     }
-
-    return true
+  
+    const [{ count: articlesCount }] = await query;
+  
+    return articlesCount > total;
   }
 
   private generateSlug (text: string): string {
