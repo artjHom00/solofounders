@@ -20,22 +20,36 @@ if (!isNaN(Number(route.query.page))) {
 
 const { data: latestArticles } = useFetch<ILatestArticlesResponse>(`/api/articles/latest?take=${defaultTake}&skip=${currentPage.value * defaultTake}`)
 
-const handlePageChange = async (page: number) => {
-  const newArticlesResponse: ILatestArticlesResponse = await $fetch(`/api/articles/latest?take=${defaultTake}&skip=${page * defaultTake}`)
-
+const getNewArticles = async () => {
+  const newArticlesResponse: ILatestArticlesResponse = await $fetch(`/api/articles/latest?take=${defaultTake}&skip=${currentPage.value * defaultTake}`)
   latestArticles.value = newArticlesResponse
+
+}
+const handlePageChange = async (page: number) => {
   currentPage.value = page
+
+  await getNewArticles()
 
   scrollTo({
     top: 0
   })
 }
+
+const pollNewArticles = () => {
+  setInterval(async () => {
+    await getNewArticles()
+  }, 5000)
+}
+
+onMounted(async () => {
+  pollNewArticles()
+})
 </script>
 
 <template>
   <div v-if="latestArticles" class="content-wrapper">
-    <div class="mt-8 flex flex-col gap-6 w-fit">
-      <ArticleTab v-for="article in latestArticles.data" v-bind="article" />
+    <div class="mt-8 flex flex-col gap-6 w-fit" v-auto-animate>
+      <ArticleTab v-for="article in latestArticles.data" :key="article.id" v-bind="article" />
     </div>
     <div class="mt-8">
       <Pagination

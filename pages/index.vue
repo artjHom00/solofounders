@@ -6,7 +6,7 @@ import LatestArticlesView from '../components/Article/LatestArticlesView.vue'
   <div class="mx-auto">
     <div class="mt-8">
       <h1 class="mt-8 text-3xl font-black">
-        Featured Stories
+        Latest Stories
       </h1>
       <h2 class="mt-2 opacity-75">
         Latest stories from indie founders

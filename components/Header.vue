@@ -20,9 +20,9 @@ defineProps<props>()
         </NuxtLink>
       </div>
       <div class="md:flex flex-grow md:flex-grow-0 gap-4">
-        <div class="">
+        <div>
           <label class="input text-sm border-[#dddddd] dark:input-bordered bg-light placeholder:text-[#3f4a54a2] dark:placeholder:text-[#999] dark:bg-dark-secondary dark:focus:bg-dark-secondary w-full flex items-center gap-2">
-          <input type="text" class="w-full sm:min-w-64" placeholder="Search" />
+          <input type="text" class="h-full w-full sm:min-w-64" placeholder="Search" />
           <i class="fa-solid fa-magnifying-glass"></i>
         </label>
         </div>
