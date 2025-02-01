@@ -40,21 +40,21 @@ const replies = computed(() =>
             :disabled="thread.hasUpvoted || isAuthorized === false"
             @click="$emit('upvote', thread.id)"
           >
-            <i class="fa-solid fa-chevron-up" />
+            <i class="fa-solid fa-chevron-up w-3 h-3" />
           </button>
           <button
             class="btn dark:btn-secondary btn-sm"
             :disabled="isAuthorized === false"
             @click="$emit('reply', thread.id)"
           >
-            <i class="fa-regular fa-message" />
+            <i class="fa-regular fa-message w-3 h-3"/>
           </button>
           <button
             v-if="thread.isAuthor === true"
             class="btn dark:btn-secondary btn-sm"
             @click="$emit('delete', thread.id)"
           >
-            <i class="fa-regular fa-trash-can" />
+            <i class="fa-regular fa-trash-can w-3 h-3"/>
           </button>
         </div>
       </div>

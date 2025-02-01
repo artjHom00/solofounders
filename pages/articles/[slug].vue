@@ -69,10 +69,8 @@ const handleArticleUpvote = async () => {
             <button class="btn dark:btn-secondary">
               <i class="fas fa-ellipsis-v w-3 h-3" />
             </button>
-            <ul
-              tabindex="0"
-              class="dropdown-content bg-light-secondary dark:bg-dark-secondary menu rounded-box z-[1] mt-2 w-52 p-2 shadow"
-            >
+            <ul tabindex="0"
+              class="dropdown-content bg-light-secondary dark:bg-dark-secondary menu rounded-box z-[1] mt-2 w-52 p-2 shadow">
               <li class="text-error" @click="handleArticleDelete(false)">
                 <a><i class="fa-regular fa-trash-can" /> Delete</a>
               </li>
@@ -89,17 +87,15 @@ const handleArticleUpvote = async () => {
             <AuthState>
               <template #default="{ loggedIn, clear }">
                 <div>
-                  <button
-                    class="btn dark:btn-secondary"
+                  <button class="btn dark:btn-secondary"
                     :variant="(articleBySlugResponse?.hasUpvoted === true) ? 'primary' : 'secondary'"
                     :disabled="loggedIn === false || (articleBySlugResponse?.hasUpvoted === true)"
-                    @click="handleArticleUpvote"
-                  >
-                    <i class="fa-solid fa-chevron-up" />
+                    @click="handleArticleUpvote">
+                    <i class="fa-solid fa-chevron-up w-3 h-3" />
                   </button>
                 </div>
                 <button class="btn dark:btn-secondary" variant="secondary" :disabled="loggedIn === false" @click="null">
-                  <i class="fa-solid fa-retweet" />
+                  <i class="fa-solid fa-retweet w-3 h-3" />
                 </button>
               </template>
               <template #placeholder>

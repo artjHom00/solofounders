@@ -1,7 +1,5 @@
 <script lang="ts" setup>
 import type { ILatestArticlesResponse } from '../../types/responses/ILatestArticlesResponse'
-import type { EventNotification } from '../../types/Notification'
-import { TimeConstants } from '../../utils/TimeConstants'
 import ArticleTab from '~/components/Article/ArticleTab.vue'
 import Pagination from '~/components/Pagination.vue'
 
@@ -57,7 +55,9 @@ onMounted(async () => {
 <template>
   <div v-if="latestArticles && latestArticles.data.length > 0" class="content-wrapper">
     <div class="mt-8 flex flex-col gap-6 w-fit" v-auto-animate>
-      <ArticleTab v-for="article in latestArticles.data" :key="article.id" v-bind="article" />
+      <div v-for="article in latestArticles.data" :key="article.id" class="flex">
+        <ArticleTab v-bind="article" />
+      </div>
     </div>
     <div class="mt-8">
       <Pagination

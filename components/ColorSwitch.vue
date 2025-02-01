@@ -10,12 +10,10 @@ const handleThemeSwitch = () => {
 }
 </script>
 <template>
-  <ClientOnly>
     <button class="btn btn-ghost" @click="handleThemeSwitch">
       <i class="fa-regular fa-moon text-lg w-4" v-if="$colorMode.value === 'dark'"></i>
       <i class="fa-regular fa-sun text-lg w-4" v-else></i>
     </button>
-  </ClientOnly>
 </template>
 
 <style>

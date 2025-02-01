@@ -27,6 +27,8 @@ const handleSearch = (() => {
     <div class="gap-4 sm:gap-10 justify-between items-center flex py-9">
       <div class="flex font-medium text-sm gap-10 items-center">
         <NuxtLink to="/">
+
+          <!-- todo remove v-if and just leave one logo -->
           <img
             v-if="$colorMode.unknown !== true"
             class="w-12"
@@ -37,7 +39,7 @@ const handleSearch = (() => {
       </div>
       <div class="md:flex flex-grow md:flex-grow-0 gap-4">
           <form @submit.prevent="handleSearch" >
-            <label class="input pr-0 text-sm border-[#dddddd] dark:input-bordered bg-light placeholder:text-[#3f4a54a2] dark:placeholder:text-[#999] dark:bg-dark-secondary dark:focus:bg-dark-secondary w-full flex items-center gap-2">
+            <label class="input pr-0 text-sm border-[#dddddd] duration-200 dark:input-bordered bg-light placeholder:text-[#3f4a54a2] dark:placeholder:text-[#999] dark:bg-dark-secondary dark:focus:bg-dark-secondary w-full flex items-center gap-2">
             <input v-model="searchQuery" type="text" class="h-full w-full sm:min-w-64" placeholder="Search" />
             <button type="submit" class="h-full w-16"><i class="fa-solid fa-magnifying-glass"></i></button>
           </label>
@@ -46,7 +48,7 @@ const handleSearch = (() => {
           <div class="flex gap-2">
             <NuxtLink to="https://x.com/solofounders_" target="_blank">
               <button class="btn btn-ghost">
-                <i class="fa-brands fa-x-twitter text-lg" />
+                <i class="fa-brands fa-x-twitter text-lg w-4" />
               </button>
             </NuxtLink>
             <ColorSwitch />

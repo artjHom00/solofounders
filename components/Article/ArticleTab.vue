@@ -32,16 +32,18 @@ const formattedPoints = computed(() => {
         {{ formattedPoints }}
       </p>
     </div>
-    <div>
+    <div class="flex flex-col gap-1">
       <h3 class="tracking-tight font-semibold text-lg leading-none">
         {{ name }}
       </h3>
-      <span class="text-sm opacity-50">by <a href="#">@{{ author?.handle }}</a> |
+      <div class="text-sm opacity-50">
+        <span>by @{{ author?.handle }}</span> 
+        <span> | </span>
         <span>
           <NuxtTime :datetime="createdAt" :relative="delta < TimeConstants.MS_IN_DAY && delta > 0" />
         </span> |
         <span>{{ views }} views</span>
-      </span>
+      </div>
     </div>
   </NuxtLink>
 </template>
