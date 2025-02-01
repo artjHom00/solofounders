@@ -24,24 +24,29 @@ if(props.searchQuery != null) {
 
 const { data: latestArticles } = useFetch<ILatestArticlesResponse>(articlesFetchUrl)
 
-const getNewArticles = async () => {
-  const newArticlesResponse: ILatestArticlesResponse = await $fetch(articlesFetchUrl)
+const getNewArticles = async (url: string) => {
+  const newArticlesResponse: ILatestArticlesResponse = await $fetch(url)
   latestArticles.value = newArticlesResponse
 }
 
 const handlePageChange = async (page: number) => {
   currentPage.value = page
 
-  await getNewArticles()
+  articlesFetchUrl = `/api/articles/list?take=${defaultTake}&skip=${currentPage.value * defaultTake}`
+  if(props.searchQuery != null) {
+    articlesFetchUrl += `&search=${props.searchQuery}`
+  }
+
+  await getNewArticles(articlesFetchUrl)
 
   scrollTo({
     top: 0
   })
 }
 
-const pollNewArticles = () => {
+const pollNewArticles = async () => {
   setInterval(async () => {
-    await getNewArticles()
+    await getNewArticles(articlesFetchUrl)
   }, 5000)
 }
 
