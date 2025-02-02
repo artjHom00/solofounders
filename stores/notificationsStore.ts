@@ -26,7 +26,6 @@ export const useNotificationsStore = defineStore({
       if (this.pollingInterval !== null) {
         return
       }
-      console.log('aosjdpaosjdps')
       this.pollingInterval = setInterval(async () => {
         await this.fetchNotifications()
       }, POLLING_INTERVAL)

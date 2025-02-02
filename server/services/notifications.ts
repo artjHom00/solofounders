@@ -1,5 +1,4 @@
 import { EventNotification, NotificationTypes } from '../../types/Notification'
-import { TimeConstants } from '~/utils/TimeConstants'
 
 class NotificationsService {
   // todo calculate fetching interval & ttl for them to be seen only once
@@ -9,18 +8,27 @@ class NotificationsService {
 
   public notifications: EventNotification[] = []
 
-  async pushNotification (type: NotificationTypes, id: number) {
-    const newNotificationsLength = this.notifications.push({
+  async pushNotification(type: NotificationTypes, id: number) {
+    this.notifications.push({
       type,
       id
     })
 
-    this.clearNotificationAfterTimeout(newNotificationsLength - 1)
+    this.clearNotificationAfterTimeout(id)
   }
 
-  private clearNotificationAfterTimeout(index: number) {
+  private clearNotificationAfterTimeout(id: number) {
     setTimeout(() => {
-      this.notifications.splice(index, 1)
+      const notificationToClear = this.notifications.find(notification => notification.id === id)
+
+      if (notificationToClear == null) {
+        // todo log
+        return;
+      }
+
+      const notificationIndex = this.notifications.indexOf(notificationToClear)
+
+      this.notifications.splice(notificationIndex, 1)
     }, this._defaultNotificationTTL)
   }
 
