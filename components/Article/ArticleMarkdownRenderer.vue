@@ -17,6 +17,9 @@ defineProps<props>()
 .md-editor-preview {
   word-break: initial !important;
 }
+.md-editor-preview img {
+  margin: 15px 0;
+}
 .md-editor-preview blockquote {
   border-left: 3px solid oklch(var(--p));
   position: relative;
