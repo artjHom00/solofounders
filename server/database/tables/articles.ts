@@ -7,7 +7,7 @@ import { threads } from './threads'
 export const articles = pgTable('articles', {
   id: serial('id').primaryKey(),
   name: text('name'),
-  authorId: integer('author_id'),
+  authorId: integer('author_id').references(() => users.id),
   views: integer('views').notNull().default(0),
   content: text('content').notNull(),
   slug: text('slug').notNull(),

@@ -36,6 +36,13 @@
       "when": 1737042232500,
       "tag": "0004_wooden_korg",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1738531630634,
+      "tag": "0005_steep_maverick",
+      "breakpoints": true
     }
   ]
 }
