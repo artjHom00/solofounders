@@ -30,9 +30,8 @@ const handleSearch = (() => {
 
           <!-- todo remove v-if and just leave one logo -->
           <img
-            v-if="$colorMode.unknown !== true"
             class="w-12"
-            :src="$colorMode.value === 'dark' ? '/logo-dark.svg' : '/logo.svg'"
+            src="/logo.png"
             alt="logo"
           >
         </NuxtLink>
