@@ -125,7 +125,7 @@ body .md-editor-modal {
   border-radius: 0.5rem;
 }
 body .md-editor-modal .md-editor-modal-body {
-  height: calc(100% - 60px)
+  height: calc(100% - 70px)
 }
 body .md-editor-modal-header {
   padding: 16px 24px;
