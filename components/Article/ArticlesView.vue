@@ -25,7 +25,7 @@ if(props.searchQuery != null) {
 const { data: latestArticles } = useFetch<ILatestArticlesResponse>(articlesFetchUrl)
 
 const getNewArticles = async (url: string) => {
-  const newArticlesResponse: ILatestArticlesResponse = await $fetch(url)
+  const newArticlesResponse = await $fetch<ILatestArticlesResponse>(url)
   latestArticles.value = newArticlesResponse
 }
 

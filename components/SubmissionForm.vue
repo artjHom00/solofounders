@@ -5,6 +5,9 @@ import 'md-editor-v3/lib/style.css'
 import { useToast } from 'vue-toastification'
 import ArticleSubmitErrorToast from './Toasts/articles/ArticleSubmitErrorToast.vue'
 import ArticleSubmitSuccessToast from './Toasts/articles/ArticleSubmitSuccessToast.vue'
+import FileUploadSuccessToast from './Toasts/files/FileUploadSuccessToast.vue'
+import FileUploadErrorToast from './Toasts/files/FileUploadErrorToast.vue'
+import FileUploadProgressToast from './Toasts/files/FileUploadProgressToast.vue'
 
 const initialHeadingPlaceholder = "Heading, e.g. 🚀 How we've scaled our AI SaaS from $0 to $50k MRR in 4 months!"
 const initialEditorText = `## 👋 Welcome to Solofounders Editor
@@ -35,7 +38,7 @@ const footers: Footers[] = ['markdownTotal']
 
 const submitHandle = async () => {
   try {
-    const url = await $fetch('/api/articles', {
+    const url = await $fetch<string>('/api/articles', {
       method: 'POST',
       body: {
         name: heading.value,
@@ -47,6 +50,35 @@ const submitHandle = async () => {
     navigateTo('/articles/' + url)
   } catch (e) {
     toast.error(ArticleSubmitErrorToast)
+  }
+}
+
+const generateFilesFormData = (files: File[]): FormData => {
+  const formData = new FormData();
+
+  for(const file of files) {
+    formData.append('file', file)
+  }
+
+  return formData
+}
+
+const handleImageUpload = async (files: File[], callback: (urls: string[]) => void) => {
+  toast.info(FileUploadProgressToast)
+  try {
+    const formData = generateFilesFormData(files)
+    
+    const urls = await $fetch<string[]>('/api/files/upload', {
+      method: 'POST',
+      body: formData
+    })
+  
+    console.log("🚀 ~ handleImageUpload ~ urls:", urls)
+    toast.success(FileUploadSuccessToast)
+  
+    return callback(urls)
+  } catch (e) {
+    toast.error(FileUploadErrorToast)
   }
 }
 </script>
@@ -69,6 +101,7 @@ const submitHandle = async () => {
         :toolbars-exclude="toolbarExclude"
         :theme="colorMode.value === 'dark' ? 'dark' : 'light'"
         no-img-zoom-in
+        @on-upload-img="handleImageUpload"
       />
       <button class="mt-4 block mx-auto btn dark:btn-secondary" @click="submitHandle">
         Submit the story!
