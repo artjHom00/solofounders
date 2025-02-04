@@ -113,11 +113,38 @@ const handleImageUpload = async (files: File[], callback: (urls: string[]) => vo
 <style>
 /* @import '/assets/css/article.css'; */
 
-body #editor-toolbar-wrapper svg.md-editor-icon {
+body #editor-toolbar-wrapper svg.md-editor-icon, body .md-editor-modal svg.md-editor-icon {
     width: 27px;
     height: 27px;
 }
-
+body .md-editor-modal-func > * {
+  margin: 0 4px;
+}
+body .md-editor-modal {
+  height: 450px !important;
+  border-radius: 0.5rem;
+}
+body .md-editor-modal .md-editor-modal-body {
+  height: calc(100% - 60px)
+}
+body .md-editor-modal-header {
+  padding: 16px 24px;
+}
+body .md-editor-modal, body .md-editor-modal-header {
+  color: white;
+}
+body .md-editor-modal .md-editor-btn {
+  color: #262626;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  background: #f2f2f2;
+  width: 150px;
+  height: 50px;
+}
+.md-editor-modal .md-editor-modal-func {
+  top: 13px;
+  right:13px;
+}
 body .md-editor {
     --md-bk-color: #f2f2f2;
     box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
