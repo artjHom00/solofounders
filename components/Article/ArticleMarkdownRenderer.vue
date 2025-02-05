@@ -34,6 +34,9 @@ defineProps<props>()
   font-size: 32px;
   top: -5px;
 }
+.md-editor-preview ol {
+  list-style:initial;
+}
 /* General styling for the <pre> tag */
   .md-editor-preview pre {
   background-color: oklch(var(--s) / 0.1); /* Soft background color */
