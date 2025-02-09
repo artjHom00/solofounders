@@ -145,6 +145,9 @@ body .md-editor-modal .md-editor-btn {
   top: 13px;
   right:13px;
 }
+.md-editor-modal .md-editor-modal-adjust {
+  display: none !important;
+}
 body .md-editor {
     --md-bk-color: #f2f2f2;
     box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);

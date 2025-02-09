@@ -16,12 +16,21 @@ defineProps<props>()
 <style>
 .md-editor-preview {
   word-break: initial !important;
+  font-size: 18px;
+  letter-spacing: -0.06px;
+  line-height: 30px;
+}
+.md-editor-preview ul {
+  list-style: '- ';
+}
+.md-editor-preview a {
+  text-decoration: underline;
 }
 .md-editor-preview img {
-  margin: 15px 0;
+  margin: 30px 0;
 }
 .md-editor-preview blockquote {
-  border-left: 3px solid oklch(var(--p));
+  border-left: 3px solid oklch(var(--p)) !important;
   position: relative;
   padding-left: 40px !important;
   background: initial !important;
@@ -35,7 +44,7 @@ defineProps<props>()
   top: -5px;
 }
 .md-editor-preview ol {
-  list-style:initial;
+  list-style: initial;
 }
 /* General styling for the <pre> tag */
   .md-editor-preview pre {
