@@ -27,8 +27,6 @@ const handleSearch = (() => {
     <div class="gap-4 sm:gap-10 justify-between items-center flex py-9">
       <div class="flex font-medium text-sm gap-10 items-center">
         <NuxtLink to="/">
-
-          <!-- todo remove v-if and just leave one logo -->
           <img
             class="w-12"
             src="/logo.png"

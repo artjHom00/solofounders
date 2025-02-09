@@ -34,7 +34,7 @@ const handleArticleDelete = async (confirm: boolean) => {
 
 const handleArticleUpvote = async () => {
   if (articleBySlugResponse.value == null) {
-    // todo alert
+    //  alert
     return
   }
 

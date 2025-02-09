@@ -1,9 +1,9 @@
 import { EventNotification, NotificationTypes } from '../../types/Notification'
+import { logger } from '../utils/winston'
 
 class NotificationsService {
-  // todo calculate fetching interval & ttl for them to be seen only once
   private readonly _defaultNotificationTTL = 1_500
-
+  private readonly _loggerTopic = 'notificationsService'
   constructor () {}
 
   public notifications: EventNotification[] = []
@@ -22,7 +22,10 @@ class NotificationsService {
       const notificationToClear = this.notifications.find(notification => notification.id === id)
 
       if (notificationToClear == null) {
-        // todo log
+        logger.warn({
+          topic: this._loggerTopic,
+          msg: "clearNotificationAfterTimeout couldn't find a notification with id: " + id
+        });
         return;
       }
 

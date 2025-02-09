@@ -54,7 +54,7 @@ const handleThreadDelete = async (confirm: boolean, threadId: number | null) => 
 
 const handleThreadUpvote = async (threadId: number) => {
   if (threads.value == null) {
-    // todo alert error
+    toast.error('Error occured while upvoting the thread')
     return
   }
 
@@ -68,7 +68,7 @@ const handleThreadUpvote = async (threadId: number) => {
   const thread = threads.value.find(thread => thread.id === threadId)
 
   if (thread == null) {
-    // todo alert error
+    toast.error('Error occured while upvoting the thread')
     return
   }
 
@@ -83,7 +83,7 @@ const replyContent: Ref<string | null> = ref(null)
 
 const handleThreadReply = async () => {
   if (threads.value == null) {
-    // todo alert error
+    toast.error('Error occured while upvoting the thread')
     return
   }
 
