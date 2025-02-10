@@ -26,7 +26,7 @@ export default defineTask({
       }
     } catch (e) {
       logger.error({
-        topic: 'analytics:sync',
+        topic: 'analytics:up',
         msg: e
       })
       return {

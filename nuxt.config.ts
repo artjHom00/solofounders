@@ -12,7 +12,7 @@ export default defineNuxtConfig({
       tasks: true
     },
     scheduledTasks: {
-      '0 */6 * * *': ['analytics:up'],
+      '* */6 * * *': ['analytics:up'],
       '* * * * *': ['analytics:sync']
     }
   },
