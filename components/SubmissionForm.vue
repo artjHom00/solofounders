@@ -38,6 +38,19 @@ const footers: Footers[] = ['markdownTotal']
 
 const submitHandle = async () => {
   try {
+
+    
+    if(heading.value === '') {
+      toast.error('Fill in the heading and try again')
+      return
+    }
+    
+    const isValid = /^[A-Za-z\-.,!?]+$/.test(heading.value)
+    if(isValid !== true) {
+      toast.error('Heading can only contain latin characters, -.,!?')
+      return
+    }
+    
     const url = await $fetch<string>('/api/articles', {
       method: 'POST',
       body: {
@@ -73,7 +86,6 @@ const handleImageUpload = async (files: File[], callback: (urls: string[]) => vo
       body: formData
     })
   
-    console.log("🚀 ~ handleImageUpload ~ urls:", urls)
     toast.success(FileUploadSuccessToast)
   
     return callback(urls)

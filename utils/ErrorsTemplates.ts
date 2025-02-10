@@ -13,5 +13,7 @@ export enum ErrorsTemplates {
 
     USER_NOT_FOUND = 'User not found',
 
-    INTERNAL_ERROR = 'Internal error occured while processing'
+    INTERNAL_ERROR = 'Internal error occured while processing',
+
+    VALIDATION_ERROR = 'Heading validation error',
 }

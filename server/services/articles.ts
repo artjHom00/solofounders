@@ -124,6 +124,11 @@ class ArticleService {
   async createArticle (userXId: string, name: string, content: string) {
     const user = await userService.getOrThrowUserByXId(userXId)
 
+    const isValid = /^[A-Za-z\-.,!?]+$/.test(name)
+    if(isValid !== true) {
+      throw new Error(ErrorsTemplates.VALIDATION_ERROR)
+    }
+
     const slug = this.generateSlug(name)
     await useDrizzle().insert(tables.articles).values({
       name,
