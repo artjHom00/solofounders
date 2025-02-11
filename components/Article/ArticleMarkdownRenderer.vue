@@ -16,7 +16,7 @@ defineProps<props>()
 <style>
 .md-editor-preview {
   word-break: initial !important;
-  font-size: 18px;
+  font-size: 17px;
   letter-spacing: -0.06px;
   line-height: 30px;
 }
@@ -24,7 +24,7 @@ defineProps<props>()
   list-style: '- ';
 }
 .md-editor-preview a {
-  text-decoration: underline;
+  text-decoration: underline !important;
 }
 .md-editor-preview img {
   margin: 30px 0;
