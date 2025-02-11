@@ -45,9 +45,9 @@ const submitHandle = async () => {
       return
     }
     
-    const isValid = /^[A-Za-z\-.,!?]+$/.test(heading.value)
+    const isValid = /^[A-Za-z0-9\s\-.,!?$£€¥]+$/.test(heading.value)
     if(isValid !== true) {
-      toast.error('Heading can only contain latin characters, -.,!?')
+      toast.error('Heading can only contain latin characters, -.,!?$£€')
       return
     }
     
