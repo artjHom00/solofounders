@@ -5,6 +5,7 @@ import ArticleMarkdownRenderer from '../../components/Article/ArticleMarkdownRen
 import type { IArticleBySlugResponse } from '../../types/responses/IArticleBySlugResponse'
 import ArticleDeleteSuccessToast from '../../components/Toasts/articles/ArticleDeleteSuccessToast.vue'
 import ThreadsView from '../../components/Article/Threads/ThreadsView.vue'
+import NotFound from '@/components/NotFound.vue'
 
 const route = useRoute()
 const toast = useToast()
@@ -53,8 +54,8 @@ const handleArticleUpvote = async () => {
 <template>
   <main>
     <DeleteConfirmationModal :id="deleteConfirmationModalId" @confirm="handleArticleDelete" />
-    <div class="container max-w-screen-sm mx-auto mt-8 dark:text-light">
-      <div v-if="articleBySlugResponse != null">
+    <div class="container max-w-screen-sm mx-auto mt-8 dark:text-light" v-if="articleBySlugResponse != null">
+      <div>
         <div class="flex justify-between items-center mt-8">
           <div class="flex gap-4 items-center">
             <button class="btn dark:btn-secondary" @click="navigateTo('/')">
@@ -113,6 +114,9 @@ const handleArticleUpvote = async () => {
         </div>
         <ThreadsView class="mt-8" :article-id="articleBySlugResponse.data.id" />
       </div>
+    </div>
+    <div v-else>
+      <NotFound class="pt-32 mb-8"/>
     </div>
   </main>
 </template>
