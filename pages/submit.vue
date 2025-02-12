@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import SubmissionForm from '../components/SubmissionForm.vue'
-import { ClientOnly } from '#components'
 </script>
 
 <template>
@@ -8,7 +7,7 @@ import { ClientOnly } from '#components'
     solofounders story submission
   </h2>
   <p class="text-center ">
-    before submission, make sure to read <a class="hover:underline" href="#">our rules of writing</a>;
+    before submission, make sure to read <NuxtLink class="underline" to="/how-to-write">how to write articles at solofounders</NuxtLink>;
   </p>
   <div class="article-content mx-auto container max-w-screen-xl mt-8">
     <SubmissionForm />
