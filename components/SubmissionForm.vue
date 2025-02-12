@@ -41,6 +41,12 @@ const submitHandle = async () => {
   try {
     isLoading.value = true
     
+    if(content.value.length <= 150) {
+      isLoading.value = false
+      toast.error('The article should be at least 150 characters long')
+      return
+    }
+
     if(heading.value === '') {
       isLoading.value = false
       toast.error('Fill in the heading and try again')

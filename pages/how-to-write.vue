@@ -42,7 +42,7 @@
         <div class="mt-2">
             <h2 class="text-lg mt-8 font-semibold">3. Article Length</h2>
             <ul class="ml-8 list-disc">
-                <li>Minimum: 100 words</li>
+                <li>Minimum: 150 words</li>
                 <li>Maximum: 3000 words (unless it's a deep dive)</li>
             </ul>
         </div>
