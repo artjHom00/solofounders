@@ -13,7 +13,7 @@ interface MultiPartData {
 
 class FileService {
     private readonly MAX_FILE_SIZE = 5 * 1024 * 1024;  // 20MB in bytes
-    private readonly IMAGE_UPLOAD_ALLOWED_FORMATS = ['image/jpeg', 'image/png', 'image/jpg'];
+    private readonly IMAGE_UPLOAD_ALLOWED_FORMATS = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
 
     async upload(xId: string, files: MultiPartData[]) {
         const user = await userService.getOrThrowUserByXId(xId);
