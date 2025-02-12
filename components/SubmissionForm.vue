@@ -28,6 +28,7 @@ When you're ready, hit "Publish" and share your story with the SoloFounders comm
 const colorMode = useColorMode()
 const toast = useToast()
 
+const isLoading = ref(false)
 const heading = ref('')
 const content = ref(initialEditorText)
 
@@ -38,7 +39,7 @@ const footers: Footers[] = ['markdownTotal']
 
 const submitHandle = async () => {
   try {
-
+    isLoading.value = true
     
     if(heading.value === '') {
       toast.error('Fill in the heading and try again')
@@ -62,6 +63,7 @@ const submitHandle = async () => {
     toast.success(ArticleSubmitSuccessToast)
     navigateTo('/articles/' + url)
   } catch (e) {
+    isLoading.value = false
     toast.error(ArticleSubmitErrorToast)
   }
 }
@@ -115,8 +117,9 @@ const handleImageUpload = async (files: File[], callback: (urls: string[]) => vo
         no-img-zoom-in
         @on-upload-img="handleImageUpload"
       />
-      <button class="mt-4 block mx-auto btn dark:btn-secondary" @click="submitHandle">
-        Submit the story!
+      <button class="mt-4 block mx-auto btn dark:btn-secondary" @click="submitHandle" :disabled="isLoading">
+        <span v-if="!isLoading">Submit the story!</span>
+        <span v-else>Submitting...</span>
       </button>
     </ClientOnly>
   </div>
