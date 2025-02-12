@@ -10,6 +10,7 @@ import ThreadTab from './ThreadTab.vue'
 
 type props = {
   articleId: number,
+  disabled?: boolean
 }
 
 const definedProps = defineProps<props>()
@@ -128,7 +129,7 @@ const handleThreadReply = async () => {
                 v-model="replyContent"
                 class="input duration-200 border-[#dddddd] dark:input-bordered bg-light placeholder:text-[#3f4a54a2] dark:placeholder:text-[#999] dark:bg-dark-secondary dark:focus:bg-dark-secondary w-full"
                 placeholder="Add a comment"
-                :disabled="loggedIn === false"
+                :disabled="loggedIn === false || disabled === true"
                 type="text"
               >
               <button

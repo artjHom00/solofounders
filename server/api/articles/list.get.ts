@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
   try {
     const query = await getValidatedQuery(event, getLatestSchema.parse)
 
-    const latestArticles = await articleService.getArticles(query.take, query.skip, query.search)
+    const latestArticles = await articleService.getArticles(query.take, query.skip, true, query.search)
     return latestArticles
   } catch (e) {
     return e

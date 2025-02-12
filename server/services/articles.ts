@@ -1,10 +1,8 @@
-import { asc, count, desc, ilike, inArray, isNotNull } from 'drizzle-orm'
+import { asc, count, desc, ilike } from 'drizzle-orm'
 import { NewArticle, articles } from '../database/tables/articles'
 import { tables, useDrizzle } from '../utils/drizzle'
 import { mockArticles } from '../static/articles'
 import userService from './users'
-import threadsService from './threads'
-import { IThread } from '~/types/thread/IThread'
 import { ErrorsTemplates } from '~/utils/ErrorsTemplates'
 
 class ArticleService {
@@ -16,11 +14,15 @@ class ArticleService {
     await useDrizzle().insert(tables.articles).values(mockArticles).execute()
   }
 
-  async getArticles (take: number, skip: number, search?: string) {
+  async getArticles (take: number, skip: number, onlyApproved: boolean, search?: string) {
         
     let whereClause;
     if(search != null) {
       whereClause = or(ilike(tables.articles.name, `%${search}%`), ilike(tables.articles.content, `%${search}%`))
+    }
+
+    if(onlyApproved === true) {
+      whereClause = and(whereClause, eq(tables.articles.approved, true))
     }
       
     const articles = await useDrizzle().query.articles.findMany({
@@ -122,6 +124,7 @@ class ArticleService {
   }
 
   async createArticle (userXId: string, name: string, content: string) {
+    const moderationModeEnabled = (process.env.ARTICLES_MODERATION_REQUIRED != null && process.env.ARTICLES_MODERATION_REQUIRED === 'true')
     const user = await userService.getOrThrowUserByXId(userXId)
 
     const isValid = /^[A-Za-z0-9\s\-.,!?$£€¥"'`]+$/.test(name) && content.length >= 150
@@ -130,11 +133,17 @@ class ArticleService {
     }
 
     const slug = this.generateSlug(name)
+    
+    if(moderationModeEnabled) {
+      // todo send message to tg
+    }
+    
     await useDrizzle().insert(tables.articles).values({
       name,
       content,
       authorId: user.id,
-      slug
+      slug,
+      approved: !moderationModeEnabled
     }).execute()
 
     return slug
@@ -153,6 +162,11 @@ class ArticleService {
     }
 
     await useDrizzle().delete(tables.articles).where(eq(tables.articles.id, articleId)).execute()
+  }
+
+  async approveArticle(articleId: number) {
+    await useDrizzle().update(tables.articles).set({ approved: true }).where(eq(tables.articles.id, articleId))
+    return
   }
 
   private async hasNextPage (take: number, skip: number, search?: string) {

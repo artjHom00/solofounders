@@ -16,4 +16,6 @@ export enum ErrorsTemplates {
     INTERNAL_ERROR = 'Internal error occured while processing',
 
     VALIDATION_ERROR = 'Heading validation error',
+
+    CANT_PROCEED = 'Can not proceed with the action'
 }

@@ -8,5 +8,6 @@ export interface IBaseArticle {
     createdAt: string | Date;
     authorId: number | null;
     slug: string;
-    author: IUser
+    author: IUser;
+    approved: boolean;
 }

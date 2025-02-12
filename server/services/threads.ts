@@ -57,6 +57,10 @@ class ThreadsService {
       throw new Error(ErrorsTemplates.ARTICLE_NOT_FOUND)
     }
 
+    if(article.approved === false) {
+      throw new Error(ErrorsTemplates.CANT_PROCEED)
+    }
+
     const user = await userService.getOrThrowUserByXId(userXId)
 
     let replyThreadId = replyTo

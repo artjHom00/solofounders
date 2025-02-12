@@ -56,6 +56,9 @@ const handleArticleUpvote = async () => {
     <DeleteConfirmationModal :id="deleteConfirmationModalId" @confirm="handleArticleDelete" />
     <div class="container max-w-screen-sm mx-auto mt-8 dark:text-light" v-if="articleBySlugResponse != null">
       <div>
+        <div v-if="articleBySlugResponse.data.approved === false && articleBySlugResponse.isAuthor === true" class="text-xs mt-4 pl-4 border-l-4 border-warning">
+          The article is not visible to other visitors yet. <br/> Usually, the moderation takes couple hours to proceed.
+        </div>
         <div class="flex justify-between items-center mt-8">
           <div class="flex gap-4 items-center">
             <button class="btn dark:btn-secondary" @click="navigateTo('/')">
@@ -81,8 +84,12 @@ const handleArticleUpvote = async () => {
         <h1 class="text-3xl mt-8 font-bold">
           {{ articleBySlugResponse.data.name }}
         </h1>
-        <ArticleMarkdownRenderer :article="articleBySlugResponse.data" />
-        <div class="mt-8">
+        <div>
+          <ArticleMarkdownRenderer v-if="!(articleBySlugResponse.data.approved === false && articleBySlugResponse.isAuthor === false)" :article="articleBySlugResponse.data" />
+          <h2 class="font-semibold mt-4" v-else>The article is not approved yet. <br/> 
+            Come back later...</h2>
+        </div>
+        <div class="mt-4">
           <div class="divider dark:divider-secondary" />
           <div class="mb-5 flex gap-4">
             <AuthState>
@@ -112,7 +119,7 @@ const handleArticleUpvote = async () => {
             content!
           </span>
         </div>
-        <ThreadsView class="mt-8" :article-id="articleBySlugResponse.data.id" />
+        <ThreadsView class="mt-8" v-if="articleBySlugResponse.data.approved === true" :article-id="articleBySlugResponse.data.id" />
       </div>
     </div>
     <div v-else>
