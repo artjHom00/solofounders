@@ -4,6 +4,7 @@ import { tables, useDrizzle } from '../utils/drizzle'
 import { mockArticles } from '../static/articles'
 import userService from './users'
 import { ErrorsTemplates } from '~/utils/ErrorsTemplates'
+import telegramBotService from './telegramBot'
 
 class ArticleService {
   async seedArticlesIfNotExist () {
@@ -135,9 +136,9 @@ class ArticleService {
     const slug = this.generateSlug(name)
     
     if(moderationModeEnabled) {
-      // todo send message to tg
+      telegramBotService.sendModerationRequest(slug)
     }
-    
+
     await useDrizzle().insert(tables.articles).values({
       name,
       content,
@@ -164,8 +165,13 @@ class ArticleService {
     await useDrizzle().delete(tables.articles).where(eq(tables.articles.id, articleId)).execute()
   }
 
-  async approveArticle(articleId: number) {
-    await useDrizzle().update(tables.articles).set({ approved: true }).where(eq(tables.articles.id, articleId))
+  async approveArticle(articleSlug: string) {
+    await useDrizzle().update(tables.articles).set({ approved: true }).where(eq(tables.articles.slug, articleSlug))
+    return
+  }
+
+  async rejectArticle(articleSlug: string) {
+    await useDrizzle().delete(tables.articles).where(eq(tables.articles.slug, articleSlug)).execute()
     return
   }
 
