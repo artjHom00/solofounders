@@ -124,7 +124,7 @@ class ArticleService {
   async createArticle (userXId: string, name: string, content: string) {
     const user = await userService.getOrThrowUserByXId(userXId)
 
-    const isValid = /^[A-Za-z0-9\s\-.,!?$£€¥]+$/.test(name)
+    const isValid = /^[A-Za-z0-9\s\-.,!?$£€¥"'`]+$/.test(name)
     if(isValid !== true) {
       throw new Error(ErrorsTemplates.VALIDATION_ERROR)
     }
