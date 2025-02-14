@@ -171,6 +171,9 @@ body .md-editor-modal .md-editor-btn {
 .md-editor-modal .md-editor-modal-adjust {
   display: none !important;
 }
+.md-editor-preview a {
+  text-decoration: underline !important;
+}
 body .md-editor {
     --md-bk-color: #f2f2f2;
     box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
@@ -178,6 +181,8 @@ body .md-editor {
 body .md-editor * {
     color: #262626 !important;
 }
+
+body .md-editor
 
 body .md-editor-dark,
 body .md-editor-modal-container[data-theme='dark'] {

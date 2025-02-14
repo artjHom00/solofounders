@@ -32,7 +32,7 @@ class ArticlesStatisticsService {
       }
 
       const { views, points } = this._articlesStatisticsToUpdate[Number(articleId)]
-      console.log("🚀 ~ ArticlesStatisticsService ~ syncWithDb ~ views, points:", views, points)
+
 
       await useDrizzle().update(tables.articles).set({ views: article.views + views, points: article.points + points }).where(eq(tables.articles.id, Number(articleId)))
     }
