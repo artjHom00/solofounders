@@ -34,21 +34,42 @@ ${this.frontendHost}/articles/${url}`, {
     }
 
     private async initBotEvents() {
-        this.bot.on('callback_query', (query) => {
+        this.bot.on('callback_query', async (query) => {
             if(query.data == null) {
                 return;
             }
-
+            
+            const messageId = query.message?.message_id;
             const [acceptanceStatus, articleSlug] = JSON.parse(query.data)
+
             switch (acceptanceStatus) {
                 case 'approve':
                     articleService.approveArticle(articleSlug)
+
+                    if(messageId != null) {
+                        await this.bot.editMessageReplyMarkup({
+                            inline_keyboard: [[{ text: '✅ Approved', callback_data: JSON.stringify(['void']) }]]
+                        }, {
+                            message_id: messageId,
+                            chat_id: this.adminChatId
+                        })
+                    }
                     // todo add notification that approved succesffully
                     break;
-                    case 'reject':
-                        articleService.rejectArticle(articleSlug)
-                        // todo add notification that rejected successfully
+                case 'reject':
+                    articleService.rejectArticle(articleSlug)
+                    if(messageId != null) {
+                        await this.bot.editMessageReplyMarkup({
+                            inline_keyboard: [[{ text: '❌ Rejected', callback_data: JSON.stringify(['void']) }]]
+                        }, {
+                            message_id: messageId,
+                            chat_id: this.adminChatId
+                        })
+                    }
+                    // todo add notification that rejected successfully
                 break;
+                case 'void':
+                    return;
             }
         })
     }
