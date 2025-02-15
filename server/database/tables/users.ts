@@ -1,9 +1,10 @@
 import { relations } from 'drizzle-orm'
-import { integer, pgTable, serial, text, timestamp, varchar } from 'drizzle-orm/pg-core'
+import { integer, pgEnum, pgTable, serial, text, timestamp, varchar } from 'drizzle-orm/pg-core'
 import { articles } from './articles'
 import { threads } from './threads'
 import { articleUpvotes } from './articleUpvotes'
 import { threadUpvotes } from './threadUpvotes'
+import { Roles } from '../../../types/user/Roles'
 
 export const users = pgTable('users', {
   id: serial('id').primaryKey(),
@@ -12,7 +13,8 @@ export const users = pgTable('users', {
   handle: text('handle').notNull(),
   twitterId: text('twitter_id').notNull().unique(),
   avatar: text('avatar'),
-  createdAt: timestamp('created_at').notNull().defaultNow()
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  role: text({ enum: [Roles.USER, Roles.ADMIN] }).notNull().default(Roles.USER)
 })
 
 export const usersRelations = relations(users, ({ many }) => ({

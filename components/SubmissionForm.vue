@@ -182,11 +182,8 @@ body .md-editor * {
     color: #262626 !important;
 }
 
-body .md-editor
-
-body .md-editor-dark,
-body .md-editor-modal-container[data-theme='dark'] {
-    --md-bk-color: #262626;
+body .md-editor-dark, body .md-editor-modal-container[data-theme='dark'] {
+    --md-bk-color: #262626 !important;
 }
 body .md-editor-dark * {
     color: #f2f2f2 !important;

@@ -5,6 +5,7 @@ import { mockArticles } from '../static/articles'
 import userService from './users'
 import { ErrorsTemplates } from '~/utils/ErrorsTemplates'
 import telegramBotService from './telegramBot'
+import { Roles } from '~/types/user/Roles'
 
 class ArticleService {
   async seedArticlesIfNotExist () {
@@ -72,8 +73,17 @@ class ArticleService {
     let hasUpvotedArticle: boolean = false
     let isArticleAuthor: boolean = false
 
+    let isAvailableToView: boolean = article.approved;
+
     if (userXId != null) {
       const user = await userService.getOrThrowUserByXId(userXId)
+      
+      if(article.approved === false && (article.authorId !== user.id && user.role !== Roles.ADMIN)) {
+        isAvailableToView = false;
+        article.content = 'Not Moderated Yet'
+      } else {
+        isAvailableToView = true;
+      }
 
       const usersUpvote = await useDrizzle().query.articleUpvotes.findFirst({
         where: and(
@@ -86,8 +96,10 @@ class ArticleService {
       isArticleAuthor = (article.authorId === user.id)
     }
 
+    console.log("🚀 ~ ArticleService ~ getArticleBySlug ~ response.isAvailableToView:", isAvailableToView)
     const response = {
       data: article,
+      isAvailable: isAvailableToView,
       isAuthor: isArticleAuthor,
       hasUpvoted: hasUpvotedArticle
     }

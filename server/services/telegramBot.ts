@@ -28,7 +28,7 @@ class TelegramBotService {
         await this.bot.sendMessage(this.adminChatId, `new article for moderation:
 ${this.frontendHost}/articles/${url}`, {
             reply_markup: {
-                inline_keyboard: [[{ text: 'reject', callback_data: JSON.stringify(['reject', url]) }, { text: 'approve', callback_data: JSON.stringify(['approve', url]) }]]
+                inline_keyboard: [[{ text: '❌ Reject', callback_data: JSON.stringify(['reject', url]) }, { text: '✅ Approve', callback_data: JSON.stringify(['approve', url]) }]]
             }
         })
     }

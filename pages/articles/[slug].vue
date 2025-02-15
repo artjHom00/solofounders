@@ -9,6 +9,7 @@ import NotFound from '@/components/NotFound.vue'
 
 const route = useRoute()
 const toast = useToast()
+const { loggedIn } = useUserSession()
 
 const slug = route.params.slug
 const { data: articleBySlugResponse } = useFetch<IArticleBySlugResponse>('/api/articles?slug=' + slug)
@@ -56,7 +57,7 @@ const handleArticleUpvote = async () => {
     <DeleteConfirmationModal :id="deleteConfirmationModalId" @confirm="handleArticleDelete" />
     <div class="container max-w-screen-sm mx-auto mt-8 dark:text-light" v-if="articleBySlugResponse != null">
       <div>
-        <div v-if="articleBySlugResponse.data.approved === false && articleBySlugResponse.isAuthor === true" class="text-xs mt-4 pl-4 border-l-4 border-warning">
+        <div v-if="articleBySlugResponse.data.approved === false && articleBySlugResponse.isAvailable" class="text-xs mt-4 pl-4 border-l-4 border-warning">
           The article is not visible to other visitors yet. <br/> Usually, the moderation takes couple hours to proceed.
         </div>
         <div class="flex justify-between items-center mt-8">
@@ -76,7 +77,7 @@ const handleArticleUpvote = async () => {
             <ul tabindex="0"
               class="dropdown-content bg-light-secondary dark:bg-dark-secondary menu rounded-box z-[1] mt-2 w-52 p-2 shadow">
               <li class="text-error" @click="handleArticleDelete(false)">
-                <a><i class="fa-regular fa-trash-can" /> Delete</a>
+                <a><i class="fa-regular fa-trash-can" />Delete</a>
               </li>
             </ul>
           </div>
@@ -85,7 +86,7 @@ const handleArticleUpvote = async () => {
           {{ articleBySlugResponse.data.name }}
         </h1>
         <div>
-          <ArticleMarkdownRenderer v-if="!(articleBySlugResponse.data.approved === false && articleBySlugResponse.isAuthor === false)" :article="articleBySlugResponse.data" />
+          <ArticleMarkdownRenderer v-if="articleBySlugResponse.isAvailable" :article="articleBySlugResponse.data" />
           <h2 class="font-semibold mt-4" v-else>The article is not approved yet. <br/> 
             Come back later...</h2>
         </div>
