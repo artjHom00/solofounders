@@ -96,7 +96,6 @@ class ArticleService {
       isArticleAuthor = (article.authorId === user.id)
     }
 
-    console.log("🚀 ~ ArticleService ~ getArticleBySlug ~ response.isAvailableToView:", isAvailableToView)
     const response = {
       data: article,
       isAvailable: isAvailableToView,

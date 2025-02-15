@@ -82,7 +82,7 @@ const handleArticleUpvote = async () => {
             </ul>
           </div>
         </div>
-        <h1 class="text-3xl mt-8 font-bold">
+        <h1 class="text-3xl mt-8 font-bold break-words">
           {{ articleBySlugResponse.data.name }}
         </h1>
         <div>
