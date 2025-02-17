@@ -4,7 +4,10 @@ export default defineNuxtConfig({
     head: {
       // because of nuxt-seo, somehow the 'script' is not recognizable
       // @ts-ignore
-      script: [{ src: 'https://kit.fontawesome.com/7db26f83a2.js', crossorigin: 'anonymous' }]
+      script: [{ src: 'https://kit.fontawesome.com/7db26f83a2.js', crossorigin: 'anonymous' }],
+      seoMeta: {
+        ogImage: 'https://solofounders.xyz/og-image.png'
+      }
     }
   },
   nitro: {
