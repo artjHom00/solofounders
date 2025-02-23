@@ -5,7 +5,7 @@ export default defineEventHandler(async (event) => {
   try {
     const authHeader = getHeader(event, 'Authorization')
 
-    if (authHeader == null || authHeader !== `Bearer ${process.env.CRON_API_KEY}`) {
+    if (authHeader == null || authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
       throw new Error('Unauthorized')
     }
 
