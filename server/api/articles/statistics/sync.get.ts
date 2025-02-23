@@ -1,6 +1,4 @@
-import { SessionUser } from '../../../../types/SessionUser'
 import articlesStatisticsService from '../../../services/articlesStatistics'
-import { IArticle } from '~/types/article/IArticle'
 
 export default defineEventHandler(async (event) => {
   try {

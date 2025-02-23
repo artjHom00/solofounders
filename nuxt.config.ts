@@ -10,15 +10,6 @@ export default defineNuxtConfig({
       }
     }
   },
-  nitro: {
-    experimental: {
-      tasks: true
-    },
-    scheduledTasks: {
-      '0 */6 * * *': ['analytics:up'],
-      '* * * * *': ['analytics:sync']
-    }
-  },
   build: {
     transpile: ['vue-toastification']
   },
