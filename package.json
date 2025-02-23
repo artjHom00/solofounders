@@ -29,6 +29,7 @@
     "node-telegram-bot-api": "^0.66.0",
     "nuxt": "^3.14.1592",
     "nuxt-auth-utils": "^0.5.7",
+    "nuxt-gtag": "^3.0.2",
     "nuxt-time": "^1.0.3",
     "openai": "^4.85.1",
     "pg": "^8.13.1",

@@ -10,6 +10,9 @@ export default defineNuxtConfig({
       }
     }
   },
+  gtag: {
+    id: 'G-V6WZ3H1BHE'
+  },
   build: {
     transpile: ['vue-toastification']
   },
@@ -18,7 +21,7 @@ export default defineNuxtConfig({
     families: {
       Inter: '100..900'
     }
-  }], 'nuxt-time', 'nuxt-auth-utils', '@nuxt-alt/markdown-it', '@nuxtjs/seo', '@pinia/nuxt'],
+  }], 'nuxt-time', 'nuxt-auth-utils', '@nuxt-alt/markdown-it', '@nuxtjs/seo', '@pinia/nuxt', 'nuxt-gtag'],
 
   routeRules: {
     '/': { isr: 5 }
