@@ -1,9 +1,9 @@
 {
     "crons": [{
-        "path": "/api/articles/up",
+        "path": "/api/articles/statistics/up",
         "schedule": "0 */6 * * *"
     }, {
-        "path": "/api/articles/sync",
+        "path": "/api/articles/statistics/sync",
         "schedule": "* * * * *"
     }]
   }
