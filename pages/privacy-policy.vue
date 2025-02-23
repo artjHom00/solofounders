@@ -1,92 +1,90 @@
 <template>
     <div class="container mt-8 max-w-4xl">
-        <h1 class="text-3xl font-black mb-4">Privacy Policy</h1>
-        <p class="mb-6"><strong>Effective Date: 05 February, 2025</strong></p>
+        <h1 class="text-3xl font-bold mb-4">Privacy Policy</h1>
+        <p class="text-sm mb-6">Last Updated: December 24, 2024</p>
 
-        <h2 class="text-lg mb-2 font-semibold mt-8">1. Introduction</h2>
-        <p>Welcome to <strong>Solofounders</strong> ("Company", "we", "our", "us"). We are committed to protecting your
-            privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you
-            visit our website <strong>solofounders.xyz</strong> ("Website").</p>
+        <p><strong>Solofounders</strong> ("we," "our," "us") operates the website <strong>Solofounders.xyz</strong>
+            ("the Website"). This Privacy Policy outlines how we collect, use, and protect your personal information
+            when you visit our Website. By using the Website, you agree to the terms of this Privacy Policy.</p>
 
-        <h2 class="text-lg mb-2 font-semibold mt-8">2. Data Controller</h2>
-        <p><strong>Solofounders</strong><br>Address: Virtual Office<br>
-            <!-- Email: [Your Contact Email] -->
-        </p>
+        <hr class="my-6 w-1/6 border-gray-300 dark:border-secondary">
 
-        <h2 class="text-lg mb-2 font-semibold mt-8">3. Information We Collect</h2>
-        <ul class="list-disc list-inside ">
-            <li><strong>Personal Identification Data</strong> (e.g., name, email address, contact details)</li>
-            <li><strong>Technical Data</strong> (e.g., IP address, browser type, device information)</li>
-            <li><strong>Usage Data</strong> (e.g., pages visited, time spent on the website)</li>
-            <li><strong>Communication Data</strong> (e.g., messages or inquiries sent via our website)</li>
+        <h3 class="text-lg font-semibold mt-4">1. Information We Collect</h3>
+
+        <h4 class="font-semibold mt-4">1.1 Information You Provide</h4>
+        <ul class="list-disc ml-6 mt-2">
+            <li>Name</li>
+            <li>Email address</li>
+            <li>Any other information you choose to share</li>
         </ul>
 
-        <h2 class="text-lg mb-2 font-semibold mt-8">4. Legal Basis for Processing Data</h2>
-        <ul class="list-disc list-inside ">
-            <li>Your <strong>consent</strong> (when you subscribe to newsletters or contact us)</li>
-            <li><strong>Contractual necessity</strong> (when processing is required to provide services)</li>
-            <li><strong>Legitimate interests</strong> (for website analytics, security, and fraud prevention)</li>
-            <li><strong>Legal compliance</strong> (to meet regulatory obligations)</li>
+        <h4 class="font-semibold mt-4">1.2 Automatically Collected Information</h4>
+        <ul class="list-disc ml-6 mt-2">
+            <li>IP address</li>
+            <li>Browser type and version</li>
+            <li>Operating system</li>
+            <li>Referring URL</li>
+            <li>Pages viewed and time spent on the Website</li>
         </ul>
 
-        <h2 class="text-lg mb-2 font-semibold mt-8">5. How We Use Your Information</h2>
-        <ul class="list-disc list-inside ">
-            <li>Provide, operate, and maintain our Website</li>
-            <li>Respond to your inquiries and provide customer support</li>
-            <li>Improve and personalize your experience</li>
-            <li>Analyze trends and monitor usage</li>
-            <li>Ensure security and prevent fraud</li>
-            <li>Comply with legal obligations</li>
+        <h4 class="font-semibold mt-4">1.3 Cookies</h4>
+        <p class="mt-2">We use cookies to enhance your experience on our Website. Cookies are small data files stored on
+            your device that help us understand your preferences and improve our services.</p>
+
+        <h3 class="text-lg font-semibold mt-6">2. How We Use Your Information</h3>
+        <ul class="list-disc ml-6 mt-2">
+            <li>To provide, maintain, and improve the Website.</li>
+            <li>To respond to your inquiries and communicate with you.</li>
+            <li>To send newsletters or promotional materials (if you have opted in).</li>
+            <li>To analyze Website usage and improve user experience.</li>
+            <li>To comply with legal obligations.</li>
         </ul>
 
-        <h2 class="text-lg mb-2 font-semibold mt-8">6. How We Share Your Data</h2>
-        <ul class="list-disc list-inside ">
-            <li><strong>Service Providers:</strong> Third-party vendors who assist in operating our Website</li>
-            <li><strong>Legal Authorities:</strong> If required by law or to protect our rights</li>
-            <li><strong>Business Transfers:</strong> In case of a merger, sale, or acquisition</li>
+        <h3 class="text-lg font-semibold mt-6">3. Sharing Your Information</h3>
+        <ul class="list-disc ml-6 mt-2">
+            <li><strong>With Service Providers:</strong> We may share your information with trusted third-party
+                providers who assist us in operating the Website.</li>
+            <li><strong>Legal Compliance:</strong> We may disclose your information to comply with applicable laws,
+                regulations, or legal processes.</li>
+            <li><strong>Business Transfers:</strong> In the event of a merger, sale, or transfer of our assets, your
+                information may be transferred to the new owner.</li>
         </ul>
 
-        <h2 class="text-lg mb-2 font-semibold mt-8">7. International Data Transfers</h2>
-        <p>If your data is transferred outside the <strong>European Economic Area (EEA)</strong>, we ensure appropriate
-            safeguards, such as standard contractual clauses or reliance on adequacy decisions.</p>
-
-        <h2 class="text-lg mb-2 font-semibold mt-8">8. Data Retention</h2>
-        <p>We retain your data only for as long as necessary for the purposes stated in this policy. When no longer
-            needed, we securely delete or anonymize it.</p>
-
-        <h2 class="text-lg mb-2 font-semibold mt-8">9. Your GDPR Rights</h2>
-        <ul class="list-disc list-inside ">
-            <li><strong>Access</strong> your personal data</li>
-            <li><strong>Rectify</strong> inaccurate or incomplete data</li>
-            <li><strong>Erase</strong> your data (right to be forgotten)</li>
-            <li><strong>Restrict</strong> processing of your data</li>
-            <li><strong>Object</strong> to processing based on legitimate interests</li>
-            <li><strong>Data portability</strong> (receive your data in a structured format)</li>
-            <li><strong>Withdraw consent</strong> at any time</li>
+        <h3 class="text-lg font-semibold mt-6">4. Your Rights</h3>
+        <ul class="list-disc ml-6 mt-2">
+            <li><strong>Access:</strong> You can request access to the information we hold about you.</li>
+            <li><strong>Correction:</strong> You can request corrections to inaccurate or incomplete information.</li>
+            <li><strong>Deletion:</strong> You can request that we delete your personal information, subject to legal or
+                contractual obligations.</li>
+            <li><strong>Opt-Out:</strong> You can opt out of receiving promotional emails by following the unsubscribe
+                link in our emails.</li>
         </ul>
-        <!-- <p>To exercise your rights, contact us at [Your Contact Email].</p> -->
 
-        <h2 class="text-lg mb-2 font-semibold mt-8">10. Cookies and Tracking Technologies</h2>
-        <p>Our Website uses cookies and similar tracking technologies. For details, please refer to our <strong>Cookie
-                Policy</strong>.</p>
+        <h3 class="text-lg font-semibold mt-6">5. Data Security</h3>
+        <p class="mt-2">We take appropriate technical and organizational measures to protect your personal information
+            from unauthorized access, disclosure, alteration, or destruction. However, no method of data transmission or
+            storage is 100% secure, and we cannot guarantee absolute security.</p>
 
-        <h2 class="text-lg mb-2 font-semibold mt-8">11. Data Security</h2>
-        <p>We implement technical and organizational measures to protect your data from unauthorized access, alteration,
-            or loss.</p>
+        <h3 class="text-lg font-semibold mt-6">6. Third-Party Links</h3>
+        <p class="mt-2">Our Website may contain links to third-party websites. We are not responsible for the privacy
+            practices or content of these websites. We encourage you to review their privacy policies before providing
+            any personal information.</p>
 
-        <h2 class="text-lg mb-2 font-semibold mt-8">12. Third-Party Links</h2>
-        <p>Our Website may contain links to external sites. We are not responsible for their privacy practices and
-            encourage you to review their policies.</p>
+        <h3 class="text-lg font-semibold mt-6">7. Children's Privacy</h3>
+        <p class="mt-2">The Website is not intended for individuals under the age of 18. We do not knowingly collect
+            personal information from children. If we become aware that we have collected information from a child, we
+            will take steps to delete it.</p>
 
-        <h2 class="text-lg mb-2 font-semibold mt-8">13. Updates to This Policy</h2>
-        <p>We may update this Privacy Policy periodically. Changes will be posted on this page with a revised "Effective
-            Date."</p>
+        <h3 class="text-lg font-semibold mt-6">8. Changes to This Privacy Policy</h3>
+        <p class="mt-2">We may update this Privacy Policy from time to time. Any changes will be posted on this page,
+            and the "Last Updated" date will be revised. Your continued use of the Website after changes have been made
+            constitutes your acceptance of the updated policy.</p>
 
-        <!-- <h2 class="text-lg mb-2 font-semibold mt-8">14. Contact Information</h2>
-        <p>For questions or concerns regarding this policy, contact us at:</p>
-        <p><strong>Solofounders</strong><br>Email: [Your Contact Email]</p> -->
-
-        <p>By using our Website, you acknowledge that you have read and understood this Privacy Policy.</p>
+        <h3 class="text-lg font-semibold mt-6">9. Contact Us</h3>
+        <p class="mt-2">If you have any questions or concerns about this Privacy Policy, please contact us at:</p>
+        <ul class="list-disc ml-6 mt-2">
+            <li><strong>Email:</strong> <a href="mailto:ceo@solofounders.xyz">ceo@solofounders.xyz</a></li>
+        </ul>
     </div>
 </template>
 
