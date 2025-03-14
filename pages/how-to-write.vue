@@ -1,12 +1,12 @@
 <template>
     <div class="container mt-8 max-w-4xl">
-        <h1 class="text-3xl font-black mb-4">📌 Welcome to Solofounders!</h1>
-        <p class="text-lg">
+        <h1 class="text-2xl font-bold mb-4">📌 Welcome to Solofounders!</h1>
+        <p>
             Our platform is dedicated to solopreneurs, indie hackers, and digital product
             creators. Follow these rules to ensure your article gets published.
         </p>
 
-        <h2 class="text-lg mt-8 font-semibold">1. Content Focus</h2>
+        <h2 class="mt-8 font-semibold">1. Content Focus</h2>
         
         <div class="mt-2">
             <p>We accept articles related to:</p>
@@ -29,7 +29,7 @@
         </div>
 
         <div class="mt-2">
-            <h2 class="text-lg mt-8 font-semibold">2. Writing Style & Quality</h2>
+            <h2 class="mt-8 font-semibold">2. Writing Style & Quality</h2>
             <ul class="ml-8 list-disc">
                 <li>No bullshit</li>
                 <li>Write naturally – make it engaging and easy to read.</li>
@@ -40,7 +40,7 @@
         </div>
 
         <div class="mt-2">
-            <h2 class="text-lg mt-8 font-semibold">3. Article Length</h2>
+            <h2 class="mt-8 font-semibold">3. Article Length</h2>
             <ul class="ml-8 list-disc">
                 <li>Minimum: 150 words</li>
                 <li>Maximum: 3000 words (unless it's a deep dive)</li>
@@ -48,7 +48,7 @@
         </div>
 
         <div class="mt-2">
-            <h2 class="text-lg mt-8 font-semibold">4. Headlines & Structure</h2>
+            <h2 class="mt-8 font-semibold">4. Headlines & Structure</h2>
             <ul class="ml-8 list-disc">
                 <li>Write compelling, clear titles (e.g., "How I Grew My SaaS to $10K MRR in 6 Months")
                 </li>
@@ -57,14 +57,14 @@
         </div>
 
         <div class="mt-2">
-            <h2 class="text-lg mt-8 font-semibold">6. Attribution & Author Credit</h2>
+            <h2 class="mt-8 font-semibold">6. Attribution & Author Credit</h2>
             <ul class="ml-8 list-disc">
                 <li>If you reference external data, link to the original source.</li>
             </ul>
         </div>
 
         <div class="mt-2">
-            <h2 class="text-lg mt-8 font-semibold">7. Moderation & Edits</h2>
+            <h2 class="mt-8 font-semibold">7. Moderation & Edits</h2>
             <ul class="ml-8 list-disc">
                 <li>We reserve the right to edit for clarity, grammar, and style.</li>
                 <li>Low-quality or irrelevant content will be deleted.</li>
