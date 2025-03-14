@@ -2,9 +2,6 @@ import authService from '../../services/auth'
 import { XAuthToken, XAuthUser } from '../../../types/XAuthEvent'
 
 export default defineOAuthXEventHandler({
-  config: {
-    redirectURL: process.env.FRONTEND_HOST,
-  },
   async onSuccess (event, { user, tokens }) {
     user = user as XAuthUser
     tokens = user as XAuthToken
@@ -15,7 +12,7 @@ export default defineOAuthXEventHandler({
       }
     })
     await authService.createUserIfNotExists(user)
-    return sendRedirect(event, process.env.FRONTEND_HOST ?? '/')
+    return sendRedirect(event, '/')
   },
   // Optional, will return a json error and 401 status code by default
   onError (event, error) {
