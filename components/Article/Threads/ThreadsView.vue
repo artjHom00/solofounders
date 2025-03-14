@@ -127,7 +127,7 @@ const handleThreadReply = async () => {
             <div class="flex gap-4">
               <input
                 v-model="replyContent"
-                class="input duration-200 border-[#dddddd] dark:input-bordered bg-light placeholder:text-[#3f4a54a2] dark:placeholder:text-[#999] dark:bg-dark-secondary dark:focus:bg-dark-secondary w-full"
+                class="input text-sm border-[#dddddd] dark:input-bordered bg-light placeholder:text-[#3f4a54a2] dark:placeholder:text-[#999] dark:bg-dark-secondary dark:focus:bg-dark-secondary w-full"
                 placeholder="Add a comment"
                 :disabled="loggedIn === false || disabled === true"
                 type="text"
@@ -140,7 +140,7 @@ const handleThreadReply = async () => {
                 Submit
               </button>
             </div>
-            <p v-if="replyTo" class="text-sm">
+            <p v-if="replyTo" class="text-xs">
               Replying to: {{ replyTo.user.handle }}
             </p>
           </div>

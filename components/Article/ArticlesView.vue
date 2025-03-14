@@ -74,7 +74,7 @@ onMounted(async () => {
   </div>
   <div v-else class="content-wrapper">
     <h1 class="mt-8 text-xl font-semibold">
-        [nothing found]
+        nothing found
       </h1>
   </div>
 </template>

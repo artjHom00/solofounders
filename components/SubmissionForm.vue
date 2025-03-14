@@ -112,7 +112,7 @@ const handleImageUpload = async (files: File[], callback: (urls: string[]) => vo
         v-model="heading"
         type="text"
         :placeholder="initialHeadingPlaceholder"
-        class="input font-semibold border-[#dddddd] dark:input-bordered bg-light placeholder:text-[#3f4a54a2] dark:placeholder:text-[#999] dark:bg-dark-secondary dark:focus:bg-dark-secondary w-full"
+        class="transition-colors duration-200 input text-sm border-[#dddddd] dark:input-bordered bg-light placeholder:text-[#3f4a54a2] dark:placeholder:text-[#999] dark:bg-dark-secondary dark:focus:bg-dark-secondary w-full"
       >
       <MdEditor
         :id="editorId"

@@ -49,6 +49,15 @@ const handleArticleUpvote = async () => {
   articleBySlugResponse.value.hasUpvoted = true
 }
 
+const handleRetweet = () => {
+  if (!articleBySlugResponse.value) return;
+
+  const tweetText = `${articleBySlugResponse.value.data.name}\nRead more at: ${window.location.origin}/article/${slug}`;
+  const twitterUrl = `https://x.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
+
+  window.open(twitterUrl, '_blank');
+}
+
 </script>
 
 <template>
@@ -86,8 +95,7 @@ const handleArticleUpvote = async () => {
         </h1>
         <div>
           <ArticleMarkdownRenderer v-if="articleBySlugResponse.isAvailable" :article="articleBySlugResponse.data" />
-          <h2 class="font-semibold mt-4" v-else>The article is not approved yet. <br/> 
-            Come back later...</h2>
+          <h2 class="mt-4" v-else>The article is not approved yet.</h2>
         </div>
         <div class="mt-4">
           <div class="divider dark:divider-secondary" />
@@ -102,7 +110,7 @@ const handleArticleUpvote = async () => {
                     <i class="fa-solid fa-chevron-up w-3 h-3" />
                   </button>
                 </div>
-                <button class="btn dark:btn-secondary" variant="secondary" :disabled="loggedIn === false" @click="null">
+                <button class="btn dark:btn-secondary" variant="secondary" :disabled="loggedIn === false" @click="handleRetweet">
                   <i class="fa-solid fa-retweet w-3 h-3" />
                 </button>
               </template>
