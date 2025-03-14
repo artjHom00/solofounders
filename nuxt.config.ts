@@ -24,7 +24,7 @@ export default defineNuxtConfig({
   }], 'nuxt-time', 'nuxt-auth-utils', '@nuxt-alt/markdown-it', '@nuxtjs/seo', '@pinia/nuxt', 'nuxt-gtag'],
 
   routeRules: {
-    '/': { isr: 5 }
+    // '/': { isr: 5 }
   },
   css: ['~/assets/css/main.css'],
   postcss: {
