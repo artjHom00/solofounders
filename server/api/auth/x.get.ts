@@ -1,12 +1,13 @@
 import authService from '../../services/auth'
 import { XAuthToken, XAuthUser } from '../../../types/XAuthEvent'
+
 export default defineOAuthXEventHandler({
+  config: {
+    redirectURL: process.env.FRONTEND_HOST,
+  },
   async onSuccess (event, { user, tokens }) {
     user = user as XAuthUser
     tokens = user as XAuthToken
-
-    console.log("🚀 ~ onSuccess ~ tokens:", tokens)
-    console.log("🚀 ~ onSuccess ~ user:", user)
 
     await setUserSession(event, {
       user: {

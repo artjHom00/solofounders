@@ -51,7 +51,6 @@ const handleSearch = (() => {
 
             <AuthState>
               <template #default="{ loggedIn, user }">
-                {{ user }}
                 <NuxtLink v-if="loggedIn === true" to="/submit">
                   <button class="btn btn-primary text-light">
                     submit yours
