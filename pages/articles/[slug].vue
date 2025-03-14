@@ -9,10 +9,9 @@ import NotFound from '@/components/NotFound.vue'
 
 const route = useRoute()
 const toast = useToast()
-const { loggedIn } = useUserSession()
 
 const slug = route.params.slug
-const { data: articleBySlugResponse } = useFetch<IArticleBySlugResponse>('/api/articles?slug=' + slug)
+const { data: articleBySlugResponse, status } = useFetch<IArticleBySlugResponse>('/api/articles?slug=' + slug)
 
 const deleteConfirmationModalId = 'article-deleting'
 const handleArticleDelete = async (confirm: boolean) => {
@@ -55,7 +54,7 @@ const handleArticleUpvote = async () => {
 <template>
   <main>
     <DeleteConfirmationModal :id="deleteConfirmationModalId" @confirm="handleArticleDelete" />
-    <div class="container max-w-screen-sm mx-auto mt-8 dark:text-light" v-if="articleBySlugResponse != null">
+    <div class="container max-w-screen-sm mx-auto mt-8 dark:text-light" v-if="articleBySlugResponse != null && status === 'success'">
       <div>
         <div v-if="articleBySlugResponse.data.approved === false && articleBySlugResponse.isAvailable" class="text-xs mt-4 pl-4 border-l-4 border-warning">
           The article is not visible to other visitors yet. <br/> Usually, the moderation takes couple hours to proceed.
@@ -122,6 +121,9 @@ const handleArticleUpvote = async () => {
         </div>
         <ThreadsView class="mt-8" v-if="articleBySlugResponse.data.approved === true" :article-id="articleBySlugResponse.data.id" />
       </div>
+    </div>
+    <div v-else-if="status === 'pending'" class="pt-32 mb-8 text-center">
+        <h3 class="text-lg tracking-tighter">Loading...</h3>
     </div>
     <div v-else>
       <NotFound class="pt-32 mb-8"/>
