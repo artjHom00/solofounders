@@ -139,7 +139,7 @@ class ArticleService {
     const moderationModeEnabled = (process.env.ARTICLES_MODERATION_REQUIRED != null && process.env.ARTICLES_MODERATION_REQUIRED === 'true')
     const user = await userService.getOrThrowUserByXId(userXId)
 
-    const isValid = /^[A-Za-z0-9\s\-.,!?$£€%¥"'`]+$/.test(name) && content.length >= 150
+    const isValid = /^[^\p{Script=Arabic}\p{Script=Cyrillic}\p{Script=Han}]+$/u.test(name) && content.length >= 150
     if(isValid !== true) {
       throw new Error(ErrorsTemplates.VALIDATION_ERROR)
     }
