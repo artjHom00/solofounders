@@ -22,8 +22,6 @@
         <div class="mt-2">
         <p>Is not allowed:</p>
         <ul class="ml-8 list-disc">
-            <li>Generic business/self-help advice with no tech relevance</li>
-            <li>Off-topic news unrelated to startups or digital products</li>
             <li>Clickbait, low-quality, or AI-generated fluff</li>
         </ul>
         </div>

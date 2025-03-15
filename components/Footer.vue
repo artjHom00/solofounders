@@ -9,6 +9,7 @@
         <div>
           <img class="mx-auto w-10 mix-blend-difference" src="/logo-text-dark.svg" alt="text-logo">
           <p class="mt-4 font-medium text-xs">
+            alpha <br/>
             est. 2024
           </p>
         </div>
