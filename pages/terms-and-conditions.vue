@@ -14,7 +14,7 @@
         <h2 class="text-lg font-semibold mt-4">1. General Information</h2>
         <ul class="list-disc ml-6 mt-2">
             <li><strong>Website Name:</strong> Solofounders.xyz</li>
-            <li><strong>Contact Email:</strong> <a href="mailto:ceo@solofounders.xyz">ceo@solofounders.xyz</a></li>
+            <li><strong>Contact Email:</strong> <a href="mailto:artjhomg@gmail.com">artjhomg@gmail.com</a></li>
         </ul>
 
         <h2 class="text-lg font-semibold mt-6">2. Use of the Website</h2>
@@ -75,7 +75,7 @@
         <p class="mt-2">If you have any questions or concerns about these Terms and Conditions, you can contact us at:
         </p>
         <ul class="list-disc ml-6 mt-2">
-            <li><strong>Email:</strong> <a href="mailto:ceo@solofounders.xyz">ceo@solofounders.xyz</a></li>
+            <li><strong>Email:</strong> <a href="mailto:artjhomg@gmail.com">artjhomg@gmail.com</a></li>
         </ul>
     </div>
 </template>
